@@ -13,6 +13,7 @@
 		5544B8B81199B0C400473FFE /* statusOk.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5544B8B71199B0C400473FFE /* statusOk.pdf */; };
 		5544B8BE1199B0FC00473FFE /* statusFail.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5544B8BD1199B0FC00473FFE /* statusFail.pdf */; };
 		5544B8C21199B14400473FFE /* statusWait.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5544B8C11199B14400473FFE /* statusWait.pdf */; };
+		55B64AB2119C9F4900A123AC /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B64AB1119C9F4900A123AC /* SimplePing.m */; };
 		55C7824C119AB7AB003F786C /* serverok.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 55C7824B119AB7AB003F786C /* serverok.pdf */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -34,6 +35,8 @@
 		5544B8B71199B0C400473FFE /* statusOk.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = statusOk.pdf; sourceTree = "<group>"; };
 		5544B8BD1199B0FC00473FFE /* statusFail.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = statusFail.pdf; sourceTree = "<group>"; };
 		5544B8C11199B14400473FFE /* statusWait.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = statusWait.pdf; sourceTree = "<group>"; };
+		55B64AB0119C9F4900A123AC /* SimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePing.h; sourceTree = "<group>"; };
+		55B64AB1119C9F4900A123AC /* SimplePing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePing.m; sourceTree = "<group>"; };
 		55C7824B119AB7AB003F786C /* serverok.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = serverok.pdf; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ServerStatus-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ServerStatus-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ServerStatus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServerStatus.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,6 +57,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				55B64AB0119C9F4900A123AC /* SimplePing.h */,
+				55B64AB1119C9F4900A123AC /* SimplePing.m */,
 				256AC3D80F4B6AC300CF3369 /* ServerStatusAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* ServerStatusAppDelegate.m */,
 			);
@@ -193,6 +198,7 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* ServerStatusAppDelegate.m in Sources */,
+				55B64AB2119C9F4900A123AC /* SimplePing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
