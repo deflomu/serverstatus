@@ -43,7 +43,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="NSMenuItem" id="963415110">
 						<reference key="NSMenu" ref="501555251"/>
-						<string key="NSTitle">Item 1</string>
+						<string key="NSTitle">lol</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<object class="NSCustomResource" key="NSOnImage" id="729098514">

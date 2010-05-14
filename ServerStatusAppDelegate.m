@@ -16,21 +16,26 @@
 	NSStatusBar *bar = [NSStatusBar systemStatusBar];
 	statusItem = [[bar statusItemWithLength:NSVariableStatusItemLength] retain];
 	
-	statusOk = [NSImage imageNamed:@"serverok"];
-	[statusOk setSize:NSMakeSize([bar thickness]+5, [bar thickness])];
+	serversOk = [NSImage imageNamed:@"serverOk"];
+	serversOkAlternate = [NSImage imageNamed:@"serverOkAlternate"];
 	
-	statusWait = [NSImage imageNamed:@"statusWait"];
-	[statusWait setSize:NSMakeSize([bar thickness]-7.0, [bar thickness]-7.0)];
+	serversWarning = [NSImage imageNamed:@"serverWarning"];
+	serversWarningAlternate = [NSImage imageNamed:@"serverWarningAlternate"];
 	
-	statusFail = [NSImage imageNamed:@"statusFail"];
-	[statusFail setSize:NSMakeSize([bar thickness]-7.0, [bar thickness]-7.0)];
+	serversFail = [NSImage imageNamed:@"serverFail"];
+	serversFailAlternate = [NSImage imageNamed:@"serverFailAlternate"];
 	
-	statusUnknown = [NSImage imageNamed:@"statusUnknown"];
-	[statusUnknown setSize:NSMakeSize([bar thickness]-7.0, [bar thickness]-7.0)];
-	
+	serversInactive = [NSImage imageNamed:@"serverInactive"];
+	serversInactiveAlternate = serversOkAlternate;
+		
 	[statusItem setMenu:statusMenu];
-	[statusItem setImage:statusOk];
+	[statusItem setImage:serversInactive];
+	[statusItem setAlternateImage:serversInactiveAlternate];
 	[statusItem setHighlightMode:YES];
+}
+
+- (void)setImage:(NSImage *)status {
+	[statusItem setImage:status];
 }
 
 @end

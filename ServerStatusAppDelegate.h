@@ -13,10 +13,15 @@
 	IBOutlet NSMenu *statusMenu;
 	NSStatusItem *statusItem;
 	
-	NSImage *statusOk, *statusFail, *statusUnknown, *statusWait;
+	NSImage *serversOk, *serversOkAlternate,
+			*serversWarning, *serversWarningAlternate,
+			*serversFail, *serversFailAlternate,
+			*serversInactive, *serversInactiveAlternate;
 	
 }
 
 @property (assign) IBOutlet NSWindow *window;
+
+- (void)setImage:(NSImage *)status;
 
 @end
