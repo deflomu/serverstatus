@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* ServerStatusAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* ServerStatusAppDelegate.m */; };
+		5515BA80119DBBFC000B6A6D /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 5515BA7F119DBBFC000B6A6D /* Server.m */; };
 		551949A7119CB89C00A50789 /* serverFail.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 551949A6119CB89C00A50789 /* serverFail.pdf */; };
 		551949BD119CC81F00A50789 /* serverOk.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 551949BA119CC81F00A50789 /* serverOk.pdf */; };
 		55194A2C119D5C1C00A50789 /* serverWarning.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 55194A2B119D5C1C00A50789 /* serverWarning.pdf */; };
@@ -17,6 +18,7 @@
 		55194A7A119D65EA00A50789 /* serverWarningAlternate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 55194A79119D65EA00A50789 /* serverWarningAlternate.pdf */; };
 		55194A88119D66C800A50789 /* serverInactive.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 55194A87119D66C800A50789 /* serverInactive.pdf */; };
 		55B64AB2119C9F4900A123AC /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B64AB1119C9F4900A123AC /* SimplePing.m */; };
+		55C2002411A02DFF0073F459 /* ServerList.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C2002311A02DFF0073F459 /* ServerList.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -33,6 +35,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		5515BA7E119DBBFC000B6A6D /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
+		5515BA7F119DBBFC000B6A6D /* Server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Server.m; sourceTree = "<group>"; };
 		551949A6119CB89C00A50789 /* serverFail.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = serverFail.pdf; sourceTree = "<group>"; };
 		551949BA119CC81F00A50789 /* serverOk.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = serverOk.pdf; sourceTree = "<group>"; };
 		55194A2B119D5C1C00A50789 /* serverWarning.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = serverWarning.pdf; sourceTree = "<group>"; };
@@ -42,6 +46,8 @@
 		55194A87119D66C800A50789 /* serverInactive.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = serverInactive.pdf; sourceTree = "<group>"; };
 		55B64AB0119C9F4900A123AC /* SimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePing.h; sourceTree = "<group>"; };
 		55B64AB1119C9F4900A123AC /* SimplePing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePing.m; sourceTree = "<group>"; };
+		55C2002211A02DFF0073F459 /* ServerList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerList.h; sourceTree = "<group>"; };
+		55C2002311A02DFF0073F459 /* ServerList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerList.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ServerStatus-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ServerStatus-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ServerStatus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServerStatus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -65,6 +71,10 @@
 				55B64AB1119C9F4900A123AC /* SimplePing.m */,
 				256AC3D80F4B6AC300CF3369 /* ServerStatusAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* ServerStatusAppDelegate.m */,
+				5515BA7E119DBBFC000B6A6D /* Server.h */,
+				5515BA7F119DBBFC000B6A6D /* Server.m */,
+				55C2002211A02DFF0073F459 /* ServerList.h */,
+				55C2002311A02DFF0073F459 /* ServerList.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -207,6 +217,8 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* ServerStatusAppDelegate.m in Sources */,
 				55B64AB2119C9F4900A123AC /* SimplePing.m in Sources */,
+				5515BA80119DBBFC000B6A6D /* Server.m in Sources */,
+				55C2002411A02DFF0073F459 /* ServerList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
