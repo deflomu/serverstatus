@@ -11,8 +11,10 @@
 @implementation ServerStatusAppDelegate
 
 @synthesize window;
+@synthesize pinger = _pinger;
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+- (id)init {
+	[super init];
 	NSStatusBar *bar = [NSStatusBar systemStatusBar];
 	statusItem = [[bar statusItemWithLength:NSVariableStatusItemLength] retain];
 	
@@ -27,6 +29,17 @@
 	
 	serversInactive = [NSImage imageNamed:@"serverInactive"];
 	serversInactiveAlternate = serversOkAlternate;
+
+	return self;
+}
+
+- (void)dealloc {
+    [self->_pinger stop];
+    [self->_pinger release];
+	[super dealloc];
+}
+
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 		
 	[statusItem setMenu:statusMenu];
 	[statusItem setImage:serversInactive];
@@ -34,8 +47,8 @@
 	[statusItem setHighlightMode:YES];
 }
 
-- (void)setImage:(NSImage *)status {
-	[statusItem setImage:status];
+- (void)runWithHostName:(NSString *)hostName {
+	
 }
 
 @end

@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+#include "SimplePing.h"
+
 @interface ServerStatusAppDelegate : NSObject <NSApplicationDelegate> {
     NSWindow *window;
 	IBOutlet NSMenu *statusMenu;
@@ -18,10 +20,13 @@
 			*serversFail, *serversFailAlternate,
 			*serversInactive, *serversInactiveAlternate;
 	
+	SimplePing *_pinger;
+	
 }
 
-@property (assign) IBOutlet NSWindow *window;
+- (void)runWithHostName:(NSString *)hostName;
 
-- (void)setImage:(NSImage *)status;
+@property (assign) IBOutlet NSWindow *window;
+@property (nonatomic, retain, readwrite) SimplePing *pinger;
 
 @end
