@@ -6,7 +6,7 @@
 //  Copyright 2010 skweez.net. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 
 @interface ServerList : NSObject {

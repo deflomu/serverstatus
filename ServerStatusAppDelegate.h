@@ -10,7 +10,7 @@
 
 #include "SimplePing.h"
 
-@interface ServerStatusAppDelegate : NSObject <NSApplicationDelegate> {
+@interface ServerStatusAppDelegate : NSObject <NSApplicationDelegate, SimplePingDelegate> {
     NSWindow *window;
 	IBOutlet NSMenu *statusMenu;
 	NSStatusItem *statusItem;
@@ -20,7 +20,7 @@
 			*serversFail, *serversFailAlternate,
 			*serversInactive, *serversInactiveAlternate;
 	
-	SimplePing *_pinger;
+	SimplePing *pinger;
 	
 }
 

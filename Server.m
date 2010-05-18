@@ -13,8 +13,8 @@
 
 - (id)init {
 	[super init];
-	serverName = @"localhost";
-	serverHost = @"127.0.0.1";
+	serverName = @"Skweez";
+	serverHost = @"skweez.net";
 	return self;
 }
 

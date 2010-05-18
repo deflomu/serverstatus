@@ -11,7 +11,7 @@
 @implementation ServerStatusAppDelegate
 
 @synthesize window;
-@synthesize pinger = _pinger;
+@synthesize pinger;
 
 - (id)init {
 	[super init];
@@ -34,8 +34,8 @@
 }
 
 - (void)dealloc {
-    [self->_pinger stop];
-    [self->_pinger release];
+    [self->pinger stop];
+    [self->pinger release];
 	[super dealloc];
 }
 
@@ -45,10 +45,27 @@
 	[statusItem setImage:serversInactive];
 	[statusItem setAlternateImage:serversInactiveAlternate];
 	[statusItem setHighlightMode:YES];
+	
+	[self runWithHostName:@"skweez.net"];
 }
 
 - (void)runWithHostName:(NSString *)hostName {
-	
+	self.pinger = [SimplePing simplePingWithHostName:hostName];
+	self.pinger.delegate = self;
+	[self.pinger start];
 }
+
+- (void)simplePing:(SimplePing *)pinger didStartWithAddress:(NSData *)address {
+	[self.pinger sendPingWithData:nil];
+}
+
+- (void)simplePing:(SimplePing *)pinger didReceivePingResponsePacket:(NSData *)packet {
+	[statusItem setImage:serversOk];
+}
+
+- (void)simplePing:(SimplePing *)pinger didFailWithError:(NSError *)error {
+	[statusItem setImage:serversFail];
+}
+
 
 @end
