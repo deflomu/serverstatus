@@ -10,30 +10,63 @@
 
 
 @implementation Server
+@synthesize serverName, serverHost, serverStatus;
+@synthesize pinger		= _pinger;
+@synthesize delegate	= _delegate;
 
-- (id)init {
+
+#pragma mark -
+#pragma mark Initialisation
+- (id)init
+{
 	self = [super init];
-	serverName = @"Skweezasd";
-	serverHost = @"10.0.0.42";
-	serverStatus = SERVER_UNKNOWN;
-	self.pinger = [SimplePing simplePingWithHostName:serverHost];
+	if (self != nil) {
+		serverName = @"localhost";
+		serverHost = @"127.0.0.1";
+		serverStatus = SERVER_UNKNOWN;
+		self.pinger = [SimplePing simplePingWithHostName:serverHost];
+	}
 	return self;
+}
+
+- (id)initWithName:(NSString *)name host:(NSString *)host {
+	self = [super init];
+	if (self != nil) {
+		self.serverName = name;
+		self.serverHost = host;
+		serverStatus = SERVER_UNKNOWN;
+		self.pinger = [SimplePing simplePingWithHostName:serverHost];
+	}
+	return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	self = [super init];
+	if (self != nil) {
+		serverName = [aDecoder decodeObjectForKey:@"serverName"];
+		serverHost = [aDecoder decodeObjectForKey:@"serverHost"];
+		serverStatus = SERVER_UNKNOWN;
+		self.pinger = [SimplePing simplePingWithHostName:serverHost];
+	}
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+	[aCoder encodeObject:self.serverName forKey:@"serverName"];
+	[aCoder encodeObject:self.serverHost forKey:@"serverHost"];
 }
 
 - (void)dealloc {
 	[self->_pinger stop];
     [self->_pinger release];
-	[serverName release];
-	[serverHost release];
+	self.serverName = NULL;
+	self.serverHost = NULL;
 	[super dealloc];
 }
 
-@synthesize serverName;
-@synthesize serverHost;
-@synthesize serverStatus;
-@synthesize pinger		= _pinger;
-@synthesize delegate	= _delegate;
 
+#pragma mark -
+#pragma mark ping
 
 - (void)ping {
 	self.pinger.delegate = self;
@@ -45,6 +78,18 @@
 												 userInfo:nil
 												  repeats:NO];
 }
+
+- (void)pingTimedOut:(NSTimer *)timer {
+	[self.pinger stop];
+	serverStatus = SERVER_FAIL;
+	NSLog(@"Ping timed out");
+	if ( self.delegate != nil && [self.delegate respondsToSelector:@selector(serverPingFailed:)] ) {
+		[self.delegate serverPingFailed:self];
+	}
+}
+
+#pragma mark -
+#pragma mark SimplePingDelegate
 
 - (void)simplePing:(SimplePing *)pinger didStartWithAddress:(NSData *)address {
 	[self.pinger sendPingWithData:nil];
@@ -64,15 +109,6 @@
 }
 
 - (void)simplePing:(SimplePing *)pinger didFailWithError:(NSError *)error {
-}
-
-- (void)pingTimedOut:(NSTimer *)timer {
-	[self.pinger stop];
-	serverStatus = SERVER_FAIL;
-	NSLog(@"Ping timed out");
-	if ( self.delegate != nil && [self.delegate respondsToSelector:@selector(serverPingFailed:)] ) {
-		[self.delegate serverPingFailed:self];
-	}
 }
 
 @end

@@ -17,7 +17,7 @@ typedef enum {
 
 @protocol ServerDelegate;
 
-@interface Server : NSObject <SimplePingDelegate> {
+@interface Server : NSObject <SimplePingDelegate, NSCoding> {
 	NSString *serverName;
 	NSString *serverHost;
 	SimplePing *_pinger;
@@ -28,12 +28,12 @@ typedef enum {
 	id<ServerDelegate>  _delegate;
 }
 
-@property (readwrite, copy) NSString *serverName;
-@property (readwrite, copy) NSString *serverHost;
-@property (readwrite) ServerStatus serverStatus;
-@property (nonatomic, retain, readwrite) SimplePing *   pinger;
+@property (copy) NSString *serverName;
+@property (copy) NSString *serverHost;
+@property ServerStatus serverStatus;
+@property (retain) SimplePing *pinger;
 
-@property (nonatomic, assign, readwrite) id<ServerDelegate> delegate;
+@property (assign) id<ServerDelegate> delegate;
 
 - (void)ping;
 - (void)pingTimedOut:(NSTimer *)timer;

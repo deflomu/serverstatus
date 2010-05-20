@@ -11,22 +11,12 @@
 
 @interface ServerStatusAppDelegate : NSObject <NSApplicationDelegate, ServerDelegate> {
     NSWindow *window;
-	IBOutlet NSMenu *statusMenu;
-	IBOutlet NSView *statusItemMenuView;
-	NSStatusItem *statusItem;
-	
-	NSImage *serversOk, *serversOkAlternate,
-			*serversWarning, *serversWarningAlternate,
-			*serversFail, *serversFailAlternate,
-			*serversInactive, *serversInactiveAlternate;
 	
 	NSMutableArray *serverList;
 		
 }
 
 @property (assign) IBOutlet NSWindow *window;
-
-- (void)loadStatusItemImages;
-- (void)addServersToMenu;
+@property (retain) NSMutableArray *serverList;
 
 @end
