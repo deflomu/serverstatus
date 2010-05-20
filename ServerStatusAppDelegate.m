@@ -11,13 +11,25 @@
 @implementation ServerStatusAppDelegate
 
 @synthesize window;
-@synthesize pinger;
 
 - (id)init {
 	[super init];
 	NSStatusBar *bar = [NSStatusBar systemStatusBar];
 	statusItem = [[bar statusItemWithLength:NSVariableStatusItemLength] retain];
 	
+	[self loadStatusItemImages];
+	
+	serverList = [[NSMutableArray alloc] init];
+		
+	return self;
+}
+
+- (void)dealloc {
+	[serverList release];
+	[super dealloc];
+}
+
+- (void)loadStatusItemImages {
 	serversOk = [NSImage imageNamed:@"serverOk"];
 	serversOkAlternate = [NSImage imageNamed:@"serverOkAlternate"];
 	
@@ -29,14 +41,6 @@
 	
 	serversInactive = [NSImage imageNamed:@"serverInactive"];
 	serversInactiveAlternate = serversOkAlternate;
-
-	return self;
-}
-
-- (void)dealloc {
-    [self->pinger stop];
-    [self->pinger release];
-	[super dealloc];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -46,26 +50,46 @@
 	[statusItem setAlternateImage:serversInactiveAlternate];
 	[statusItem setHighlightMode:YES];
 	
-	[self runWithHostName:@"skweez.net"];
+	Server* server1 = [[Server alloc] init];
+	server1.delegate = self;
+	
+	[server1 ping];
+	
+	[serverList addObject:server1];
+	[serverList addObject:server1];
+
+	
+	[self addServersToMenu];
 }
 
-- (void)runWithHostName:(NSString *)hostName {
-	self.pinger = [SimplePing simplePingWithHostName:hostName];
-	self.pinger.delegate = self;
-	[self.pinger start];
-}
-
-- (void)simplePing:(SimplePing *)pinger didStartWithAddress:(NSData *)address {
-	[self.pinger sendPingWithData:nil];
-}
-
-- (void)simplePing:(SimplePing *)pinger didReceivePingResponsePacket:(NSData *)packet {
-	[statusItem setImage:serversOk];
-}
-
-- (void)simplePing:(SimplePing *)pinger didFailWithError:(NSError *)error {
+- (void)serverPingFailed:(Server *)server {
 	[statusItem setImage:serversFail];
+	[statusItem setAlternateImage:serversFailAlternate];
 }
 
+- (void)addServersToMenu {
+	NSData* viewCopyData = [NSArchiver archivedDataWithRootObject:statusItemMenuView];
+	id viewCopy;
+	NSMenuItem* menuItem;
+	
+	for (int i = 0; i < [serverList count]; i++) {
+		viewCopy = [NSUnarchiver unarchiveObjectWithData:viewCopyData];
+		
+		NSTextField *serverName;
+		NSTextField *serverStatusText;
+		serverName = [viewCopy viewWithTag:SERVER_NAME_TEXTFIELD];
+		serverStatusText = [viewCopy viewWithTag:SERVER_STATUSTEXT_TEXTFIELD];
+		
+		[serverName setStringValue:[[serverList objectAtIndex:i] serverName]];
+		
+		
+		menuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]]
+					initWithTitle:@"Server" action:NULL keyEquivalent:@""];
+		[statusMenu insertItem:menuItem atIndex:0];
+		[menuItem setView: viewCopy];
+		[menuItem setTarget:self];
+	}
+
+}
 
 @end
