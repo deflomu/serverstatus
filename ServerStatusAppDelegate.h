@@ -8,15 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Server.h"
+#import "PreferenceWindowController.h";
+#import "ServerListController.h"
 
-@interface ServerStatusAppDelegate : NSObject <NSApplicationDelegate, ServerDelegate> {
-    NSWindow *window;
-	
-	NSMutableArray *serverList;
-		
+@interface ServerStatusAppDelegate : NSObject <NSApplicationDelegate> {
+	PreferenceWindowController *preferenceWindowController;
+	ServerListController *serverListController;
 }
 
-@property (assign) IBOutlet NSWindow *window;
-@property (retain) NSMutableArray *serverList;
+@property (assign) IBOutlet ServerListController *serverListController;
+
+- (IBAction)showPreferenceWindow:(id)sender;
 
 @end

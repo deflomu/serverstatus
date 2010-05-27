@@ -10,7 +10,7 @@
 
 
 @implementation StatusItemController
-@synthesize statusItem;
+@synthesize statusItem, serverMenuItems, activeServerList, statusMenu;
 
 #pragma mark -
 #pragma mark Initialisation
@@ -18,28 +18,50 @@
 {
 	self = [super init];
 	if (self != nil) {
-		NSStatusBar *bar = [NSStatusBar systemStatusBar];
-		statusItem = [[bar statusItemWithLength:NSVariableStatusItemLength] retain];
+		self.activeServerList = [NSMutableArray array];
 	}
 	return self;
 }
 
+
 - (void) dealloc
 {
+	self.activeServerList =NULL;
 	self.statusItem = NULL;
 	[super dealloc];
 }
 
-
-
 - (void)awakeFromNib {
+	NSStatusBar *bar = [NSStatusBar systemStatusBar];
+	self.statusItem = [[bar statusItemWithLength:NSVariableStatusItemLength] retain];
+	
 	[self loadStatusItemImages];
 	
-	[statusItem setMenu:statusMenu];
-	[statusItem setImage:serversInactive];
-	[statusItem setAlternateImage:serversInactiveAlternate];
-	[statusItem setHighlightMode:YES];
+	[self.statusItem setMenu:statusMenu];
+	[self.statusItem setImage:serversInactive];
+	[self.statusItem setAlternateImage:serversInactiveAlternate];
+	[self.statusItem setHighlightMode:YES];
 	
+}
+
+#pragma mark Private
+- (NSString *)getStatusString:(ServerStatus) serverStatus {
+	NSString *status;
+	switch (serverStatus) {
+		case SERVER_OK:
+			status = NSLocalizedString(@"Server is reachable",@"Server is reachable");
+			break;
+		case SERVER_FAIL:
+			status = NSLocalizedString(@"Server is down",@"Server is down");
+			break;
+		case SERVER_UNKNOWN:
+			status = NSLocalizedString(@"Server status is unknown",@"Server status is unknown");
+			break;
+		default:
+			status = NSLocalizedString(@"No server status is set",@"No server status is set");
+			break;
+	}
+	return status;
 }
 
 #pragma mark -
@@ -58,34 +80,87 @@
 	serversInactiveAlternate = serversOkAlternate;
 }
 
-- (void)addServersToMenu:(NSMutableArray *) serverList {
-	NSData* viewCopyData = [NSArchiver archivedDataWithRootObject:statusItemMenuView];
-	id viewCopy;
-	NSMenuItem* menuItem;
-	
-	for (int i = 0; i < [serverList count]; i++) {
-		viewCopy = [NSUnarchiver unarchiveObjectWithData:viewCopyData];
-		
-		NSTextField *serverName;
-		NSTextField *serverStatusText;
-		serverName = [viewCopy viewWithTag:SERVER_NAME_TEXTFIELD];
-		serverStatusText = [viewCopy viewWithTag:SERVER_STATUSTEXT_TEXTFIELD];
-		
-		[serverName setStringValue:[[serverList objectAtIndex:i] serverName]];
-		
-		
-		menuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]]
-					initWithTitle:@"Server" action:NULL keyEquivalent:@""];
-		[statusMenu insertItem:menuItem atIndex:0];
-		[menuItem setView: viewCopy];
-		[menuItem setTarget:self];
-	}
-	
-}
 
 - (void)setStatusItemFail {
-	[statusItem setImage:serversFail];
-	[statusItem setAlternateImage:serversFailAlternate];
+	[self.statusItem setImage:serversFail];
+	[self.statusItem setAlternateImage:serversFailAlternate];
+}
+
+#pragma mark Menu Item Views
+- (NSMenuItem *)createMenuItem:(Server *)server {
+	NSData *viewCopyData = [NSArchiver archivedDataWithRootObject:serverItemMenuView];
+	id viewCopy = [NSUnarchiver unarchiveObjectWithData:viewCopyData];
+	NSTextField *serverName = [viewCopy viewWithTag:NAME_TEXTFIELD];
+	NSTextField *serverStatus = [viewCopy viewWithTag:STATUS_TEXTFIELD];
+	
+	[serverName setStringValue:server.serverName];
+	[serverStatus setStringValue:[self getStatusString:server.serverStatus]];
+	
+	NSMenuItem *menuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]]
+				initWithTitle:@"" action:NULL keyEquivalent:@""];
+	[menuItem setView: viewCopy];
+	[menuItem setTarget:self];
+	return menuItem;
+}
+
+#pragma mark -
+#pragma mark Public
+- (void)addServer:(Server *)server atIndex:(NSInteger)index {
+	if (index > [activeServerList count]) {
+		index = [activeServerList count];
+	}
+	[self.activeServerList insertObject:server atIndex:index];
+	
+	[server addObserver:self
+			forKeyPath:@"serverStatus"
+				options:NSKeyValueObservingOptionNew
+				context:NULL];
+	
+	[server addObserver:self
+			 forKeyPath:@"serverName"
+				options:NSKeyValueObservingOptionNew
+				context:NULL];
+	
+	[server addObserver:self
+			 forKeyPath:@"active"
+				options:NSKeyValueObservingOptionNew
+				context:NULL];
+		
+	NSMenuItem *item = [self createMenuItem:server];
+	[self.statusMenu insertItem:item atIndex:index];
+}
+
+- (void)removeServer:(Server *)server {
+	[server removeObserver:self forKeyPath:@"serverStatus"];
+	[server removeObserver:self forKeyPath:@"serverName"];
+	[server removeObserver:self forKeyPath:@"active"];
+	[self.statusMenu removeItemAtIndex:[self.activeServerList indexOfObject:server]];
+	[self.activeServerList removeObject:server];
+}
+
+#pragma mark -
+#pragma mark Observer
+- (void)observeValueForKeyPath:(NSString *)keyPath 
+					  ofObject:(id)object
+						change:(NSDictionary *)change
+					   context:(void *)context {
+	NSInteger index = [self.activeServerList indexOfObject:object];
+	if ([keyPath isEqualToString:@"serverStatus"]) {
+		ServerStatus status = [[change valueForKey:NSKeyValueChangeNewKey] intValue];
+		NSMenuItem *item = [self.statusMenu itemAtIndex:index];
+		[[[item view] viewWithTag:STATUS_TEXTFIELD] setStringValue:[self getStatusString:status]];
+	}
+	if ([keyPath isEqualToString:@"serverName"]) {
+		NSString *serverName = [change valueForKey:NSKeyValueChangeNewKey];
+		NSMenuItem *item = [self.statusMenu itemAtIndex:index];
+		[[[item view] viewWithTag:NAME_TEXTFIELD] setStringValue:serverName];
+	}
+	if ([keyPath isEqualToString:@"active"]) {
+		if (![[change valueForKey:NSKeyValueChangeNewKey] boolValue]) {
+			[self removeServer:object];
+		}
+		
+	}
 }
 
 @end

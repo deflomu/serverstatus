@@ -18,7 +18,12 @@
 		55194A6E119D656500A50789 /* serverFailAlternate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 55194A6D119D656500A50789 /* serverFailAlternate.pdf */; };
 		55194A7A119D65EA00A50789 /* serverWarningAlternate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 55194A79119D65EA00A50789 /* serverWarningAlternate.pdf */; };
 		55194A88119D66C800A50789 /* serverInactive.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 55194A87119D66C800A50789 /* serverInactive.pdf */; };
+		551993F311AED8AF009DF24D /* ServerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 551993F211AED8AF009DF24D /* ServerListController.m */; };
+		5565262A11A68A0D003D2A34 /* ServerListTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5565262911A68A0D003D2A34 /* ServerListTableController.m */; };
+		5567975611AAD8EB004B7E25 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5567975511AAD8EB004B7E25 /* Preferences.xib */; };
+		5567976111AADC1E004B7E25 /* PreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5567976011AADC1E004B7E25 /* PreferenceWindowController.m */; };
 		55B64AB2119C9F4900A123AC /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B64AB1119C9F4900A123AC /* SimplePing.m */; };
+		55DC5CF311A9E34C0043AE28 /* ServerTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DC5CF211A9E34C0043AE28 /* ServerTabViewController.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -46,9 +51,18 @@
 		55194A6D119D656500A50789 /* serverFailAlternate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = serverFailAlternate.pdf; sourceTree = "<group>"; };
 		55194A79119D65EA00A50789 /* serverWarningAlternate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = serverWarningAlternate.pdf; sourceTree = "<group>"; };
 		55194A87119D66C800A50789 /* serverInactive.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = serverInactive.pdf; sourceTree = "<group>"; };
+		551993F111AED8AF009DF24D /* ServerListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerListController.h; sourceTree = "<group>"; };
+		551993F211AED8AF009DF24D /* ServerListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerListController.m; sourceTree = "<group>"; };
+		5565262811A68A0D003D2A34 /* ServerListTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerListTableController.h; sourceTree = "<group>"; };
+		5565262911A68A0D003D2A34 /* ServerListTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerListTableController.m; sourceTree = "<group>"; };
+		5567975511AAD8EB004B7E25 /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
+		5567975F11AADC1E004B7E25 /* PreferenceWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceWindowController.h; sourceTree = "<group>"; };
+		5567976011AADC1E004B7E25 /* PreferenceWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferenceWindowController.m; sourceTree = "<group>"; };
 		55A139B111A566A5003E22CC /* globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = globals.h; sourceTree = "<group>"; };
 		55B64AB0119C9F4900A123AC /* SimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePing.h; sourceTree = "<group>"; };
 		55B64AB1119C9F4900A123AC /* SimplePing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePing.m; sourceTree = "<group>"; };
+		55DC5CF111A9E34C0043AE28 /* ServerTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerTabViewController.h; sourceTree = "<group>"; };
+		55DC5CF211A9E34C0043AE28 /* ServerTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerTabViewController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ServerStatus-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ServerStatus-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ServerStatus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServerStatus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -68,15 +82,14 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				55B64AB0119C9F4900A123AC /* SimplePing.h */,
-				5514E7D111A5CA7C00AB722A /* StatusItemController.h */,
-				5514E7D211A5CA7C00AB722A /* StatusItemController.m */,
-				55B64AB1119C9F4900A123AC /* SimplePing.m */,
+				551994C111AEFA98009DF24D /* Server */,
+				551994C211AEFAA6009DF24D /* Preferences */,
 				256AC3D80F4B6AC300CF3369 /* ServerStatusAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* ServerStatusAppDelegate.m */,
-				5515BA7E119DBBFC000B6A6D /* Server.h */,
-				5515BA7F119DBBFC000B6A6D /* Server.m */,
-				55A139B111A566A5003E22CC /* globals.h */,
+				5514E7D111A5CA7C00AB722A /* StatusItemController.h */,
+				5514E7D211A5CA7C00AB722A /* StatusItemController.m */,
+				551993F111AED8AF009DF24D /* ServerListController.h */,
+				551993F211AED8AF009DF24D /* ServerListController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -123,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				256AC3F00F4B6AF500CF3369 /* ServerStatus_Prefix.pch */,
+				55A139B111A566A5003E22CC /* globals.h */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -141,6 +155,7 @@
 				8D1107310486CEB800E47090 /* ServerStatus-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+				5567975511AAD8EB004B7E25 /* Preferences.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -152,6 +167,30 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		551994C111AEFA98009DF24D /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				55B64AB0119C9F4900A123AC /* SimplePing.h */,
+				55B64AB1119C9F4900A123AC /* SimplePing.m */,
+				5515BA7E119DBBFC000B6A6D /* Server.h */,
+				5515BA7F119DBBFC000B6A6D /* Server.m */,
+			);
+			name = Server;
+			sourceTree = "<group>";
+		};
+		551994C211AEFAA6009DF24D /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				5565262811A68A0D003D2A34 /* ServerListTableController.h */,
+				5565262911A68A0D003D2A34 /* ServerListTableController.m */,
+				55DC5CF111A9E34C0043AE28 /* ServerTabViewController.h */,
+				55DC5CF211A9E34C0043AE28 /* ServerTabViewController.m */,
+				5567975F11AADC1E004B7E25 /* PreferenceWindowController.h */,
+				5567976011AADC1E004B7E25 /* PreferenceWindowController.m */,
+			);
+			name = Preferences;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,6 +245,7 @@
 				55194A6E119D656500A50789 /* serverFailAlternate.pdf in Resources */,
 				55194A7A119D65EA00A50789 /* serverWarningAlternate.pdf in Resources */,
 				55194A88119D66C800A50789 /* serverInactive.pdf in Resources */,
+				5567975611AAD8EB004B7E25 /* Preferences.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +261,10 @@
 				55B64AB2119C9F4900A123AC /* SimplePing.m in Sources */,
 				5515BA80119DBBFC000B6A6D /* Server.m in Sources */,
 				5514E7D311A5CA7C00AB722A /* StatusItemController.m in Sources */,
+				5565262A11A68A0D003D2A34 /* ServerListTableController.m in Sources */,
+				55DC5CF311A9E34C0043AE28 /* ServerTabViewController.m in Sources */,
+				5567976111AADC1E004B7E25 /* PreferenceWindowController.m in Sources */,
+				551993F311AED8AF009DF24D /* ServerListController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

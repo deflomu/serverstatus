@@ -7,37 +7,38 @@
 //
 
 #import "ServerStatusAppDelegate.h"
+#import "PreferenceWindowController.h"
 
 @implementation ServerStatusAppDelegate
 
-@synthesize window;
-@synthesize serverList;
+@synthesize serverListController;
 
-- (id)init {
-	[super init];
-	serverList = [[NSMutableArray alloc] init];
-		
-	return self;
-}
-
-- (void)dealloc {
-	self.serverList = NULL;
-	[super dealloc];
-}
-
+#pragma mark -
+#pragma mark General functions
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+						   [NSKeyedArchiver archivedDataWithRootObject:[NSArray array]], @"serverList",
+						   nil];
+	[defaults registerDefaults:dict];
 	
-	Server* server1 = [[Server alloc] init];
-	server1.delegate = self;
-	
-	[server1 ping];
-	
-	[serverList addObject:server1];
-	[serverList addObject:server1];
 }
 
-- (void)serverPingFailed:(Server *)server {
-	
+- (void)applicationWillTerminate:(NSNotification *)notification {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.serverListController.serverList];
+	[defaults setObject:data forKey:@"serverList"];
+}
+
+#pragma mark PreferenceWindowController
+- (IBAction)showPreferenceWindow:(id)sender {
+	NSLog(@"preferences");
+	if(!preferenceWindowController) {
+		preferenceWindowController = [[PreferenceWindowController alloc] init];
+	}
+	preferenceWindowController.serverListController = self.serverListController;
+	[preferenceWindowController showWindow:self];
+	[preferenceWindowController.window orderFrontRegardless];
 }
 
 @end
