@@ -26,13 +26,11 @@
 }
 
 - (void)windowDidLoad {
-	NSLog(@"Nib loaded");
 }
 
 #pragma mark -
 #pragma mark Actions
 - (IBAction)pushClose:(NSButton *)sender {
-	NSLog(@"Close window");
 	[self.window performClose:self];
 }
 

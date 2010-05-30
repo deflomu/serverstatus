@@ -32,7 +32,6 @@
 
 #pragma mark PreferenceWindowController
 - (IBAction)showPreferenceWindow:(id)sender {
-	NSLog(@"preferences");
 	if(!preferenceWindowController) {
 		preferenceWindowController = [[PreferenceWindowController alloc] init];
 	}

@@ -24,7 +24,9 @@
 		}
 	}
 	
-	[NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(checkServers:) userInfo:NULL repeats:YES];
+	[self checkServers:NULL];
+	NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(checkServers:) userInfo:NULL repeats:YES];
+	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
 - (void)addServer:(Server *)server {
@@ -51,9 +53,13 @@
 	}
 }
 
-
-- (void)checkServers:(NSTimer *)timer {
-	NSLog(@"Timer out");
+- (void)checkServers:(NSTimer *)timer {		
+	NSLog(@"Checking servers");
+	for (Server *server in self.serverList) {
+		if (server.active) {
+			[server performSelectorInBackground:@selector(ping) withObject:self];
+		}
+	}
 }
 
 @end

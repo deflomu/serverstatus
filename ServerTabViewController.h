@@ -10,7 +10,7 @@
 #import "Server.h"
 
 
-@interface ServerTabViewController : NSObject {
+@interface ServerTabViewController : NSObject <NSTextFieldDelegate> {
 	IBOutlet NSTextField *serverName;
 	IBOutlet NSTextField *serverHost;
 		

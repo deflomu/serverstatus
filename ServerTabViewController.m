@@ -40,9 +40,16 @@
 		[self.serverName setStringValue:self.server.serverName];
 		[self.serverHost setStringValue:self.server.serverHost];
 	} else {
-		[self.serverName setStringValue:@""];
+		[self.serverName setStringValue:@"Server"];
 		[self.serverHost setStringValue:@""];
 	}
 }
+
+- (void)controlTextDidEndEditing:(NSNotification *)obj {
+	self.server.serverHost = [self.serverHost stringValue];
+}
+
+
+
 
 @end

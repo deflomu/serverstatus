@@ -31,6 +31,7 @@
 		self.active = NO;
 		self.serverStatus = SERVER_UNKNOWN;
 		self.pinger = [SimplePing simplePingWithHostName:serverHost];
+		self.pinger.delegate = self;
 	}
 	return self;
 }
@@ -56,6 +57,7 @@
 		self.active = [aDecoder decodeBoolForKey:@"active"];
 		self.serverStatus = SERVER_UNKNOWN;
 		self.pinger = [SimplePing simplePingWithHostName:serverHost];
+		self.pinger.delegate = self;
 	}
 	return self;
 }
@@ -70,7 +72,10 @@
 #pragma mark -
 #pragma mark ping
 - (void)ping {
-	self.pinger.delegate = self;
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	NSLog(@"%@: Request for ping", self.serverName);
+	
 	[self.pinger start];
 	
 	pingTimeout = [NSTimer scheduledTimerWithTimeInterval:10
@@ -78,12 +83,17 @@
 												 selector:@selector(pingTimedOut:)
 												 userInfo:nil
 												  repeats:NO];
+	
+    [[NSRunLoop currentRunLoop] addTimer:pingTimeout forMode:NSDefaultRunLoopMode];  
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:11]];  
+	
+	[pool release];
 }
 
 - (void)pingTimedOut:(NSTimer *)timer {
 	[self.pinger stop];
 	self.serverStatus = SERVER_FAIL;
-	NSLog(@"Ping timed out");
+	NSLog(@"%@: Ping timed out", self.serverName);
 }
 
 #pragma mark -
@@ -91,22 +101,25 @@
 
 - (void)simplePing:(SimplePing *)pinger didStartWithAddress:(NSData *)address {
 	[self.pinger sendPingWithData:nil];
-	NSLog(@"Ping sent");
+	self.serverStatus = SERVER_PINGING;
+	NSLog(@"%@: Ping sent", self.serverName);
 }
 
 - (void)simplePing:(SimplePing *)pinger didFailToSendPacket:(NSData *)packet
 			 error:(NSError *)error {
 	self.serverStatus = SERVER_UNKNOWN;
+	NSLog(@"%@: Failed to send Packet", self.serverName);
 }
 
 - (void)simplePing:(SimplePing *)pinger didReceivePingResponsePacket:(NSData *)packet {
 	[pingTimeout invalidate];
 	[self.pinger stop];
 	self.serverStatus = SERVER_OK;
-	NSLog(@"Ping received");
+	NSLog(@"%@: Ping received", self.serverName);
 }
 
 - (void)simplePing:(SimplePing *)pinger didFailWithError:(NSError *)error {
+	self.serverStatus = SERVER_FAIL;
 }
 
 @end

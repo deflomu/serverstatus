@@ -51,6 +51,7 @@
 			  row:(NSInteger)rowIndex {
 	Server *server = [self.serverListController.serverList objectAtIndex:rowIndex];
 	[self.serverListController modifyServer:server setObjectValue:anObject forKey:[aTableColumn identifier]];
+	[self.serverTabViewController updateView];
 }
 
 #pragma mark NSTableView Delegate

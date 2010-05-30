@@ -11,6 +11,7 @@
 
 typedef enum {
 	SERVER_UNKNOWN,
+	SERVER_PINGING,
 	SERVER_OK,
 	SERVER_FAIL
 } ServerStatus;

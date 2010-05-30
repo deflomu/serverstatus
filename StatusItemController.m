@@ -88,18 +88,23 @@
 
 #pragma mark Menu Item Views
 - (NSMenuItem *)createMenuItem:(Server *)server {
-	NSData *viewCopyData = [NSArchiver archivedDataWithRootObject:serverItemMenuView];
-	id viewCopy = [NSUnarchiver unarchiveObjectWithData:viewCopyData];
-	NSTextField *serverName = [viewCopy viewWithTag:NAME_TEXTFIELD];
-	NSTextField *serverStatus = [viewCopy viewWithTag:STATUS_TEXTFIELD];
+	/*NSData *viewCopyData = [NSArchiver archivedDataWithRootObject:serverItemMenuView];
+	id viewCopy = [NSUnarchiver unarchiveObjectWithData:viewCopyData];*/
+	
+	ServerMenuItemController *serverMenuItem = [[ServerMenuItemController alloc] init];
+	NSView *serverItemMenuView = serverMenuItem.serverMenuItemView;
+	
+	NSTextField *serverName = [serverItemMenuView viewWithTag:NAME_TEXTFIELD];
+	NSTextField *serverStatus = [serverItemMenuView viewWithTag:STATUS_TEXTFIELD];
 	
 	[serverName setStringValue:server.serverName];
 	[serverStatus setStringValue:[self getStatusString:server.serverStatus]];
 	
 	NSMenuItem *menuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]]
 				initWithTitle:@"" action:NULL keyEquivalent:@""];
-	[menuItem setView: viewCopy];
+	[menuItem setView: serverItemMenuView];
 	[menuItem setTarget:self];
+	
 	return menuItem;
 }
 
@@ -126,8 +131,9 @@
 				options:NSKeyValueObservingOptionNew
 				context:NULL];
 		
-	NSMenuItem *item = [self createMenuItem:server];
+	NSMenuItem *item = [self createMenuItem:server];	
 	[self.statusMenu insertItem:item atIndex:index];
+	
 }
 
 - (void)removeServer:(Server *)server {
@@ -148,7 +154,14 @@
 	if ([keyPath isEqualToString:@"serverStatus"]) {
 		ServerStatus status = [[change valueForKey:NSKeyValueChangeNewKey] intValue];
 		NSMenuItem *item = [self.statusMenu itemAtIndex:index];
-		[[[item view] viewWithTag:STATUS_TEXTFIELD] setStringValue:[self getStatusString:status]];
+		NSProgressIndicator *progIndi = [[[item view] subviews] objectAtIndex:2];
+		if (status == SERVER_PINGING) {
+			[progIndi startAnimation:self]; 
+		} else {
+			[progIndi stopAnimation:self]; 
+			[[[item view] viewWithTag:STATUS_TEXTFIELD] setStringValue:[self getStatusString:status]];			
+		}
+
 	}
 	if ([keyPath isEqualToString:@"serverName"]) {
 		NSString *serverName = [change valueForKey:NSKeyValueChangeNewKey];
