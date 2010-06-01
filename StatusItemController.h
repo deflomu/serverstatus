@@ -32,11 +32,7 @@
 @property (retain) NSMutableArray *serverMenuItems;
 @property (retain) NSMutableArray *activeServerList;
 
-
-- (void)loadStatusItemImages;
-- (void)setStatusItemFail;
 - (void)addServer:(Server *)server atIndex:(NSInteger)index;
 - (void)removeServer:(Server *)server;
-- (NSString *)getStatusString:(ServerStatus)serverStatus;
 
 @end

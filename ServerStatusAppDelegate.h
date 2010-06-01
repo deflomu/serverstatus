@@ -11,13 +11,18 @@
 #import "Server.h"
 #import "PreferenceWindowController.h";
 #import "ServerListController.h"
+#import "StatusItemController.h"
 
 @interface ServerStatusAppDelegate : NSObject <NSApplicationDelegate> {
 	PreferenceWindowController *preferenceWindowController;
 	ServerListController *serverListController;
+	StatusItemController *statusItemController;
+	BOOL networkAvailable;
 }
 
 @property (assign) IBOutlet ServerListController *serverListController;
+@property (assign) IBOutlet StatusItemController *statusItemController;
+@property (assign) BOOL networkAvailable;;
 
 - (IBAction)showPreferenceWindow:(id)sender;
 

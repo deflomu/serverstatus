@@ -10,20 +10,37 @@
 #import "PreferenceWindowController.h"
 
 @implementation ServerStatusAppDelegate
-
-@synthesize serverListController;
+@synthesize serverListController, statusItemController, networkAvailable;
 
 #pragma mark -
 #pragma mark Network Status
+- (void)sendNotificationNetworkIsAvailable {
+	NSLog(@"Sending notification");
+	NSDictionary *d = [NSDictionary
+					   dictionaryWithObject:[NSNumber numberWithBool:networkAvailable]
+					   forKey:@"networkAvailable"];
+	
+	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	[nc postNotificationName:NetworkChangeNotification
+					  object:self
+					userInfo:d];
+}
+
 static void networkStatusChanged(SCNetworkReachabilityRef	network,
 								 SCNetworkConnectionFlags	flags,
-								 void *                      info
-								 ) {
+								 void *						info
+								 )
+{
+	ServerStatusAppDelegate *_self = (ServerStatusAppDelegate *)info;
+	
 	if (flags & kSCNetworkFlagsReachable && !(flags & kSCNetworkFlagsConnectionRequired)) {
 		NSLog(@"Network avaiable");
+		_self.networkAvailable = YES;
 	} else {
 		NSLog(@"Network not available");
+		_self.networkAvailable = NO;
 	}
+	[_self sendNotificationNetworkIsAvailable];
 
 }
 
@@ -35,17 +52,21 @@ static void networkStatusChanged(SCNetworkReachabilityRef	network,
 						   [NSKeyedArchiver archivedDataWithRootObject:[NSArray array]], @"serverList",
 						   nil];
 	[defaults registerDefaults:dict];
-	
-	SCNetworkReachabilityRef network = SCNetworkReachabilityCreateWithName(NULL, "skweez.net");
-	SCNetworkReachabilitySetCallback(network, networkStatusChanged, NULL);
-	SCNetworkReachabilityScheduleWithRunLoop(network, CFRunLoopGetCurrent(), kCFRunLoopCommonModes);
-	CFRunLoopRun();
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.serverListController.serverList];
 	[defaults setObject:data forKey:@"serverList"];
+}
+
+- (void)awakeFromNib {
+	SCNetworkReachabilityRef network = SCNetworkReachabilityCreateWithName(NULL, "skweez.net");
+	
+	SCNetworkReachabilityContext context = {0, self, NULL, NULL, NULL};
+	
+	SCNetworkReachabilitySetCallback(network, networkStatusChanged, &context);
+	SCNetworkReachabilityScheduleWithRunLoop(network, CFRunLoopGetCurrent(), kCFRunLoopCommonModes);
 }
 
 #pragma mark PreferenceWindowController

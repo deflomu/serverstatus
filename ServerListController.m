@@ -13,21 +13,6 @@
 @synthesize serverList, statusItemController;
 
 #pragma mark -
-#pragma mark Init
-- (void)awakeFromNib {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:[defaults objectForKey:@"serverList"]];
-	self.serverList = [NSMutableArray arrayWithArray:array];
-	
-	for (Server *server in self.serverList) {
-		if (server.active) {
-			[self.statusItemController addServer:server
-										 atIndex:[self.serverList indexOfObject:server]];
-		}
-	}
-}
-
-#pragma mark -
 #pragma mark Public
 - (void)addServer:(Server *)server {
     [self.serverList addObject:server];
@@ -53,7 +38,7 @@
 	}
 }
 
-- (void)checkServers {		
+- (void)checkServers:(NSTimer *)timer {		
 	NSLog(@"Checking servers");
 	for (Server *server in self.serverList) {
 		if (server.active) {
@@ -62,5 +47,61 @@
 	}
 }
 
+#pragma mark -
+#pragma mark Notification reciever
+- (void)networkConnectionChanged:(NSNotification *)notification {
+	BOOL hasConnection = [[[notification userInfo] objectForKey:@"networkAvailable"] boolValue];
+	
+	if (hasConnection) {
+		[self checkServers:NULL];
+		
+		timer = [NSTimer scheduledTimerWithTimeInterval:TIMER_INTERVAL
+														  target:self
+														selector:@selector(checkServers:)
+														userInfo:nil
+														 repeats:YES];
+						  
+		[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+		
+	} else {
+		[timer invalidate];
+	}
+}
+
+#pragma mark -
+#pragma mark Init
+- (id) init
+{
+	self = [super init];
+	if (self != nil) {
+		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+		[nc addObserver:self
+			   selector:@selector(networkConnectionChanged:)
+				   name:NetworkChangeNotification
+				 object:nil];
+	}
+	return self;
+}
+
+- (void) dealloc
+{
+	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	[nc removeObserver:self];
+	[super dealloc];
+}
+
+
+- (void)awakeFromNib {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:[defaults objectForKey:@"serverList"]];
+	self.serverList = [NSMutableArray arrayWithArray:array];
+	
+	for (Server *server in self.serverList) {
+		if (server.active) {
+			[self.statusItemController addServer:server
+										 atIndex:[self.serverList indexOfObject:server]];
+		}
+	}
+}
 
 @end
