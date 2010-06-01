@@ -12,6 +12,10 @@
 @implementation ServerMenuItemController
 @synthesize serverMenuItemView;
 
++ (ServerMenuItemController *)serverMenuItemController {
+	return [[[ServerMenuItemController alloc] init] autorelease];
+}
+
 - (id) init
 {
 	self = [super init];
@@ -23,7 +27,7 @@
 
 - (void) dealloc
 {
-	self.serverMenuItemView = nil;
+	self.serverMenuItemView = NULL;
 	[super dealloc];
 }
 

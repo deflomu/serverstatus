@@ -64,6 +64,20 @@
 	return status;
 }
 
+- (void)statusOfServer:(Server *)server didChangeTo:(ServerStatus)status {
+	NSInteger index = [self.activeServerList indexOfObject:server];
+	NSMenuItem *item = [self.statusMenu itemAtIndex:index];
+	if (status == SERVER_PINGING) {
+		[(MenuItemView*)[item view] startSpinning]; 
+	} else {
+		[(MenuItemView*)[item view] stopSpinning];
+		[[[item view] viewWithTag:STATUS_TEXTFIELD] setStringValue:[self getStatusString:status]];
+		if (status == SERVER_FAIL) {
+			[self setStatusItemFail];
+		}
+	}
+}
+
 #pragma mark -
 #pragma mark StatusItemController
 - (void)loadStatusItemImages {
@@ -88,11 +102,8 @@
 
 #pragma mark Menu Item Views
 - (NSMenuItem *)createMenuItem:(Server *)server {
-	/*NSData *viewCopyData = [NSArchiver archivedDataWithRootObject:serverItemMenuView];
-	id viewCopy = [NSUnarchiver unarchiveObjectWithData:viewCopyData];*/
-	
-	ServerMenuItemController *serverMenuItem = [[ServerMenuItemController alloc] init];
-	NSView *serverItemMenuView = serverMenuItem.serverMenuItemView;
+	ServerMenuItemController *serverMenuItem = [ServerMenuItemController serverMenuItemController];
+	MenuItemView *serverItemMenuView = serverMenuItem.serverMenuItemView;
 	
 	NSTextField *serverName = [serverItemMenuView viewWithTag:NAME_TEXTFIELD];
 	NSTextField *serverStatus = [serverItemMenuView viewWithTag:STATUS_TEXTFIELD];
@@ -102,7 +113,7 @@
 	
 	NSMenuItem *menuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]]
 				initWithTitle:@"" action:NULL keyEquivalent:@""];
-	[menuItem setView: serverItemMenuView];
+	[menuItem setView:serverItemMenuView];
 	[menuItem setTarget:self];
 	
 	return menuItem;
@@ -150,21 +161,14 @@
 					  ofObject:(id)object
 						change:(NSDictionary *)change
 					   context:(void *)context {
-	NSInteger index = [self.activeServerList indexOfObject:object];
+
 	if ([keyPath isEqualToString:@"serverStatus"]) {
 		ServerStatus status = [[change valueForKey:NSKeyValueChangeNewKey] intValue];
-		NSMenuItem *item = [self.statusMenu itemAtIndex:index];
-		NSProgressIndicator *progIndi = [[[item view] subviews] objectAtIndex:2];
-		if (status == SERVER_PINGING) {
-			[progIndi startAnimation:self]; 
-		} else {
-			[progIndi stopAnimation:self]; 
-			[[[item view] viewWithTag:STATUS_TEXTFIELD] setStringValue:[self getStatusString:status]];			
-		}
-
+		[self statusOfServer:object didChangeTo:status];
 	}
 	if ([keyPath isEqualToString:@"serverName"]) {
 		NSString *serverName = [change valueForKey:NSKeyValueChangeNewKey];
+		NSInteger index = [self.activeServerList indexOfObject:object];
 		NSMenuItem *item = [self.statusMenu itemAtIndex:index];
 		[[[item view] viewWithTag:NAME_TEXTFIELD] setStringValue:serverName];
 	}

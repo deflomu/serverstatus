@@ -7,11 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "MenuItemView.h"
 
 
 @interface ServerMenuItemController : NSObject {
-	IBOutlet NSView *serverMenuItemView;
+	IBOutlet MenuItemView *serverMenuItemView;
 }
-@property (retain) IBOutlet NSView *serverMenuItemView;
+@property (retain) IBOutlet MenuItemView *serverMenuItemView;
+
++ (ServerMenuItemController *)serverMenuItemController;
 
 @end

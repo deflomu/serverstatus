@@ -25,6 +25,7 @@
 		5598B3E011B1ADF50095BED4 /* ServerMenuItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5598B3DF11B1ADF50095BED4 /* ServerMenuItemController.m */; };
 		55B64AB2119C9F4900A123AC /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B64AB1119C9F4900A123AC /* SimplePing.m */; };
 		55C39C8C11B1A44D004C69A5 /* ServerMenuItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55C39C8B11B1A44D004C69A5 /* ServerMenuItem.xib */; };
+		55DABF1811B4FEB1006C83C6 /* MenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DABF1711B4FEB1006C83C6 /* MenuItemView.m */; };
 		55DC5CF311A9E34C0043AE28 /* ServerTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DC5CF211A9E34C0043AE28 /* ServerTabViewController.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -66,6 +67,8 @@
 		55B64AB0119C9F4900A123AC /* SimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePing.h; sourceTree = "<group>"; };
 		55B64AB1119C9F4900A123AC /* SimplePing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePing.m; sourceTree = "<group>"; };
 		55C39C8B11B1A44D004C69A5 /* ServerMenuItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerMenuItem.xib; sourceTree = "<group>"; };
+		55DABF1611B4FEB1006C83C6 /* MenuItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuItemView.h; sourceTree = "<group>"; };
+		55DABF1711B4FEB1006C83C6 /* MenuItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItemView.m; sourceTree = "<group>"; };
 		55DC5CF111A9E34C0043AE28 /* ServerTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerTabViewController.h; sourceTree = "<group>"; };
 		55DC5CF211A9E34C0043AE28 /* ServerTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerTabViewController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ServerStatus-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ServerStatus-Info.plist"; sourceTree = "<group>"; };
@@ -159,7 +162,6 @@
 				8D1107310486CEB800E47090 /* ServerStatus-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
-				5567975511AAD8EB004B7E25 /* Preferences.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -193,6 +195,7 @@
 				55DC5CF211A9E34C0043AE28 /* ServerTabViewController.m */,
 				5567975F11AADC1E004B7E25 /* PreferenceWindowController.h */,
 				5567976011AADC1E004B7E25 /* PreferenceWindowController.m */,
+				5567975511AAD8EB004B7E25 /* Preferences.xib */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -200,11 +203,13 @@
 		55C39C5911B19469004C69A5 /* Status Bar */ = {
 			isa = PBXGroup;
 			children = (
+				5598B3DE11B1ADF50095BED4 /* ServerMenuItemController.h */,
+				5598B3DF11B1ADF50095BED4 /* ServerMenuItemController.m */,
 				5514E7D111A5CA7C00AB722A /* StatusItemController.h */,
 				5514E7D211A5CA7C00AB722A /* StatusItemController.m */,
 				55C39C8B11B1A44D004C69A5 /* ServerMenuItem.xib */,
-				5598B3DE11B1ADF50095BED4 /* ServerMenuItemController.h */,
-				5598B3DF11B1ADF50095BED4 /* ServerMenuItemController.m */,
+				55DABF1611B4FEB1006C83C6 /* MenuItemView.h */,
+				55DABF1711B4FEB1006C83C6 /* MenuItemView.m */,
 			);
 			name = "Status Bar";
 			sourceTree = "<group>";
@@ -283,6 +288,7 @@
 				5567976111AADC1E004B7E25 /* PreferenceWindowController.m in Sources */,
 				551993F311AED8AF009DF24D /* ServerListController.m in Sources */,
 				5598B3E011B1ADF50095BED4 /* ServerMenuItemController.m in Sources */,
+				55DABF1811B4FEB1006C83C6 /* MenuItemView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +319,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../Downloads/Growl-1.2.1-Framework\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -330,6 +340,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../Downloads/Growl-1.2.1-Framework\"",
+				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ServerStatus_Prefix.pch;

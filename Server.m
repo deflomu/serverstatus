@@ -107,6 +107,7 @@
 
 - (void)simplePing:(SimplePing *)pinger didFailToSendPacket:(NSData *)packet
 			 error:(NSError *)error {
+	[pingTimeout invalidate];
 	self.serverStatus = SERVER_UNKNOWN;
 	NSLog(@"%@: Failed to send Packet", self.serverName);
 }
@@ -119,7 +120,9 @@
 }
 
 - (void)simplePing:(SimplePing *)pinger didFailWithError:(NSError *)error {
-	self.serverStatus = SERVER_FAIL;
+	[pingTimeout invalidate];
+	self.serverStatus = SERVER_UNKNOWN;
+	NSLog(@"%@: Did fail with Error: %@", self.serverName, [error localizedDescription]);
 }
 
 @end
