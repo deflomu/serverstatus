@@ -14,6 +14,20 @@
 @synthesize serverListController;
 
 #pragma mark -
+#pragma mark Network Status
+static void networkStatusChanged(SCNetworkReachabilityRef	network,
+								 SCNetworkConnectionFlags	flags,
+								 void *                      info
+								 ) {
+	if (flags & kSCNetworkFlagsReachable && !(flags & kSCNetworkFlagsConnectionRequired)) {
+		NSLog(@"Network avaiable");
+	} else {
+		NSLog(@"Network not available");
+	}
+
+}
+
+#pragma mark -
 #pragma mark General functions
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -22,6 +36,10 @@
 						   nil];
 	[defaults registerDefaults:dict];
 	
+	SCNetworkReachabilityRef network = SCNetworkReachabilityCreateWithName(NULL, "skweez.net");
+	SCNetworkReachabilitySetCallback(network, networkStatusChanged, NULL);
+	SCNetworkReachabilityScheduleWithRunLoop(network, CFRunLoopGetCurrent(), kCFRunLoopCommonModes);
+	CFRunLoopRun();
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
@@ -39,5 +57,6 @@
 	[preferenceWindowController showWindow:self];
 	[preferenceWindowController.window orderFrontRegardless];
 }
+
 
 @end

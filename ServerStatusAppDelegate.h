@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <SystemConfiguration/SystemConfiguration.h>
 #import "Server.h"
 #import "PreferenceWindowController.h";
 #import "ServerListController.h"

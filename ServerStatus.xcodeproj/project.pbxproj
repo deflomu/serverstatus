@@ -26,6 +26,7 @@
 		55B64AB2119C9F4900A123AC /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B64AB1119C9F4900A123AC /* SimplePing.m */; };
 		55C39C8C11B1A44D004C69A5 /* ServerMenuItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55C39C8B11B1A44D004C69A5 /* ServerMenuItem.xib */; };
 		55DABF1811B4FEB1006C83C6 /* MenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DABF1711B4FEB1006C83C6 /* MenuItemView.m */; };
+		55DABFCD11B5273C006C83C6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55DABFCC11B5273C006C83C6 /* SystemConfiguration.framework */; };
 		55DC5CF311A9E34C0043AE28 /* ServerTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DC5CF211A9E34C0043AE28 /* ServerTabViewController.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -69,6 +70,7 @@
 		55C39C8B11B1A44D004C69A5 /* ServerMenuItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerMenuItem.xib; sourceTree = "<group>"; };
 		55DABF1611B4FEB1006C83C6 /* MenuItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuItemView.h; sourceTree = "<group>"; };
 		55DABF1711B4FEB1006C83C6 /* MenuItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItemView.m; sourceTree = "<group>"; };
+		55DABFCC11B5273C006C83C6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		55DC5CF111A9E34C0043AE28 /* ServerTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerTabViewController.h; sourceTree = "<group>"; };
 		55DC5CF211A9E34C0043AE28 /* ServerTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerTabViewController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ServerStatus-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ServerStatus-Info.plist"; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				55DABFCD11B5273C006C83C6 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +118,7 @@
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+				55DABFCC11B5273C006C83C6 /* SystemConfiguration.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";

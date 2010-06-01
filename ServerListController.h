@@ -22,6 +22,6 @@
 - (void)removeServers:(NSIndexSet *)serverIndexes;
 - (void)modifyServer:(Server *)server setObjectValue:(id)object forKey:(NSString *)key;
 
-- (void)checkServers:(NSTimer *)timer;
+- (void)checkServers;
 
 @end

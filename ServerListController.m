@@ -12,6 +12,8 @@
 @implementation ServerListController
 @synthesize serverList, statusItemController;
 
+#pragma mark -
+#pragma mark Init
 - (void)awakeFromNib {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:[defaults objectForKey:@"serverList"]];
@@ -23,12 +25,10 @@
 										 atIndex:[self.serverList indexOfObject:server]];
 		}
 	}
-	
-	[self checkServers:NULL];
-	NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(checkServers:) userInfo:NULL repeats:YES];
-	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
+#pragma mark -
+#pragma mark Public
 - (void)addServer:(Server *)server {
     [self.serverList addObject:server];
 }
@@ -53,7 +53,7 @@
 	}
 }
 
-- (void)checkServers:(NSTimer *)timer {		
+- (void)checkServers {		
 	NSLog(@"Checking servers");
 	for (Server *server in self.serverList) {
 		if (server.active) {
@@ -61,5 +61,6 @@
 		}
 	}
 }
+
 
 @end
