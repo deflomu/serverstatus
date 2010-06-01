@@ -10,7 +10,7 @@
 
 
 @implementation Server
-@synthesize serverName, serverHost, serverStatus, active;
+@synthesize serverName, serverHost, serverStatus, active, pingTimeout;
 @synthesize pinger		= _pinger;
 @synthesize delegate	= _delegate;
 
@@ -20,29 +20,27 @@
 
 #pragma mark -
 #pragma mark ping
+- (void)pingTimedOut:(NSTimer *)timer {
+	[self.pinger stop];
+	self.serverStatus = SERVER_FAIL;
+	NSLog(@"%@: Ping timed out", self.serverName);
+}
+
 - (void)ping {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-	NSLog(@"%@: Request for ping", self.serverName);
-	
+		
 	[self.pinger start];
 	
-	pingTimeout = [NSTimer scheduledTimerWithTimeInterval:10
+	self.pingTimeout = [NSTimer scheduledTimerWithTimeInterval:10
 												   target:self
 												 selector:@selector(pingTimedOut:)
 												 userInfo:nil
 												  repeats:NO];
 	
-    [[NSRunLoop currentRunLoop] addTimer:pingTimeout forMode:NSDefaultRunLoopMode];  
+    [[NSRunLoop currentRunLoop] addTimer:self.pingTimeout forMode:NSDefaultRunLoopMode];  
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:11]];  
 	
 	[pool release];
-}
-
-- (void)pingTimedOut:(NSTimer *)timer {
-	[self.pinger stop];
-	self.serverStatus = SERVER_FAIL;
-	NSLog(@"%@: Ping timed out", self.serverName);
 }
 
 #pragma mark -
@@ -51,7 +49,8 @@
 	if ([keyPath isEqualToString:@"active"]) {
 		if (!self.active) {
 			[self.pinger stop];
-			[pingTimeout invalidate];
+			[self.pingTimeout invalidate];
+			self.serverStatus = SERVER_UNKNOWN;
 		}
 	}
 }
@@ -63,7 +62,7 @@
 	
 	if (!hasConnection) {
 		[self.pinger stop];
-		[pingTimeout invalidate];
+		[self.pingTimeout invalidate];
 	}
 }
 
@@ -73,26 +72,24 @@
 - (void)simplePing:(SimplePing *)pinger didStartWithAddress:(NSData *)address {
 	[self.pinger sendPingWithData:nil];
 	self.serverStatus = SERVER_PINGING;
-	NSLog(@"%@: Ping sent", self.serverName);
 }
 
 - (void)simplePing:(SimplePing *)pinger didFailToSendPacket:(NSData *)packet
 			 error:(NSError *)error {
-	[pingTimeout invalidate];
-	self.serverStatus = SERVER_UNKNOWN;
+	[self.pingTimeout invalidate];
+	self.serverStatus = SERVER_ERROR;
 	NSLog(@"%@: Failed to send Packet", self.serverName);
 }
 
 - (void)simplePing:(SimplePing *)pinger didReceivePingResponsePacket:(NSData *)packet {
-	[pingTimeout invalidate];
+	[self.pingTimeout invalidate];
 	[self.pinger stop];
 	self.serverStatus = SERVER_OK;
-	NSLog(@"%@: Ping received", self.serverName);
 }
 
 - (void)simplePing:(SimplePing *)pinger didFailWithError:(NSError *)error {
-	[pingTimeout invalidate];
-	self.serverStatus = SERVER_UNKNOWN;
+	[self.pingTimeout invalidate];
+	self.serverStatus = SERVER_ERROR;
 	NSLog(@"%@: Did fail with Error: %@", self.serverName, [error localizedDescription]);
 }
 
@@ -124,6 +121,7 @@
 }
 
 - (void)dealloc {
+	self.pingTimeout = NULL;
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self];
 	[self.pinger stop];

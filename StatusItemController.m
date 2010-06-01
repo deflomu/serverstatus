@@ -27,6 +27,9 @@
 		case SERVER_UNKNOWN:
 			status = NSLocalizedString(@"Server status is unknown",@"Server status is unknown");
 			break;
+		case SERVER_ERROR:
+			status = NSLocalizedString(@"An error occurred",@"An error occurred");
+			break;
 		default:
 			status = NSLocalizedString(@"No server status is set",@"No server status is set");
 			break;
@@ -48,7 +51,7 @@
 		[(MenuItemView*)[item view] stopSpinning];
 		[[[item view] viewWithTag:STATUS_TEXTFIELD] setStringValue:[self getStatusString:status]];
 		if (status == SERVER_FAIL) {
-			[self setStatusItemFail];
+			NSLog(@"One Server is down");
 		}
 	}
 }
@@ -143,7 +146,11 @@
 					  ofObject:(id)object
 						change:(NSDictionary *)change
 					   context:(void *)context {
-
+	if ([keyPath isEqualToString:@"active"]) {
+		if (![[change valueForKey:NSKeyValueChangeNewKey] boolValue]) {
+			[self removeServer:object];
+		}
+	}
 	if ([keyPath isEqualToString:@"serverStatus"]) {
 		ServerStatus status = [[change valueForKey:NSKeyValueChangeNewKey] intValue];
 		[self statusOfServer:object didChangeTo:status];
@@ -153,11 +160,6 @@
 		NSInteger index = [self.activeServerList indexOfObject:object];
 		NSMenuItem *item = [self.statusMenu itemAtIndex:index];
 		[[[item view] viewWithTag:NAME_TEXTFIELD] setStringValue:serverName];
-	}
-	if ([keyPath isEqualToString:@"active"]) {
-		if (![[change valueForKey:NSKeyValueChangeNewKey] boolValue]) {
-			[self removeServer:object];
-		}
 	}
 }
 

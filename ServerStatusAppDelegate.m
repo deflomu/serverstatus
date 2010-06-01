@@ -15,7 +15,6 @@
 #pragma mark -
 #pragma mark Network Status
 - (void)sendNotificationNetworkIsAvailable {
-	NSLog(@"Sending notification");
 	NSDictionary *d = [NSDictionary
 					   dictionaryWithObject:[NSNumber numberWithBool:networkAvailable]
 					   forKey:@"networkAvailable"];
@@ -34,10 +33,8 @@ static void networkStatusChanged(SCNetworkReachabilityRef	network,
 	ServerStatusAppDelegate *_self = (ServerStatusAppDelegate *)info;
 	
 	if (flags & kSCNetworkFlagsReachable && !(flags & kSCNetworkFlagsConnectionRequired)) {
-		NSLog(@"Network avaiable");
 		_self.networkAvailable = YES;
 	} else {
-		NSLog(@"Network not available");
 		_self.networkAvailable = NO;
 	}
 	[_self sendNotificationNetworkIsAvailable];
