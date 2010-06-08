@@ -8,9 +8,11 @@
 
 #import "Server.h"
 
+#include <sys/socket.h>
+#include <netdb.h>
 
 @implementation Server
-@synthesize serverName, serverHost, serverStatus, previousStatus, active, pinging, pingTimeout, error;
+@synthesize serverName, serverHost, error, lastKnownAddress, serverStatus, previousStatus, active, pinging, pingTimeout;
 @synthesize pinger		= _pinger;
 @synthesize delegate	= _delegate;
 
@@ -46,9 +48,39 @@
 		serverHost = [host retain];
 		if (host) {
 			self.pinger = [SimplePing simplePingWithHostName:host];
+			self.pinger.delegate = self;
 		}
 		
 	}
+}
+
+- (NSString *)DisplayAddressForAddress:(NSData *) address
+    // Returns a dotted decimal string for the specified address (a (struct sockaddr) 
+    // within the address NSData).
+{
+    int         err;
+    NSString *  result;
+    char        hostStr[NI_MAXHOST];
+    
+    result = nil;
+    
+    if (address != nil) {
+        err = getnameinfo([address bytes], (socklen_t) [address length], hostStr, sizeof(hostStr), NULL, 0, NI_NUMERICHOST);
+        if (err == 0) {
+            result = [NSString stringWithCString:hostStr encoding:NSASCIIStringEncoding];
+            assert(result != nil);
+        }
+    }
+	
+    return result;
+}
+
+#pragma mark -
+#pragma mark Public
+
+- (NSString *)lastKnownAddressAsString {
+	NSString * result = [self DisplayAddressForAddress:lastKnownAddress];
+	return result ? result : @"Unknown";
 }
 
 #pragma mark -
@@ -102,6 +134,7 @@
 #pragma mark SimplePingDelegate
 
 - (void)simplePing:(SimplePing *)pinger didStartWithAddress:(NSData *)address {
+	self.lastKnownAddress = address;
 	[self.pinger sendPingWithData:nil];
 }
 
@@ -137,8 +170,7 @@
 	self.serverStatus = SERVER_UNKNOWN;
 	self.previousStatus = SERVER_UNKNOWN;
 	self.pinging = NO;
-	self.pinger = [SimplePing simplePingWithHostName:serverHost];
-	self.pinger.delegate = self;
+	
 }
 
 - (id)init
@@ -147,6 +179,7 @@
 	if (self != nil) {
 		self.serverName = @"localhost";
 		self.serverHost = @"127.0.0.1";
+		self.lastKnownAddress = nil; 
 		self.active = NO;
 		[self initializeValues];
 	}
@@ -160,9 +193,10 @@
 	[self removeObserver:self forKeyPath:@"active"];
 	[self stopPinging];
     self.pinger = nil;
-	self.pingTimeout = NULL;
-	self.serverName = NULL;
-	self.serverHost = NULL;
+	self.pingTimeout = nil;
+	self.lastKnownAddress = nil;
+	self.serverName = nil;
+	self.serverHost = nil;
 	[super dealloc];
 }
 
@@ -172,6 +206,7 @@
 	if (self != nil) {
 		self.serverName = [aDecoder decodeObjectForKey:@"serverName"];
 		self.serverHost = [aDecoder decodeObjectForKey:@"serverHost"];
+		self.lastKnownAddress = [aDecoder decodeObjectForKey:@"lastKnownAddress"];
 		self.active = [aDecoder decodeBoolForKey:@"active"];
 		[self initializeValues];
 	}
@@ -181,6 +216,7 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
 	[aCoder encodeObject:self.serverName forKey:@"serverName"];
 	[aCoder encodeObject:self.serverHost forKey:@"serverHost"];
+	[aCoder encodeObject:self.lastKnownAddress forKey:@"lastKnownAddress"];
 	[aCoder encodeBool:self.active forKey:@"active"];
 }
 

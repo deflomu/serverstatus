@@ -236,8 +236,8 @@
 {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self];
-	self.activeServerList = NULL;
-	self.statusItem = NULL;
+	self.activeServerList = nil;
+	self.statusItem = nil;
 	[super dealloc];
 }
 

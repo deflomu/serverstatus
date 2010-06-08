@@ -10,7 +10,7 @@
 
 
 @implementation ServerTabViewController
-@synthesize serverName, serverHost, server;
+@synthesize serverName, serverHost, lastKnownAddress, server;
 
 - (void)awakeFromNib {
 	[self addObserver:self
@@ -39,9 +39,11 @@
 	if (server) {
 		[self.serverName setStringValue:self.server.serverName];
 		[self.serverHost setStringValue:self.server.serverHost];
+		[self.lastKnownAddress setStringValue:[self.server lastKnownAddressAsString]];
 	} else {
 		[self.serverName setStringValue:@"Server"];
 		[self.serverHost setStringValue:@""];
+		[self.lastKnownAddress setStringValue:@""];
 	}
 }
 

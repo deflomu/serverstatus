@@ -27,7 +27,7 @@
 
 - (void) dealloc
 {
-	self.serverMenuItemView = NULL;
+	self.serverMenuItemView = nil;
 	[super dealloc];
 }
 

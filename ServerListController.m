@@ -131,10 +131,11 @@
 	NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:[defaults objectForKey:@"serverList"]];
 	self.serverList = [NSMutableArray arrayWithArray:array];
 	
+	NSInteger statusIndex = 0;
 	for (Server *server in self.serverList) {
 		if (server.active) {
-			[self.statusItemController addServer:server
-										 atIndex:[self.serverList indexOfObject:server]];
+			[self.statusItemController addServer:server atIndex:statusIndex];
+			statusIndex++;
 		}
 	}
 }

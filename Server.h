@@ -22,8 +22,11 @@ typedef enum {
 	NSString *serverName;
 	NSString *serverHost;
 	NSError *error;
+	NSData *lastKnownAddress;
+	
 	ServerStatus serverStatus;
 	ServerStatus previousStatus;
+	
 	BOOL active;
 	BOOL pinging;
 	
@@ -36,6 +39,7 @@ typedef enum {
 @property (retain) NSString *serverName;
 @property (retain) NSString *serverHost;
 @property (retain) NSError *error;
+@property (retain) NSData *lastKnownAddress;
 @property BOOL active;
 @property BOOL pinging;
 @property ServerStatus serverStatus;
@@ -47,6 +51,7 @@ typedef enum {
 
 + (Server *)server;
 
+- (NSString *)lastKnownAddressAsString;
 - (void)ping;
 
 @end
