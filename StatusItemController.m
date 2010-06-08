@@ -174,6 +174,17 @@
 	[server removeObserver:self forKeyPath:@"serverStatus"];
 	[server removeObserver:self forKeyPath:@"pinging"];
 	[server removeObserver:self forKeyPath:@"serverName"];	
+	switch (server.serverStatus) {
+		case SERVER_FAIL:
+			serversDownCounter--;
+			break;
+		case SERVER_ERROR:
+			serversErrorCounter--;
+			break;
+		default:
+			break;
+	}
+	[self serverDidOk];	
 	[self.activeServerList removeObject:server];
 }
 

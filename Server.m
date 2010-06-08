@@ -154,12 +154,13 @@
 }
 
 - (void)dealloc {
-	self.pingTimeout = NULL;
+	self.serverStatus = SERVER_UNKNOWN;
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self];
 	[self removeObserver:self forKeyPath:@"active"];
 	[self stopPinging];
     self.pinger = nil;
+	self.pingTimeout = NULL;
 	self.serverName = NULL;
 	self.serverHost = NULL;
 	[super dealloc];
