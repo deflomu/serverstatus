@@ -37,9 +37,32 @@
 	return status;
 }
 
-- (void)setStatusItemFail {
+- (void)serverDidFail {
 	[self.statusItem setImage:serversFail];
 	[self.statusItem setAlternateImage:serversFailAlternate];
+}
+
+- (void)serverDidError {
+	if (serversDownCounter == 0) {
+		[self.statusItem setImage:serversWarning];
+		[self.statusItem setAlternateImage:serversWarningAlternate];
+	}
+}
+
+- (void)serverDidOk {
+	if (hasConnection) {
+		if (serversDownCounter == 0 && serversErrorCounter == 0) {
+			[self.statusItem setImage:serversOk];
+			[self.statusItem setAlternateImage:serversOkAlternate];
+		} else if (serversDownCounter == 0) {
+			[self serverDidError];
+		} else {
+			[self serverDidFail];
+		}
+	} else {
+		[self.statusItem setImage:serversInactive];
+		[self.statusItem setAlternateImage:serversInactiveAlternate];
+	}
 }
 
 - (void)statusOfServerDidChange:(Server *)server {
@@ -49,8 +72,28 @@
 	ServerStatus previousStatus = server.previousStatus;
 	[[[item view] viewWithTag:STATUS_TEXTFIELD] setStringValue:[self getStatusString:status]];
 	if (status != previousStatus) {
-		if (status == SERVER_FAIL) {
-			NSLog(@"One Server is down");
+		switch (status) {
+			case SERVER_FAIL:
+				serversDownCounter++;
+				[self serverDidFail];
+				break;
+			case SERVER_ERROR:
+				serversErrorCounter++;
+				[self serverDidError];
+			default:
+				break;
+		}
+		switch (previousStatus) {
+			case SERVER_FAIL:
+				serversDownCounter--;
+				[self serverDidOk];
+				break;
+			case SERVER_ERROR:
+				serversErrorCounter--;
+				[self serverDidOk];
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -141,15 +184,9 @@
 
 #pragma mark Status
 - (void)networkConnectionChanged:(NSNotification *)notification {
-	BOOL hasConnection = [[[notification userInfo] objectForKey:@"networkAvailable"] boolValue];
-	
-	if (hasConnection) {
-		[self.statusItem setImage:serversOk];
-		[self.statusItem setAlternateImage:serversOkAlternate];
-	} else {
-		[self.statusItem setImage:serversInactive];
-		[self.statusItem setAlternateImage:serversInactiveAlternate];
-	}
+	hasConnection = [[[notification userInfo] objectForKey:@"networkAvailable"] boolValue];
+
+	[self serverDidOk];
 }
 
 #pragma mark -

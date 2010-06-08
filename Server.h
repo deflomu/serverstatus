@@ -21,6 +21,7 @@ typedef enum {
 @interface Server : NSObject <SimplePingDelegate, NSCoding> {
 	NSString *serverName;
 	NSString *serverHost;
+	NSError *error;
 	ServerStatus serverStatus;
 	ServerStatus previousStatus;
 	BOOL active;
@@ -34,6 +35,7 @@ typedef enum {
 
 @property (retain) NSString *serverName;
 @property (retain) NSString *serverHost;
+@property (retain) NSError *error;
 @property BOOL active;
 @property BOOL pinging;
 @property ServerStatus serverStatus;

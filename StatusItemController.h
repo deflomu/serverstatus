@@ -25,6 +25,11 @@
 	
 	NSMutableArray *activeServerList;
 	NSMutableIndexSet *activeServerIndexes;
+	
+	NSInteger serversDownCounter;
+	NSInteger serversErrorCounter;
+	
+	BOOL hasConnection;
 }
 
 @property (retain) NSStatusItem *statusItem;

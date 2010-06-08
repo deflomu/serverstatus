@@ -10,7 +10,7 @@
 
 
 @implementation Server
-@synthesize serverName, serverHost, serverStatus, previousStatus, active, pinging, pingTimeout;
+@synthesize serverName, serverHost, serverStatus, previousStatus, active, pinging, pingTimeout, error;
 @synthesize pinger		= _pinger;
 @synthesize delegate	= _delegate;
 
@@ -20,6 +20,11 @@
 
 #pragma mark -
 #pragma mark Private
+- (void)setServerStatus:(ServerStatus)status {
+	self.previousStatus = serverStatus;
+	serverStatus = status;
+}
+
 - (void)startPinging {
 	self.pinging = YES;
 	[self.pinger start];
@@ -76,6 +81,7 @@
 	
 	if (!hasConnection) {
 		[self stopPinging];
+		self.serverStatus = SERVER_UNKNOWN;
 	}
 }
 
@@ -114,6 +120,7 @@
 		   selector:@selector(networkConnectionChanged:)
 			   name:NetworkChangeNotification
 			 object:nil];
+	
 	self.serverStatus = SERVER_UNKNOWN;
 	self.previousStatus = SERVER_UNKNOWN;
 	self.pinging = NO;
