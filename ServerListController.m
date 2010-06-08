@@ -13,6 +13,19 @@
 @synthesize serverList, statusItemController;
 
 #pragma mark -
+#pragma mark Private
+- (NSInteger)countActiveServersTo:(NSInteger)index {
+	NSInteger result = 0;
+	for (NSInteger i=0; i<index; i++) {
+		Server *server = [self.serverList objectAtIndex:i];
+		if (server.active) {
+			result++;
+		}
+	}
+	return result;
+}
+
+#pragma mark -
 #pragma mark Public
 - (void)addServer:(Server *)server {
     [self.serverList addObject:server];
@@ -24,7 +37,8 @@
 - (void)addServer:(Server *)server atIndex:(NSInteger)index {
     [self.serverList insertObject:server atIndex:index];
 	if (server.active) {
-		[self.statusItemController addServer:server atIndex:index];
+		NSInteger statusIndex = [self countActiveServersTo:index];
+		[self.statusItemController addServer:server atIndex:statusIndex];
 	}
 }
 
@@ -39,7 +53,8 @@
 - (void)removeServerAtIndex:(NSInteger)index {
 	Server *server = [self.serverList objectAtIndex:index];
 	if (server.active) {
-		[self.statusItemController removeServer:server atIndex:index];
+		NSInteger statusIndex = [self countActiveServersTo:index];
+		[self.statusItemController removeServer:server atIndex:statusIndex];
 	}
 	[self.serverList removeObjectAtIndex:index];
 }
@@ -48,10 +63,11 @@
 	[server setValue:object forKey:key];
 	if ([key isEqualToString:@"active"]) {
 		NSInteger index = [self.serverList indexOfObject:server];
+		NSInteger statusIndex = [self countActiveServersTo:index];
 		if ([object boolValue]) {
-			[self.statusItemController addServer:server atIndex:index];
+			[self.statusItemController addServer:server atIndex:statusIndex];
 		} else {
-			[self.statusItemController removeServer:server atIndex:index];
+			[self.statusItemController removeServer:server atIndex:statusIndex];
 		}
 		
 	}

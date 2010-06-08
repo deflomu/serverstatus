@@ -164,22 +164,17 @@
 				options:NSKeyValueObservingOptionNew
 				context:NULL];
 	
-	NSInteger newIndex = [self.activeServerIndexes countOfIndexesInRange:NSRangeFromString([NSString stringWithFormat:@"0,%d",index])];
-	
-	[self.activeServerList insertObject:server atIndex:newIndex];
-	[self.activeServerIndexes addIndex:index];
-	
+	[self.activeServerList insertObject:server atIndex:index];
 	NSMenuItem *item = [self createMenuItem:server];
-	[self.statusMenu insertItem:item atIndex:newIndex];	
+	[self.statusMenu insertItem:item atIndex:index];
 }
 
 - (void)removeServer:(Server *)server atIndex:(NSInteger)index {
+	[self.statusMenu removeItemAtIndex:index];
 	[server removeObserver:self forKeyPath:@"serverStatus"];
 	[server removeObserver:self forKeyPath:@"pinging"];
-	[server removeObserver:self forKeyPath:@"serverName"];
-	[self.statusMenu removeItemAtIndex:[self.activeServerList indexOfObject:server]];
+	[server removeObserver:self forKeyPath:@"serverName"];	
 	[self.activeServerList removeObject:server];
-	[self.activeServerIndexes removeIndex:index];
 }
 
 #pragma mark Status
