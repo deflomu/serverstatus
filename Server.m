@@ -20,11 +20,6 @@
 
 #pragma mark -
 #pragma mark Private
-- (void)setServerStatus:(ServerStatus)status {
-	self.previousStatus = serverStatus;
-	serverStatus = status;
-}
-
 - (void)startPinging {
 	self.pinging = YES;
 	[self.pinger start];
@@ -36,6 +31,24 @@
 	}
 	self.pinging = NO;
 	[self.pinger stop];
+}
+
+- (void)setServerStatus:(ServerStatus)status {
+	self.previousStatus = serverStatus;
+	serverStatus = status;
+}
+
+- (void)setServerHost:(NSString *)host {
+	if (serverHost != host) {
+		[self stopPinging];
+		self.pinger = nil;
+		[serverHost release];
+		serverHost = [host retain];
+		if (host) {
+			self.pinger = [SimplePing simplePingWithHostName:host];
+		}
+		
+	}
 }
 
 #pragma mark -
@@ -104,10 +117,10 @@
 	self.serverStatus = SERVER_OK;
 }
 
-- (void)simplePing:(SimplePing *)pinger didFailWithError:(NSError *)error {
+- (void)simplePing:(SimplePing *)pinger didFailWithError:(NSError *)e {
 	[self stopPinging];
 	self.serverStatus = SERVER_ERROR;
-	NSLog(@"%@: Did fail with Error: %@", self.serverName, [error localizedDescription]);
+	NSLog(@"%@: Did fail with Error: %@", self.serverName, [e localizedDescription]);
 }
 
 #pragma mark -
@@ -146,7 +159,7 @@
 	[nc removeObserver:self];
 	[self removeObserver:self forKeyPath:@"active"];
 	[self stopPinging];
-    [self.pinger release];
+    self.pinger = nil;
 	self.serverName = NULL;
 	self.serverHost = NULL;
 	[super dealloc];

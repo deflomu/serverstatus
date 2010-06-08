@@ -25,6 +25,14 @@
 	return result;
 }
 
+- (void)checkServers:(NSTimer *)timer {		
+	for (Server *server in self.serverList) {
+		if (server.active) {
+			[server performSelectorInBackground:@selector(ping) withObject:self];
+		}
+	}
+}
+
 #pragma mark -
 #pragma mark Public
 - (void)addServer:(Server *)server {
@@ -66,18 +74,11 @@
 		NSInteger statusIndex = [self countActiveServersTo:index];
 		if ([object boolValue]) {
 			[self.statusItemController addServer:server atIndex:statusIndex];
+			[self checkServers:nil];
 		} else {
 			[self.statusItemController removeServer:server atIndex:statusIndex];
 		}
 		
-	}
-}
-
-- (void)checkServers:(NSTimer *)timer {		
-	for (Server *server in self.serverList) {
-		if (server.active) {
-			[server performSelectorInBackground:@selector(ping) withObject:self];
-		}
 	}
 }
 
