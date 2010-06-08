@@ -10,7 +10,7 @@
 
 
 @implementation StatusItemController
-@synthesize statusItem, activeServerList, statusMenu, activeServerIndexes;
+@synthesize statusItem, activeServerList, statusMenu;
 
 
 
@@ -211,7 +211,6 @@
 	self = [super init];
 	if (self != nil) {
 		self.activeServerList = [NSMutableArray array];
-		self.activeServerIndexes = [NSMutableIndexSet indexSet];
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 		[nc addObserver:self
 			   selector:@selector(networkConnectionChanged:)
@@ -227,7 +226,6 @@
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self];
 	self.activeServerList = NULL;
-	self.activeServerIndexes = NULL;
 	self.statusItem = NULL;
 	[super dealloc];
 }
