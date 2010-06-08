@@ -74,7 +74,6 @@
 }
 
 - (void)checkServers:(NSTimer *)timer {		
-	NSLog(@"Checking servers");
 	for (Server *server in self.serverList) {
 		if (server.active) {
 			[server performSelectorInBackground:@selector(ping) withObject:self];
