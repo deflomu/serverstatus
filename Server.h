@@ -11,7 +11,6 @@
 
 typedef enum {
 	SERVER_UNKNOWN,
-	SERVER_PINGING,
 	SERVER_OK,
 	SERVER_FAIL,
 	SERVER_ERROR
@@ -23,7 +22,9 @@ typedef enum {
 	NSString *serverName;
 	NSString *serverHost;
 	ServerStatus serverStatus;
+	ServerStatus previousStatus;
 	BOOL active;
+	BOOL pinging;
 	
 	SimplePing *_pinger;
 	NSTimer *pingTimeout;
@@ -34,7 +35,9 @@ typedef enum {
 @property (retain) NSString *serverName;
 @property (retain) NSString *serverHost;
 @property BOOL active;
+@property BOOL pinging;
 @property ServerStatus serverStatus;
+@property ServerStatus previousStatus;
 @property (retain) SimplePing *pinger;
 @property (retain) NSTimer *pingTimeout;
 

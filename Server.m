@@ -10,7 +10,7 @@
 
 
 @implementation Server
-@synthesize serverName, serverHost, serverStatus, active, pingTimeout;
+@synthesize serverName, serverHost, serverStatus, previousStatus, active, pinging, pingTimeout;
 @synthesize pinger		= _pinger;
 @synthesize delegate	= _delegate;
 
@@ -19,9 +19,24 @@
 }
 
 #pragma mark -
+#pragma mark Private
+- (void)startPinging {
+	self.pinging = YES;
+	[self.pinger start];
+}
+
+- (void)stopPinging {
+	if (self.pingTimeout != nil) {
+		[self.pingTimeout invalidate];
+	}
+	self.pinging = NO;
+	[self.pinger stop];
+}
+
+#pragma mark -
 #pragma mark ping
 - (void)pingTimedOut:(NSTimer *)timer {
-	[self.pinger stop];
+	[self stopPinging];
 	self.serverStatus = SERVER_FAIL;
 	NSLog(@"%@: Ping timed out", self.serverName);
 }
@@ -29,7 +44,7 @@
 - (void)ping {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
-	[self.pinger start];
+	[self startPinging];
 	
 	self.pingTimeout = [NSTimer scheduledTimerWithTimeInterval:10
 												   target:self
@@ -48,8 +63,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:@"active"]) {
 		if (!self.active) {
-			[self.pinger stop];
-			[self.pingTimeout invalidate];
+			[self stopPinging];
 			self.serverStatus = SERVER_UNKNOWN;
 		}
 	}
@@ -61,8 +75,7 @@
 	BOOL hasConnection = [[[notification userInfo] objectForKey:@"networkAvailable"] boolValue];
 	
 	if (!hasConnection) {
-		[self.pinger stop];
-		[self.pingTimeout invalidate];
+		[self stopPinging];
 	}
 }
 
@@ -71,24 +84,22 @@
 
 - (void)simplePing:(SimplePing *)pinger didStartWithAddress:(NSData *)address {
 	[self.pinger sendPingWithData:nil];
-	self.serverStatus = SERVER_PINGING;
 }
 
 - (void)simplePing:(SimplePing *)pinger didFailToSendPacket:(NSData *)packet
 			 error:(NSError *)error {
-	[self.pingTimeout invalidate];
+	[self stopPinging];
 	self.serverStatus = SERVER_ERROR;
 	NSLog(@"%@: Failed to send Packet", self.serverName);
 }
 
 - (void)simplePing:(SimplePing *)pinger didReceivePingResponsePacket:(NSData *)packet {
-	[self.pingTimeout invalidate];
-	[self.pinger stop];
+	[self stopPinging];
 	self.serverStatus = SERVER_OK;
 }
 
 - (void)simplePing:(SimplePing *)pinger didFailWithError:(NSError *)error {
-	[self.pingTimeout invalidate];
+	[self stopPinging];
 	self.serverStatus = SERVER_ERROR;
 	NSLog(@"%@: Did fail with Error: %@", self.serverName, [error localizedDescription]);
 }
@@ -104,6 +115,8 @@
 			   name:NetworkChangeNotification
 			 object:nil];
 	self.serverStatus = SERVER_UNKNOWN;
+	self.previousStatus = SERVER_UNKNOWN;
+	self.pinging = NO;
 	self.pinger = [SimplePing simplePingWithHostName:serverHost];
 	self.pinger.delegate = self;
 }
@@ -124,7 +137,8 @@
 	self.pingTimeout = NULL;
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self];
-	[self.pinger stop];
+	[self removeObserver:self forKeyPath:@"active"];
+	[self stopPinging];
     [self.pinger release];
 	self.serverName = NULL;
 	self.serverHost = NULL;

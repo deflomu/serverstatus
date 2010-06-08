@@ -23,16 +23,16 @@
 	*serversFail, *serversFailAlternate,
 	*serversInactive, *serversInactiveAlternate;
 	
-	NSMutableArray *serverMenuItems;
 	NSMutableArray *activeServerList;
+	NSMutableIndexSet *activeServerIndexes;
 }
 
 @property (retain) NSStatusItem *statusItem;
 @property (assign) NSMenu *statusMenu;
-@property (retain) NSMutableArray *serverMenuItems;
 @property (retain) NSMutableArray *activeServerList;
+@property (retain) NSMutableIndexSet *activeServerIndexes;
 
 - (void)addServer:(Server *)server atIndex:(NSInteger)index;
-- (void)removeServer:(Server *)server;
+- (void)removeServer:(Server *)server atIndex:(NSInteger)index;
 
 @end

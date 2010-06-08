@@ -21,7 +21,9 @@
 @property (assign) IBOutlet StatusItemController *statusItemController;
 
 - (void)addServer:(Server *)server;
+- (void)addServer:(Server *)server atIndex:(NSInteger)index;
 - (void)removeServers:(NSIndexSet *)serverIndexes;
+- (void)removeServerAtIndex:(NSInteger)index;
 - (void)modifyServer:(Server *)server setObjectValue:(id)object forKey:(NSString *)key;
 
 @end

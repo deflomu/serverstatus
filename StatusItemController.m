@@ -10,7 +10,7 @@
 
 
 @implementation StatusItemController
-@synthesize statusItem, serverMenuItems, activeServerList, statusMenu;
+@synthesize statusItem, activeServerList, statusMenu, activeServerIndexes;
 
 
 
@@ -42,18 +42,29 @@
 	[self.statusItem setAlternateImage:serversFailAlternate];
 }
 
-- (void)statusOfServer:(Server *)server didChangeTo:(ServerStatus)status {
+- (void)statusOfServerDidChange:(Server *)server {
 	NSInteger index = [self.activeServerList indexOfObject:server];
 	NSMenuItem *item = [self.statusMenu itemAtIndex:index];
-	if (status == SERVER_PINGING) {
-		[(MenuItemView*)[item view] startSpinning];
-	} else {
-		[(MenuItemView*)[item view] stopSpinning];
-		[[[item view] viewWithTag:STATUS_TEXTFIELD] setStringValue:[self getStatusString:status]];
+	ServerStatus status = server.serverStatus;
+	ServerStatus previousStatus = server.previousStatus;
+	[[[item view] viewWithTag:STATUS_TEXTFIELD] setStringValue:[self getStatusString:status]];
+	if (status != previousStatus) {
 		if (status == SERVER_FAIL) {
 			NSLog(@"One Server is down");
 		}
 	}
+
+}
+
+- (void)serverIsPinging:(Server *)server {
+	NSInteger index = [self.activeServerList indexOfObject:server];
+	NSMenuItem *item = [self.statusMenu itemAtIndex:index];
+	if (server.pinging) {
+		[(MenuItemView*)[item view] startSpinning];
+	} else {
+		[(MenuItemView*)[item view] stopSpinning];
+	}
+
 }
 
 #pragma mark -
@@ -95,14 +106,14 @@
 #pragma mark -
 #pragma mark Public
 - (void)addServer:(Server *)server atIndex:(NSInteger)index {
-	if (index > [activeServerList count]) {
-		index = [activeServerList count];
-	}
-	[self.activeServerList insertObject:server atIndex:index];
-	
 	[server addObserver:self
 			forKeyPath:@"serverStatus"
-				options:NSKeyValueObservingOptionNew
+				options:0
+				context:NULL];
+	
+	[server addObserver:self
+			 forKeyPath:@"pinging"
+				options:0
 				context:NULL];
 	
 	[server addObserver:self
@@ -110,21 +121,22 @@
 				options:NSKeyValueObservingOptionNew
 				context:NULL];
 	
-	[server addObserver:self
-			 forKeyPath:@"active"
-				options:NSKeyValueObservingOptionNew
-				context:NULL];
-		
+	NSInteger newIndex = [self.activeServerIndexes countOfIndexesInRange:NSRangeFromString([NSString stringWithFormat:@"0,%d",index])];
+	
+	[self.activeServerList insertObject:server atIndex:newIndex];
+	[self.activeServerIndexes addIndex:index];
+	
 	NSMenuItem *item = [self createMenuItem:server];
-	[self.statusMenu insertItem:item atIndex:index];	
+	[self.statusMenu insertItem:item atIndex:newIndex];	
 }
 
-- (void)removeServer:(Server *)server {
+- (void)removeServer:(Server *)server atIndex:(NSInteger)index {
 	[server removeObserver:self forKeyPath:@"serverStatus"];
+	[server removeObserver:self forKeyPath:@"pinging"];
 	[server removeObserver:self forKeyPath:@"serverName"];
-	[server removeObserver:self forKeyPath:@"active"];
 	[self.statusMenu removeItemAtIndex:[self.activeServerList indexOfObject:server]];
 	[self.activeServerList removeObject:server];
+	[self.activeServerIndexes removeIndex:index];
 }
 
 #pragma mark Status
@@ -146,14 +158,11 @@
 					  ofObject:(id)object
 						change:(NSDictionary *)change
 					   context:(void *)context {
-	if ([keyPath isEqualToString:@"active"]) {
-		if (![[change valueForKey:NSKeyValueChangeNewKey] boolValue]) {
-			[self removeServer:object];
-		}
-	}
 	if ([keyPath isEqualToString:@"serverStatus"]) {
-		ServerStatus status = [[change valueForKey:NSKeyValueChangeNewKey] intValue];
-		[self statusOfServer:object didChangeTo:status];
+		[self statusOfServerDidChange:object];
+	}
+	if ([keyPath isEqualToString:@"pinging"]) {
+		[self serverIsPinging:object];
 	}
 	if ([keyPath isEqualToString:@"serverName"]) {
 		NSString *serverName = [change valueForKey:NSKeyValueChangeNewKey];
@@ -170,6 +179,7 @@
 	self = [super init];
 	if (self != nil) {
 		self.activeServerList = [NSMutableArray array];
+		self.activeServerIndexes = [NSMutableIndexSet indexSet];
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 		[nc addObserver:self
 			   selector:@selector(networkConnectionChanged:)
@@ -184,7 +194,8 @@
 {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self];
-	self.activeServerList =NULL;
+	self.activeServerList = NULL;
+	self.activeServerIndexes = NULL;
 	self.statusItem = NULL;
 	[super dealloc];
 }
