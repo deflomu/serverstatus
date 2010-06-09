@@ -144,10 +144,10 @@
 }
 
 - (void)simplePing:(SimplePing *)pinger didFailToSendPacket:(NSData *)packet
-			 error:(NSError *)error {
+			 error:(NSError *)e {
 	[self stopPinging];
 	self.serverStatus = SERVER_ERROR;
-	NSLog(@"%@: Failed to send Packet: %@", self.serverName, [error localizedDescription]);
+	NSLog(@"%@: Failed to send Packet: %@", self.serverName, [e localizedDescription]);
 }
 
 - (void)simplePing:(SimplePing *)pinger didReceivePingResponsePacket:(NSData *)packet {

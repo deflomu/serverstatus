@@ -37,9 +37,13 @@
 	return status;
 }
 
-- (void)serverDidFail {
+- (void)serverDidFail:(Server *)server {
 	[self.statusItem setImage:serversFail];
 	[self.statusItem setAlternateImage:serversFailAlternate];
+	
+	if (server) {
+			//Growl here
+	}
 }
 
 - (void)serverDidError {
@@ -57,7 +61,7 @@
 		} else if (serversDownCounter == 0) {
 			[self serverDidError];
 		} else {
-			[self serverDidFail];
+			[self serverDidFail:nil];
 		}
 	} else {
 		[self.statusItem setImage:serversInactive];
@@ -75,7 +79,7 @@
 		switch (status) {
 			case SERVER_FAIL:
 				serversDownCounter++;
-				[self serverDidFail];
+				[self serverDidFail:server];
 				break;
 			case SERVER_ERROR:
 				serversErrorCounter++;
@@ -251,6 +255,5 @@
 	[self.statusItem setImage:serversInactive];
 	[self.statusItem setAlternateImage:serversInactiveAlternate];
 	[self.statusItem setHighlightMode:YES];
-	
 }
 @end
