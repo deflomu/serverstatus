@@ -28,9 +28,10 @@
 }
 
 - (void)stopPinging {
-	if (self.pingTimeout != nil) {
+	if (self.pingTimeout) {
 		[self.pingTimeout invalidate];
 	}
+	
 	self.pinging = NO;
 	[self.pinger stop];
 }
@@ -42,10 +43,14 @@
 
 - (void)setServerHost:(NSString *)host {
 	if (serverHost != host) {
-		[self stopPinging];
-		self.pinger = nil;
+		if (self.pinger) {
+			[self stopPinging];
+			self.pinger = nil;
+		}
+		
 		[serverHost release];
 		serverHost = [host retain];
+		
 		if (host) {
 			self.pinger = [SimplePing simplePingWithHostName:host];
 			self.pinger.delegate = self;
@@ -142,7 +147,7 @@
 			 error:(NSError *)error {
 	[self stopPinging];
 	self.serverStatus = SERVER_ERROR;
-	NSLog(@"%@: Failed to send Packet", self.serverName);
+	NSLog(@"%@: Failed to send Packet: %@", self.serverName, [error localizedDescription]);
 }
 
 - (void)simplePing:(SimplePing *)pinger didReceivePingResponsePacket:(NSData *)packet {

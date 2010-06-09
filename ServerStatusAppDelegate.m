@@ -33,12 +33,16 @@ static void networkStatusChanged(SCNetworkReachabilityRef	network,
 	ServerStatusAppDelegate *_self = (ServerStatusAppDelegate *)info;
 	
 	if (flags & kSCNetworkFlagsReachable && !(flags & kSCNetworkFlagsConnectionRequired)) {
-		_self.networkAvailable = YES;
+		if (!_self.networkAvailable) {
+			_self.networkAvailable = YES;
+			[_self sendNotificationNetworkIsAvailable];
+		}
 	} else {
-		_self.networkAvailable = NO;
+		if (_self.networkAvailable) {
+			_self.networkAvailable = NO;
+			[_self sendNotificationNetworkIsAvailable];
+		}
 	}
-	[_self sendNotificationNetworkIsAvailable];
-
 }
 
 #pragma mark -

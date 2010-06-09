@@ -6,7 +6,7 @@
 //  Copyright 2010 skweez.net. All rights reserved.
 //
 
-#define TIMER_INTERVAL 30
+#define TIMER_INTERVAL 60*5
 
 #import <Cocoa/Cocoa.h>
 #import "Server.h"
