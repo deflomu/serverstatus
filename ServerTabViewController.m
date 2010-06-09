@@ -12,6 +12,19 @@
 @implementation ServerTabViewController
 @synthesize serverName, serverHost, lastKnownAddress, server;
 
+- (void)setServer:(Server *)s {
+	[server removeObserver:self forKeyPath:@"lastKnownAddress"];
+	
+	if (s) {
+		[s addObserver:self
+			forKeyPath:@"lastKnownAddress"
+			   options:0
+			   context:nil];
+	}
+	
+	server = s;
+}
+
 - (void)awakeFromNib {
 	[self addObserver:self
 		   forKeyPath:@"server"
@@ -22,6 +35,7 @@
 - (void) dealloc
 {
 	[self removeObserver:self forKeyPath:@"server"];
+	self.server = nil;
 	[super dealloc];
 }
 
@@ -31,6 +45,9 @@
 						change:(NSDictionary *)change
 					   context:(void *)context {
 	if ([keyPath isEqualToString:@"server"]) {
+		[self updateView];
+	}
+	if (keyPath = @"lastKnownAddress") {
 		[self updateView];
 	}
 }
@@ -50,8 +67,5 @@
 - (void)controlTextDidEndEditing:(NSNotification *)obj {
 	self.server.serverHost = [self.serverHost stringValue];
 }
-
-
-
 
 @end
