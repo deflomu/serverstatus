@@ -12,9 +12,32 @@
 @implementation GrowlController
 
 #pragma mark -
+#pragma mark Public
+- (void)growlServerFailed:(Server *)server {
+	[GrowlApplicationBridge notifyWithTitle:@"Server down"
+								description:[NSString stringWithFormat:@"%@ is down", server.serverName]
+						   notificationName:@"Fail"
+								   iconData:nil
+								   priority:1
+								   isSticky:NO
+							   clickContext:nil];
+}
+
+- (void)growlServerError:(Server *)server {
+	
+}
+
+#pragma mark -
 #pragma mark Growl delegates
 - (NSDictionary *) registrationDictionaryForGrowl {
-	return nil;
+	NSArray* defaults = [NSArray arrayWithObjects:@"Fail", @"Error", nil];
+	
+    NSDictionary* growlRegDict = [NSDictionary dictionaryWithObjectsAndKeys:
+								  defaults, GROWL_NOTIFICATIONS_DEFAULT,
+								  defaults, GROWL_NOTIFICATIONS_ALL,
+								  nil];
+	
+    return growlRegDict;
 }
 
 - (NSString *) applicationNameForGrowl {

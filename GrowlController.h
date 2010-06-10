@@ -8,10 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 #import <Growl/Growl.h>
+#import "Server.h"
 
 
 @interface GrowlController : NSObject <GrowlApplicationBridgeDelegate> {
 
 }
+
+- (void)growlServerFailed:(Server *)server;
+- (void)growlServerError:(Server *)server;
 
 @end

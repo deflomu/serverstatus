@@ -30,10 +30,24 @@
 		55DABF1811B4FEB1006C83C6 /* MenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DABF1711B4FEB1006C83C6 /* MenuItemView.m */; };
 		55DABFCD11B5273C006C83C6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55DABFCC11B5273C006C83C6 /* SystemConfiguration.framework */; };
 		55DC5CF311A9E34C0043AE28 /* ServerTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DC5CF211A9E34C0043AE28 /* ServerTabViewController.m */; };
+		55EE99D911C0DD1A000D9584 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5576A87D11C0410600AB1864 /* Growl.framework */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		55EE99C611C0DC5C000D9584 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				55EE99D911C0DD1A000D9584 /* Growl.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -237,6 +251,7 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
+				55EE99C611C0DC5C000D9584 /* CopyFiles */,
 			);
 			buildRules = (
 			);

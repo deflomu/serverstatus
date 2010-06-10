@@ -10,6 +10,7 @@
 #import "Server.h"
 #import "ServerMenuItemController.h"
 #import "MenuItemView.h"
+#import "GrowlController.h"
 
 #define NAME_TEXTFIELD 0
 #define STATUS_TEXTFIELD 1
@@ -29,6 +30,8 @@
 	NSInteger serversErrorCounter;
 	
 	BOOL hasConnection;
+	
+	GrowlController *growlController;
 }
 
 @property (retain) NSStatusItem *statusItem;

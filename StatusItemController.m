@@ -42,7 +42,7 @@
 	[self.statusItem setAlternateImage:serversFailAlternate];
 	
 	if (server) {
-			//Growl here
+		[growlController growlServerFailed:server];
 	}
 }
 
@@ -231,6 +231,8 @@
 			   selector:@selector(networkConnectionChanged:)
 				   name:NetworkChangeNotification
 				 object:nil];
+		
+		growlController = [[[GrowlController alloc] init] autorelease];
 	}
 	return self;
 }
