@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #include "SimplePing.h"
 
+#define MaxPingTimeoutCount 3
+#define PingTimoutInSeconds 10
+
 typedef enum {
 	SERVER_UNKNOWN,
 	SERVER_OK,
@@ -23,6 +26,8 @@ typedef enum {
 	NSString *serverHost;
 	NSError *serverError;
 	NSData *lastKnownAddress;
+	
+	NSInteger errorCount;
 	
 	ServerStatus serverStatus;
 	ServerStatus previousStatus;
@@ -42,6 +47,7 @@ typedef enum {
 @property (retain) NSData *lastKnownAddress;
 @property BOOL active;
 @property BOOL pinging;
+@property NSInteger pingTimeoutCount;
 @property (nonatomic) ServerStatus serverStatus;
 @property ServerStatus previousStatus;
 @property (retain) SimplePing *pinger;

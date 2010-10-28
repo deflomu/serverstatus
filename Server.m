@@ -12,7 +12,7 @@
 #include <netdb.h>
 
 @implementation Server
-@synthesize serverName, serverHost, serverError, lastKnownAddress, serverStatus, previousStatus, active, pinging, pingTimeout;
+@synthesize serverName, serverHost, serverError, lastKnownAddress, serverStatus, previousStatus, active, pinging, pingTimeout, pingTimeoutCount;
 @synthesize pinger		= _pinger;
 @synthesize delegate	= _delegate;
 
@@ -97,8 +97,14 @@
 								 userInfo:[NSDictionary
 										   dictionaryWithObject:@"Ping timed out"
 										   forKey:NSLocalizedDescriptionKey]];
-	self.serverStatus = SERVER_FAIL;
-	NSLog(@"%@: %@", self.serverName, [self.serverError localizedDescription]);
+	self.pingTimeoutCount ++;
+	if (self.pingTimeoutCount >= MaxPingTimeoutCount) {
+		self.serverStatus = SERVER_FAIL;
+	} else {
+		[self performSelectorInBackground:@selector(ping) withObject:self];
+	}
+
+	NSLog(@"%@: %@ (%d Try)", self.serverName, [self.serverError localizedDescription], self.pingTimeoutCount);
 }
 
 - (void)ping {
@@ -106,7 +112,7 @@
 		
 	[self startPinging];
 	
-	self.pingTimeout = [NSTimer scheduledTimerWithTimeInterval:10
+	self.pingTimeout = [NSTimer scheduledTimerWithTimeInterval:PingTimoutInSeconds
 												   target:self
 												 selector:@selector(pingTimedOut:)
 												 userInfo:nil
@@ -166,6 +172,7 @@
 - (void)simplePing:(SimplePing *)pinger didReceivePingResponsePacket:(NSData *)packet {
 	[self stopPinging];
 	self.serverStatus = SERVER_OK;
+	self.pingTimeoutCount = 0;
 }
 
 - (void)simplePing:(SimplePing *)pinger didFailWithError:(NSError *)e {
@@ -190,6 +197,7 @@
 	self.serverStatus = SERVER_UNKNOWN;
 	self.previousStatus = SERVER_UNKNOWN;
 	self.pinging = NO;
+	self.pingTimeoutCount = 0;
 	
 }
 

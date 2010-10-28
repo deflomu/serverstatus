@@ -22,7 +22,7 @@
 			status = NSLocalizedString(@"Server is reachable",@"Server is reachable");
 			break;
 		case SERVER_FAIL:
-			status = NSLocalizedString(@"Server is down",@"Server is down");
+			status = NSLocalizedString(@"Server is unreachable",@"Server is unreachable");
 			break;
 		case SERVER_UNKNOWN:
 			status = NSLocalizedString(@"Server status is unknown",@"Server status is unknown");
