@@ -19,8 +19,6 @@ typedef enum {
 	SERVER_ERROR
 } ServerStatus;
 
-@protocol ServerDelegate;
-
 @interface Server : NSObject <SimplePingDelegate, NSCoding> {
 	NSString *serverName;
 	NSString *serverHost;
@@ -37,8 +35,6 @@ typedef enum {
 	
 	SimplePing *_pinger;
 	NSTimer *pingTimeout;
-	
-	id<ServerDelegate>  _delegate;
 }
 
 @property (retain) NSString *serverName;
@@ -52,8 +48,6 @@ typedef enum {
 @property ServerStatus previousStatus;
 @property (retain) SimplePing *pinger;
 @property (retain) NSTimer *pingTimeout;
-
-@property (assign) id<ServerDelegate> delegate;
 
 + (Server *)server;
 

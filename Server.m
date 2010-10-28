@@ -14,7 +14,6 @@
 @implementation Server
 @synthesize serverName, serverHost, serverError, lastKnownAddress, serverStatus, previousStatus, active, pinging, pingTimeout, pingTimeoutCount;
 @synthesize pinger		= _pinger;
-@synthesize delegate	= _delegate;
 
 + (Server *)server {
 	return [[[Server alloc] init] autorelease];
