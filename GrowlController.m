@@ -14,8 +14,8 @@
 #pragma mark -
 #pragma mark Public
 - (void)growlServerFailed:(Server *)server {
-	[GrowlApplicationBridge notifyWithTitle:@"Server down"
-								description:[NSString stringWithFormat:@"%@ is down", server.serverName]
+	[GrowlApplicationBridge notifyWithTitle:[NSString stringWithFormat:@"%@ is down", server.serverName]
+								description:[server.serverError localizedDescription]
 						   notificationName:@"Fail"
 								   iconData:nil
 								   priority:1

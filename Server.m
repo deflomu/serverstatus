@@ -12,7 +12,7 @@
 #include <netdb.h>
 
 @implementation Server
-@synthesize serverName, serverHost, error, lastKnownAddress, serverStatus, previousStatus, active, pinging, pingTimeout;
+@synthesize serverName, serverHost, serverError, lastKnownAddress, serverStatus, previousStatus, active, pinging, pingTimeout;
 @synthesize pinger		= _pinger;
 @synthesize delegate	= _delegate;
 
@@ -92,8 +92,13 @@
 #pragma mark ping
 - (void)pingTimedOut:(NSTimer *)timer {
 	[self stopPinging];
+	self.serverError = [NSError errorWithDomain:PingTimeoutError
+									 code:PingTimeoutErrorCode
+								 userInfo:[NSDictionary
+										   dictionaryWithObject:@"Ping timed out"
+										   forKey:NSLocalizedDescriptionKey]];
 	self.serverStatus = SERVER_FAIL;
-	NSLog(@"%@: Ping timed out", self.serverName);
+	NSLog(@"%@: %@", self.serverName, [self.serverError localizedDescription]);
 }
 
 - (void)ping {
@@ -122,6 +127,13 @@
 			self.serverStatus = SERVER_UNKNOWN;
 		}
 	}
+	if ([keyPath isEqualToString:@"serverHost"]) {
+		if (self.active) {
+			[self stopPinging];
+			self.serverStatus = SERVER_UNKNOWN;
+			[self performSelectorInBackground:@selector(ping) withObject:self];
+		}
+	}
 }
 
 #pragma mark -
@@ -145,6 +157,7 @@
 
 - (void)simplePing:(SimplePing *)pinger didFailToSendPacket:(NSData *)packet
 			 error:(NSError *)e {
+	self.serverError = e;
 	[self stopPinging];
 	self.serverStatus = SERVER_ERROR;
 	NSLog(@"%@: Failed to send Packet: %@", self.serverName, [e localizedDescription]);
@@ -156,6 +169,7 @@
 }
 
 - (void)simplePing:(SimplePing *)pinger didFailWithError:(NSError *)e {
+	self.serverError = e;
 	[self stopPinging];
 	self.serverStatus = SERVER_ERROR;
 	NSLog(@"%@: Did fail with Error: %@", self.serverName, [e localizedDescription]);
@@ -165,6 +179,7 @@
 #pragma mark Init
 - (void)initializeValues {
 	[self addObserver:self forKeyPath:@"active" options:0 context:NULL];
+	[self addObserver:self forKeyPath:@"serverHost" options:0 context:NULL];
 	
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self
@@ -186,6 +201,7 @@
 		self.serverHost = @"127.0.0.1";
 		self.lastKnownAddress = nil; 
 		self.active = NO;
+		self.serverError = nil;
 		[self initializeValues];
 	}
 	return self;
@@ -196,12 +212,14 @@
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self];
 	[self removeObserver:self forKeyPath:@"active"];
+	[self removeObserver:self forKeyPath:@"serverHost"];
 	[self stopPinging];
     self.pinger = nil;
 	self.pingTimeout = nil;
 	self.lastKnownAddress = nil;
 	self.serverName = nil;
 	self.serverHost = nil;
+	self.serverError = nil;
 	[super dealloc];
 }
 

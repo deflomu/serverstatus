@@ -9,9 +9,10 @@
 #import <Cocoa/Cocoa.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "Server.h"
-#import "PreferenceWindowController.h";
+#import "PreferenceWindowController.h"
 #import "ServerListController.h"
 #import "StatusItemController.h"
+#import "Sparkle/Sparkle.h"
 
 @interface ServerStatusAppDelegate : NSObject <NSApplicationDelegate> {
 	PreferenceWindowController *preferenceWindowController;
@@ -22,7 +23,8 @@
 
 @property (assign) IBOutlet ServerListController *serverListController;
 @property (assign) IBOutlet StatusItemController *statusItemController;
-@property (assign) BOOL networkAvailable;;
+@property (assign) IBOutlet SUUpdater *sUUpdater;
+@property (assign) BOOL networkAvailable;
 
 - (IBAction)showPreferenceWindow:(id)sender;
 

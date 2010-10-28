@@ -21,7 +21,7 @@
 @property (assign) IBOutlet NSTextField *serverHost;
 @property (assign) IBOutlet NSTextField *lastKnownAddress;
 
-@property (assign) Server *server;
+@property (nonatomic, assign) Server *server;
 
 - (void)updateView;
 

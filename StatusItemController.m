@@ -142,8 +142,8 @@
 	[serverName setStringValue:server.serverName];
 	[serverStatus setStringValue:[self getStatusString:server.serverStatus]];
 	
-	NSMenuItem *menuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]]
-				initWithTitle:@"" action:NULL keyEquivalent:@""];
+	NSMenuItem *menuItem = [[[NSMenuItem allocWithZone:[NSMenu menuZone]]
+				initWithTitle:@"" action:NULL keyEquivalent:@""] autorelease];
 	[menuItem setView:serverItemMenuView];
 	[menuItem setTarget:self];
 	

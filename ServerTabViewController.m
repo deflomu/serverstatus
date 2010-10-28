@@ -47,7 +47,7 @@
 	if ([keyPath isEqualToString:@"server"]) {
 		[self updateView];
 	}
-	if (keyPath = @"lastKnownAddress") {
+	if (keyPath == @"lastKnownAddress") {
 		[self updateView];
 	}
 }
@@ -56,10 +56,12 @@
 	if (server) {
 		[self.serverName setStringValue:self.server.serverName];
 		[self.serverHost setStringValue:self.server.serverHost];
+		[self.serverHost setEditable:YES];
 		[self.lastKnownAddress setStringValue:[self.server lastKnownAddressAsString]];
 	} else {
 		[self.serverName setStringValue:@"Server"];
 		[self.serverHost setStringValue:@""];
+		[self.serverHost setEditable:NO];
 		[self.lastKnownAddress setStringValue:@""];
 	}
 }

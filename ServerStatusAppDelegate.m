@@ -10,7 +10,7 @@
 #import "PreferenceWindowController.h"
 
 @implementation ServerStatusAppDelegate
-@synthesize serverListController, statusItemController, networkAvailable;
+@synthesize serverListController, statusItemController, sUUpdater, networkAvailable;
 
 #pragma mark -
 #pragma mark Network Status
@@ -48,6 +48,7 @@ static void networkStatusChanged(SCNetworkReachabilityRef	network,
 #pragma mark -
 #pragma mark General functions
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+		// load user defaults
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
 						   [NSKeyedArchiver archivedDataWithRootObject:[NSArray array]], @"serverList",
@@ -56,6 +57,7 @@ static void networkStatusChanged(SCNetworkReachabilityRef	network,
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
+		// save user defaults
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.serverListController.serverList];
 	[defaults setObject:data forKey:@"serverList"];

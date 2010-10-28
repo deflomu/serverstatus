@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,6 +25,9 @@
 		5576A87E11C0410600AB1864 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5576A87D11C0410600AB1864 /* Growl.framework */; };
 		5576A88B11C0429100AB1864 /* GrowlController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5576A88A11C0429100AB1864 /* GrowlController.m */; };
 		5598B3E011B1ADF50095BED4 /* ServerMenuItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5598B3DF11B1ADF50095BED4 /* ServerMenuItemController.m */; };
+		55A92FB412795630007F8069 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A92FB312795630007F8069 /* Sparkle.framework */; };
+		55A92FD6127956D3007F8069 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55A92FB312795630007F8069 /* Sparkle.framework */; };
+		55A92FE012795BF2007F8069 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 55A92FDF12795BF2007F8069 /* dsa_pub.pem */; };
 		55B64AB2119C9F4900A123AC /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B64AB1119C9F4900A123AC /* SimplePing.m */; };
 		55C39C8C11B1A44D004C69A5 /* ServerMenuItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55C39C8B11B1A44D004C69A5 /* ServerMenuItem.xib */; };
 		55DABF1811B4FEB1006C83C6 /* MenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DABF1711B4FEB1006C83C6 /* MenuItemView.m */; };
@@ -43,6 +46,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				55A92FD6127956D3007F8069 /* Sparkle.framework in CopyFiles */,
 				55EE99D911C0DD1A000D9584 /* Growl.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -84,6 +88,8 @@
 		5598B3DE11B1ADF50095BED4 /* ServerMenuItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerMenuItemController.h; sourceTree = "<group>"; };
 		5598B3DF11B1ADF50095BED4 /* ServerMenuItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerMenuItemController.m; sourceTree = "<group>"; };
 		55A139B111A566A5003E22CC /* globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = globals.h; sourceTree = "<group>"; };
+		55A92FB312795630007F8069 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		55A92FDF12795BF2007F8069 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		55B64AB0119C9F4900A123AC /* SimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePing.h; sourceTree = "<group>"; };
 		55B64AB1119C9F4900A123AC /* SimplePing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePing.m; sourceTree = "<group>"; };
 		55C39C8B11B1A44D004C69A5 /* ServerMenuItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerMenuItem.xib; sourceTree = "<group>"; };
@@ -104,6 +110,7 @@
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				55DABFCD11B5273C006C83C6 /* SystemConfiguration.framework in Frameworks */,
 				5576A87E11C0410600AB1864 /* Growl.framework in Frameworks */,
+				55A92FB412795630007F8069 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,9 +124,9 @@
 				551994C211AEFAA6009DF24D /* Preferences */,
 				55C39C5911B19469004C69A5 /* Status Bar */,
 				256AC3D80F4B6AC300CF3369 /* ServerStatusAppDelegate.h */,
+				256AC3D90F4B6AC300CF3369 /* ServerStatusAppDelegate.m */,
 				5576A88911C0429100AB1864 /* GrowlController.h */,
 				5576A88A11C0429100AB1864 /* GrowlController.m */,
-				256AC3D90F4B6AC300CF3369 /* ServerStatusAppDelegate.m */,
 				551993F111AED8AF009DF24D /* ServerListController.h */,
 				551993F211AED8AF009DF24D /* ServerListController.m */,
 			);
@@ -129,6 +136,8 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				55A92FB312795630007F8069 /* Sparkle.framework */,
+				5576A87D11C0410600AB1864 /* Growl.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -141,7 +150,6 @@
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
 				55DABFCC11B5273C006C83C6 /* SystemConfiguration.framework */,
-				5576A87D11C0410600AB1864 /* Growl.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
@@ -179,7 +187,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5567975511AAD8EB004B7E25 /* Preferences.xib */,
 				551949BA119CC81F00A50789 /* serverOk.pdf */,
+				55A92FDF12795BF2007F8069 /* dsa_pub.pem */,
 				55194A5A119D646E00A50789 /* serverOkAlternate.pdf */,
 				55194A2B119D5C1C00A50789 /* serverWarning.pdf */,
 				55194A79119D65EA00A50789 /* serverWarningAlternate.pdf */,
@@ -222,7 +232,6 @@
 				55DC5CF211A9E34C0043AE28 /* ServerTabViewController.m */,
 				5567975F11AADC1E004B7E25 /* PreferenceWindowController.h */,
 				5567976011AADC1E004B7E25 /* PreferenceWindowController.m */,
-				5567975511AAD8EB004B7E25 /* Preferences.xib */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -269,8 +278,15 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ServerStatus" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* ServerStatus */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -296,6 +312,7 @@
 				55194A88119D66C800A50789 /* serverInactive.pdf in Resources */,
 				5567975611AAD8EB004B7E25 /* Preferences.xib in Resources */,
 				55C39C8C11B1A44D004C69A5 /* ServerMenuItem.xib in Resources */,
+				55A92FE012795BF2007F8069 /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,7 +367,6 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../Downloads/Growl-1.2.1-Framework\"",
 					"\"$(SRCROOT)\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -372,7 +388,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../Downloads/Growl-1.2.1-Framework\"",
 					"\"$(SRCROOT)\"",
 				);
 				GCC_MODEL_TUNING = G5;
@@ -390,7 +405,32 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_MISSING_PARENTHESES = YES;
+				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = YES;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_PROTOTYPE_CONVERSION = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
@@ -403,6 +443,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
