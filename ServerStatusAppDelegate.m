@@ -10,7 +10,7 @@
 #import "PreferenceWindowController.h"
 
 @implementation ServerStatusAppDelegate
-@synthesize serverListController, statusItemController, sUUpdater, networkAvailable;
+@synthesize serverListController, statusItemController, suupdater, networkAvailable;
 
 #pragma mark -
 #pragma mark Network Status

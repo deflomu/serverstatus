@@ -103,7 +103,7 @@
 		[self performSelectorInBackground:@selector(ping) withObject:self];
 	}
 
-	NSLog(@"%@: %@ (%d Try)", self.serverName, [self.serverError localizedDescription], self.pingTimeoutCount);
+	NSLog(@"%@: %@ (%ld Try)", self.serverName, [self.serverError localizedDescription], (long)self.pingTimeoutCount);
 }
 
 - (void)ping {

@@ -18,12 +18,13 @@
 	PreferenceWindowController *preferenceWindowController;
 	ServerListController *serverListController;
 	StatusItemController *statusItemController;
+	SUUpdater *suupdater;
 	BOOL networkAvailable;
 }
 
 @property (assign) IBOutlet ServerListController *serverListController;
 @property (assign) IBOutlet StatusItemController *statusItemController;
-@property (assign) IBOutlet SUUpdater *sUUpdater;
+@property (assign) IBOutlet SUUpdater *suupdater;
 @property (assign) BOOL networkAvailable;
 
 - (IBAction)showPreferenceWindow:(id)sender;

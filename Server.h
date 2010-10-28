@@ -25,7 +25,7 @@ typedef enum {
 	NSError *serverError;
 	NSData *lastKnownAddress;
 	
-	NSInteger errorCount;
+	NSInteger pingTimeoutCount;
 	
 	ServerStatus serverStatus;
 	ServerStatus previousStatus;
