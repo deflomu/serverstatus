@@ -91,19 +91,19 @@
 #pragma mark ping
 - (void)pingTimedOut:(NSTimer *)timer {
 	[self stopPinging];
-	self.serverError = [NSError errorWithDomain:PingTimeoutError
-									 code:PingTimeoutErrorCode
-								 userInfo:[NSDictionary
-										   dictionaryWithObject:@"Ping timed out"
-										   forKey:NSLocalizedDescriptionKey]];
 	self.pingTimeoutCount ++;
 	if (self.pingTimeoutCount >= MaxPingTimeoutCount) {
 		self.serverStatus = SERVER_FAIL;
+		self.serverError = [NSError errorWithDomain:PingTimeoutError
+											   code:PingTimeoutErrorCode
+										   userInfo:[NSDictionary
+													 dictionaryWithObject:@"Ping timed out"
+													 forKey:NSLocalizedDescriptionKey]];
+		self.pingTimeoutCount = 0;
 	} else {
 		[self performSelectorInBackground:@selector(ping) withObject:self];
 	}
 
-	NSLog(@"%@: %@ (%ld Try)", self.serverName, [self.serverError localizedDescription], (long)self.pingTimeoutCount);
 }
 
 - (void)ping {
