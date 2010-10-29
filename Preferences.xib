@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="111"/>
+			<integer value="130"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -811,7 +811,7 @@
 											<object class="NSTextField" id="584958119">
 												<reference key="NSNextResponder" ref="707827778"/>
 												<int key="NSvFlags">268</int>
-												<string key="NSFrame">{{14, 17}, {60, 17}}</string>
+												<string key="NSFrame">{{14, 17}, {114, 17}}</string>
 												<reference key="NSSuperview" ref="707827778"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSTextFieldCell" key="NSCell" id="913719626">
@@ -1026,6 +1026,14 @@
 						</object>
 					</object>
 					<int key="connectionID">247</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">version</string>
+						<reference key="source" ref="100965761"/>
+						<reference key="destination" ref="584958119"/>
+					</object>
+					<int key="connectionID">251</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1420,6 +1428,7 @@
 					<string>111.windowTemplate.minSize</string>
 					<string>112.IBPluginDependency</string>
 					<string>113.IBPluginDependency</string>
+					<string>114.IBAttributePlaceholdersKey</string>
 					<string>114.IBPluginDependency</string>
 					<string>115.IBPluginDependency</string>
 					<string>116.IBPluginDependency</string>
@@ -1479,6 +1488,14 @@
 					<string>{555, 324}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSMutableDictionary">
+						<string key="NS.key.0">InitialTabViewItem</string>
+						<object class="IBInitialTabViewItemAttribute" key="NS.object.0">
+							<string key="name">InitialTabViewItem</string>
+							<reference key="object" ref="573358105"/>
+							<reference key="initialTabViewItem" ref="1049868766"/>
+						</object>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1559,7 +1576,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">247</int>
+			<int key="maxID">251</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1676,9 +1693,11 @@
 							<string>lastKnownAddress</string>
 							<string>serverHost</string>
 							<string>serverName</string>
+							<string>version</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSTextField</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
@@ -1691,6 +1710,7 @@
 							<string>lastKnownAddress</string>
 							<string>serverHost</string>
 							<string>serverName</string>
+							<string>version</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1704,6 +1724,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">serverName</string>
+								<string key="candidateClassName">NSTextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">version</string>
 								<string key="candidateClassName">NSTextField</string>
 							</object>
 						</object>

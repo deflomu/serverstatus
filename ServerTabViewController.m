@@ -10,7 +10,7 @@
 
 
 @implementation ServerTabViewController
-@synthesize serverName, serverHost, lastKnownAddress, server;
+@synthesize serverName, serverHost, lastKnownAddress, server, version;
 
 - (void)setServer:(Server *)s {
 	[server removeObserver:self forKeyPath:@"lastKnownAddress"];
@@ -30,6 +30,9 @@
 		   forKeyPath:@"server"
 			  options:0
 			  context:NULL];
+	[self.version setStringValue:
+	 [NSString stringWithFormat:@"Version: %@",
+	  [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"]]];
 }
 
 - (void) dealloc
