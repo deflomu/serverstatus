@@ -14,13 +14,15 @@
 #pragma mark -
 #pragma mark Public
 - (void)growlServerFailed:(Server *)server {
-	[GrowlApplicationBridge notifyWithTitle:[NSString stringWithFormat:@"%@ is down", server.serverName]
-								description:[server.serverError localizedDescription]
-						   notificationName:@"Fail"
-								   iconData:nil
-								   priority:1
-								   isSticky:NO
-							   clickContext:nil];
+	if ( [[NSUserDefaults standardUserDefaults] boolForKey:@"showGrowlNotifications"] ) {
+		[GrowlApplicationBridge notifyWithTitle:[NSString stringWithFormat:@"%@ is down", server.serverName]
+									description:[server.serverError localizedDescription]
+							   notificationName:@"Fail"
+									   iconData:nil
+									   priority:1
+									   isSticky:NO
+								   clickContext:nil];
+	}
 }
 
 - (void)growlServerError:(Server *)server {

@@ -125,8 +125,6 @@
 				55C39C5911B19469004C69A5 /* Status Bar */,
 				256AC3D80F4B6AC300CF3369 /* ServerStatusAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* ServerStatusAppDelegate.m */,
-				5576A88911C0429100AB1864 /* GrowlController.h */,
-				5576A88A11C0429100AB1864 /* GrowlController.m */,
 				551993F111AED8AF009DF24D /* ServerListController.h */,
 				551993F211AED8AF009DF24D /* ServerListController.m */,
 			);
@@ -187,6 +185,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				55C39C8B11B1A44D004C69A5 /* ServerMenuItem.xib */,
 				5567975511AAD8EB004B7E25 /* Preferences.xib */,
 				551949BA119CC81F00A50789 /* serverOk.pdf */,
 				55A92FDF12795BF2007F8069 /* dsa_pub.pem */,
@@ -239,11 +238,12 @@
 		55C39C5911B19469004C69A5 /* Status Bar */ = {
 			isa = PBXGroup;
 			children = (
+				5576A88911C0429100AB1864 /* GrowlController.h */,
+				5576A88A11C0429100AB1864 /* GrowlController.m */,
 				5598B3DE11B1ADF50095BED4 /* ServerMenuItemController.h */,
 				5598B3DF11B1ADF50095BED4 /* ServerMenuItemController.m */,
 				5514E7D111A5CA7C00AB722A /* StatusItemController.h */,
 				5514E7D211A5CA7C00AB722A /* StatusItemController.m */,
-				55C39C8B11B1A44D004C69A5 /* ServerMenuItem.xib */,
 				55DABF1611B4FEB1006C83C6 /* MenuItemView.h */,
 				55DABF1711B4FEB1006C83C6 /* MenuItemView.m */,
 			);

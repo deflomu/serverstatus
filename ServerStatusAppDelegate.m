@@ -48,7 +48,7 @@ static void networkStatusChanged(SCNetworkReachabilityRef	network,
 #pragma mark -
 #pragma mark General functions
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-		// load user defaults
+		// load default preferences
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
 						   [NSKeyedArchiver archivedDataWithRootObject:[NSArray array]], @"serverList",
@@ -57,7 +57,7 @@ static void networkStatusChanged(SCNetworkReachabilityRef	network,
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
-		// save user defaults
+		// save serverList in user preferences
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.serverListController.serverList];
 	[defaults setObject:data forKey:@"serverList"];

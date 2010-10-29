@@ -161,6 +161,14 @@
 					</object>
 					<int key="connectionID">688</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">suupdater</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="337156498"/>
+					</object>
+					<int key="connectionID">690</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -267,7 +275,7 @@
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{636, 679}, {131, 63}}</string>
+					<string>{{781, 927}, {131, 63}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableDictionary">
@@ -302,7 +310,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">689</int>
+			<int key="maxID">691</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -344,31 +352,27 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>sUUpdater</string>
 							<string>serverListController</string>
 							<string>statusItemController</string>
+							<string>suupdater</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>SUUpdater</string>
 							<string>ServerListController</string>
 							<string>StatusItemController</string>
+							<string>SUUpdater</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>sUUpdater</string>
 							<string>serverListController</string>
 							<string>statusItemController</string>
+							<string>suupdater</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">sUUpdater</string>
-								<string key="candidateClassName">SUUpdater</string>
-							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">serverListController</string>
 								<string key="candidateClassName">ServerListController</string>
@@ -376,6 +380,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">statusItemController</string>
 								<string key="candidateClassName">StatusItemController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">suupdater</string>
+								<string key="candidateClassName">SUUpdater</string>
 							</object>
 						</object>
 					</object>

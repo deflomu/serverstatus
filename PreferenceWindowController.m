@@ -10,7 +10,7 @@
 
 
 @implementation PreferenceWindowController
-@synthesize serverListController, serverListTableController;
+@synthesize serverListController;
 
 #pragma mark -
 #pragma mark init
@@ -22,7 +22,7 @@
 }
 
 - (void)awakeFromNib {
-	self.serverListTableController.serverListController = self.serverListController;
+	serverListTableController.serverListController = serverListController;
 }
 
 - (void)windowDidLoad {
