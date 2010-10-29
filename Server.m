@@ -93,12 +93,12 @@
 	[self stopPinging];
 	self.pingTimeoutCount ++;
 	if (self.pingTimeoutCount >= MaxPingTimeoutCount) {
-		self.serverStatus = SERVER_FAIL;
 		self.serverError = [NSError errorWithDomain:PingTimeoutError
 											   code:PingTimeoutErrorCode
 										   userInfo:[NSDictionary
 													 dictionaryWithObject:@"Ping timed out"
 													 forKey:NSLocalizedDescriptionKey]];
+		self.serverStatus = SERVER_FAIL;
 		self.pingTimeoutCount = 0;
 	} else {
 		[self performSelectorInBackground:@selector(ping) withObject:self];

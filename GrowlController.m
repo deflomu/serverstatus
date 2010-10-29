@@ -20,7 +20,8 @@
 							   notificationName:@"Fail"
 									   iconData:nil
 									   priority:1
-									   isSticky:NO
+									   isSticky:[[NSUserDefaults standardUserDefaults]
+												 boolForKey:@"growlNotificationSticky"]
 								   clickContext:nil];
 	}
 }
@@ -53,6 +54,15 @@
 	self = [super init];
 	if (self != nil) {
 		[GrowlApplicationBridge setGrowlDelegate:self];
+		
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
+									 [NSNumber numberWithBool:YES], @"showGrowlNotifications",
+									 [NSNumber numberWithBool:NO], @"growlNotificationSticky",
+									 nil];
+		
+		[defaults registerDefaults:appDefaults];
+		
 	}
 	return self;
 }

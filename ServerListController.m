@@ -114,6 +114,12 @@
 			   selector:@selector(networkConnectionChanged:)
 				   name:NetworkChangeNotification
 				 object:nil];
+		
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+							  [NSKeyedArchiver archivedDataWithRootObject:[NSArray array]], @"serverList",
+							  nil];
+		[defaults registerDefaults:dict];
 	}
 	return self;
 }

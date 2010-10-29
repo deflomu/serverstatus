@@ -48,12 +48,6 @@ static void networkStatusChanged(SCNetworkReachabilityRef	network,
 #pragma mark -
 #pragma mark General functions
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-		// load default preferences
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-						   [NSKeyedArchiver archivedDataWithRootObject:[NSArray array]], @"serverList",
-						   nil];
-	[defaults registerDefaults:dict];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
@@ -64,6 +58,12 @@ static void networkStatusChanged(SCNetworkReachabilityRef	network,
 }
 
 - (void)awakeFromNib {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSDictionary *appDefaults = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES]
+															forKey:@"SUEnableAutomaticChecks"];
+	
+	[defaults registerDefaults:appDefaults];
+	
 	SCNetworkReachabilityRef network = SCNetworkReachabilityCreateWithName(NULL, "skweez.net");
 	
 	SCNetworkReachabilityContext context = {0, self, NULL, NULL, NULL};
