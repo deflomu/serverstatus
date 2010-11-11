@@ -16,7 +16,8 @@
 #pragma mark Private
 - (NSInteger)countActiveServersTo:(NSInteger)index {
 	NSInteger result = 0;
-	for (NSInteger i=0; i<index; i++) {
+	NSInteger i;
+	for (i=0; i<index; i++) {
 		Server *server = [self.serverList objectAtIndex:i];
 		if (server.active) {
 			result++;
