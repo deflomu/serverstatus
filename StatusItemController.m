@@ -54,7 +54,7 @@
 }
 
 - (void)serverDidOk {
-	if (hasConnection) {
+	if (hasConnection && [activeServerList count] != 0) {
 		if (serversDownCounter == 0 && serversErrorCounter == 0) {
 			[self.statusItem setImage:serversOk];
 			[self.statusItem setAlternateImage:serversOkAlternate];
@@ -171,6 +171,7 @@
 	[self.activeServerList insertObject:server atIndex:index];
 	NSMenuItem *item = [self createMenuItem:server];
 	[self.statusMenu insertItem:item atIndex:index];
+	[self serverDidOk];
 }
 
 - (void)removeServer:(Server *)server atIndex:(NSInteger)index {
@@ -188,8 +189,8 @@
 		default:
 			break;
 	}
-	[self serverDidOk];	
 	[self.activeServerList removeObject:server];
+	[self serverDidOk];
 }
 
 #pragma mark Status
