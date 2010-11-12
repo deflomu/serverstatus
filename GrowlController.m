@@ -18,7 +18,9 @@
 		[GrowlApplicationBridge notifyWithTitle:[NSString stringWithFormat:@"%@ is down", server.serverName]
 									description:[server.serverError localizedDescription]
 							   notificationName:@"Fail"
-									   iconData:nil
+									   iconData:[NSData
+												 dataWithData:[[NSImage
+																imageNamed:@"ServerStatus.icns"] TIFFRepresentation]]
 									   priority:1
 									   isSticky:[[NSUserDefaults standardUserDefaults]
 												 boolForKey:@"growlNotificationSticky"]

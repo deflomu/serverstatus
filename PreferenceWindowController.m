@@ -10,7 +10,7 @@
 
 
 @implementation PreferenceWindowController
-@synthesize serverListController;
+@synthesize tabView, serverListController;
 
 #pragma mark -
 #pragma mark init
@@ -26,6 +26,11 @@
 }
 
 - (void)windowDidLoad {
+}
+
+- (IBAction)showWindow:(id) sender {
+	[self.tabView selectTabViewItem:[self.tabView tabViewItemAtIndex:0]];
+	[super showWindow:sender];
 }
 
 #pragma mark -

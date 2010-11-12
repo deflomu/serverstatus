@@ -18,6 +18,7 @@
 		
 	Server *server;
 }
+
 @property (assign) IBOutlet NSTextField *serverName;
 @property (assign) IBOutlet NSTextField *serverHost;
 @property (assign) IBOutlet NSTextField *lastKnownAddress;

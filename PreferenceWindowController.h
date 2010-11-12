@@ -13,9 +13,11 @@
 @interface PreferenceWindowController : NSWindowController {
 	ServerListController *serverListController;
 	IBOutlet ServerListTableController *serverListTableController;
+	IBOutlet NSTabView *tabView;
 }
 
 @property (assign) ServerListController *serverListController;
+@property (assign) IBOutlet NSTabView *tabView;
 
 - (IBAction)pushClose:(NSButton *)sender;
 @end

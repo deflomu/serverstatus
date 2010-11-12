@@ -33,6 +33,7 @@
 		55194A7A119D65EA00A50789 /* serverWarningAlternate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 55194A79119D65EA00A50789 /* serverWarningAlternate.pdf */; };
 		55194A88119D66C800A50789 /* serverInactive.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 55194A87119D66C800A50789 /* serverInactive.pdf */; };
 		551993F311AED8AF009DF24D /* ServerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 551993F211AED8AF009DF24D /* ServerListController.m */; };
+		551A9D8D128DB2590009747D /* ServerStatus.icns in Resources */ = {isa = PBXBuildFile; fileRef = 551A9D8C128DB2590009747D /* ServerStatus.icns */; };
 		5565262A11A68A0D003D2A34 /* ServerListTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5565262911A68A0D003D2A34 /* ServerListTableController.m */; };
 		5567975611AAD8EB004B7E25 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5567975511AAD8EB004B7E25 /* Preferences.xib */; };
 		5567976111AADC1E004B7E25 /* PreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5567976011AADC1E004B7E25 /* PreferenceWindowController.m */; };
@@ -91,6 +92,7 @@
 		55194A87119D66C800A50789 /* serverInactive.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = serverInactive.pdf; sourceTree = "<group>"; };
 		551993F111AED8AF009DF24D /* ServerListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerListController.h; sourceTree = "<group>"; };
 		551993F211AED8AF009DF24D /* ServerListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerListController.m; sourceTree = "<group>"; };
+		551A9D8C128DB2590009747D /* ServerStatus.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ServerStatus.icns; sourceTree = "<group>"; };
 		5565262811A68A0D003D2A34 /* ServerListTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerListTableController.h; sourceTree = "<group>"; };
 		5565262911A68A0D003D2A34 /* ServerListTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerListTableController.m; sourceTree = "<group>"; };
 		5567975511AAD8EB004B7E25 /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				551A9D8C128DB2590009747D /* ServerStatus.icns */,
 				55C39C8B11B1A44D004C69A5 /* ServerMenuItem.xib */,
 				5567975511AAD8EB004B7E25 /* Preferences.xib */,
 				551949BA119CC81F00A50789 /* serverOk.pdf */,
@@ -342,6 +345,7 @@
 				5567975611AAD8EB004B7E25 /* Preferences.xib in Resources */,
 				55C39C8C11B1A44D004C69A5 /* ServerMenuItem.xib in Resources */,
 				55A92FE012795BF2007F8069 /* dsa_pub.pem in Resources */,
+				551A9D8D128DB2590009747D /* ServerStatus.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,7 +376,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "set -o errexit\n\n[ $BUILD_STYLE = Release ] || { echo Distribution target requires \"'Release'\" build style; false; }\n\nVERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleVersion)\nDOWNLOAD_BASE_URL=\"http://update.skweez.net/ServerStatus/\"\nRELEASENOTES_URL=\"http://update.skweez.net/ServerStatus/release-notes.html#version-$VERSION\"\n\nARCHIVE_FILENAME=\"$PROJECT_NAME $VERSION.zip\"\nDOWNLOAD_URL=\"$DOWNLOAD_BASE_URL/$ARCHIVE_FILENAME\"\nKEYCHAIN_PRIVKEY_NAME=\"Sparkle Private Key 1\"\n\nWD=$PWD\ncd \"$BUILT_PRODUCTS_DIR\"\nrm -f \"$PROJECT_NAME\"*.zip\nditto -ck --keepParent \"$PROJECT_NAME.app\" \"$ARCHIVE_FILENAME\"\n\nSIZE=$(stat -f %z \"$ARCHIVE_FILENAME\")\nPUBDATE=$(LC_TIME=en_US date +\"%a, %d %b %G %T %z\")\nSIGNATURE=$(\n\topenssl dgst -sha1 -binary < \"$ARCHIVE_FILENAME\" \\\n\t| openssl dgst -dss1 -sign <(security find-generic-password -g -s \"$KEYCHAIN_PRIVKEY_NAME\" 2>&1 1>/dev/null | perl -pe '($_) = /\"(.+)\"/; s/\\\\012/\\n/g' | perl -MXML::LibXML -e 'print XML::LibXML->new()->parse_file(\"-\")->findvalue(q(//string[preceding-sibling::key[1] = \"NOTE\"]))') \\\n\t| openssl enc -base64\n)\n\n[ $SIGNATURE ] || { echo Unable to load signing private key with name \"'$KEYCHAIN_PRIVKEY_NAME'\" from keychain; false; }\n\ncat <<EOF\n\t\t<item>\n\t\t\t<title>Version $VERSION</title>\n\t\t\t<sparkle:releaseNotesLink>$RELEASENOTES_URL</sparkle:releaseNotesLink>\n\t\t\t<pubDate>$PUBDATE</pubDate>\n\t\t\t<enclosure\n\t\t\t\turl=\"$DOWNLOAD_URL\"\n\t\t\t\tsparkle:version=\"$VERSION\"\n\t\t\t\ttype=\"application/octet-stream\"\n\t\t\t\tlength=\"$SIZE\"\n\t\t\t\tsparkle:dsaSignature=\"$SIGNATURE\"\n\t\t\t/>\n\t\t</item>\nEOF\n\necho scp \"'$HOME/Developer/ServerStatus/build/Release/$ARCHIVE_FILENAME'\" v:/var/www/update.skweez.net/htdocs/ServerStatus/\necho scp \"'$WD/appcast.xml'\" v:/var/www/update.skweez.net/htdocs/ServerStatus/appcast.xml";
+			shellScript = "set -o errexit\n\n[ $BUILD_STYLE = Release ] || { echo Distribution target requires \"'Release'\" build style; false; }\n\nVERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleVersion)\nSHORT_VERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleShortVersionString)\nDOWNLOAD_BASE_URL=\"https://update.skweez.net/ServerStatus\"\nRELEASENOTES_URL=\"https://update.skweez.net/ServerStatus/release-notes.html#version-$VERSION\"\n\nARCHIVE_FILENAME=\"$PROJECT_NAME_$VERSION.zip\"\nDOWNLOAD_URL=\"$DOWNLOAD_BASE_URL/$ARCHIVE_FILENAME\"\nKEYCHAIN_PRIVKEY_NAME=\"Sparkle Private Key 1\"\n\nWD=$PWD\ncd \"$BUILT_PRODUCTS_DIR\"\nrm -f \"$PROJECT_NAME\"*.zip\nditto -ck --keepParent \"$PROJECT_NAME.app\" \"$ARCHIVE_FILENAME\"\n\nSIZE=$(stat -f %z \"$ARCHIVE_FILENAME\")\nPUBDATE=$(LC_TIME=en_US date +\"%a, %d %b %G %T %z\")\nSIGNATURE=$(\n\topenssl dgst -sha1 -binary < \"$ARCHIVE_FILENAME\" \\\n\t| openssl dgst -dss1 -sign <(security find-generic-password -g -s \"$KEYCHAIN_PRIVKEY_NAME\" 2>&1 1>/dev/null | perl -pe '($_) = /\"(.+)\"/; s/\\\\012/\\n/g' | perl -MXML::LibXML -e 'print XML::LibXML->new()->parse_file(\"-\")->findvalue(q(//string[preceding-sibling::key[1] = \"NOTE\"]))') \\\n\t| openssl enc -base64\n)\n\n[ $SIGNATURE ] || { echo Unable to load signing private key with name \"'$KEYCHAIN_PRIVKEY_NAME'\" from keychain; false; }\n\ncat <<EOF\n\t\t<item>\n\t\t\t<title>Version $SHORT_VERSION</title>\n\t\t\t<sparkle:releaseNotesLink>$RELEASENOTES_URL</sparkle:releaseNotesLink>\n\t\t\t<pubDate>$PUBDATE</pubDate>\n\t\t\t<enclosure\n\t\t\t\turl=\"$DOWNLOAD_URL\"\n\t\t\t\tsparkle:version=\"$VERSION\"\n\t\t\t\tsparkle:shortVersionString=\"$SHORT_VERSION\"\n\t\t\t\ttype=\"application/octet-stream\"\n\t\t\t\tlength=\"$SIZE\"\n\t\t\t\tsparkle:dsaSignature=\"$SIGNATURE\"\n\t\t\t/>\n\t\t</item>\nEOF\n\necho scp \"'$HOME/Developer/ServerStatus/build/Release/$ARCHIVE_FILENAME'\" v:/var/www/update.skweez.net/htdocs/ServerStatus/\necho scp \"'$WD/appcast.xml'\" v:/var/www/update.skweez.net/htdocs/ServerStatus/appcast.xml";
 		};
 /* End PBXShellScriptBuildPhase section */
 

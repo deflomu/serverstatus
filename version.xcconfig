@@ -1,0 +1,10 @@
+//
+//  version.xcconfig
+//  ServerStatus
+//
+//  Created by Florian Mutter on 11.11.10.
+//  Copyright 2010 skweez.net. All rights reserved.
+//
+
+CURRENT_PROJECT_VERSION = 1000.01.01
+CURRENT_MARKETING_VERSION = 1.0.0.a1
