@@ -10,7 +10,7 @@
 
 
 @implementation PreferenceWindowController
-@synthesize tabView, serverListController;
+@synthesize tabView, webView, serverListController;
 
 #pragma mark -
 #pragma mark init
@@ -26,6 +26,36 @@
 }
 
 - (void)windowDidLoad {
+	[self.webView setMainFrameURL:[[NSBundle mainBundle] pathForResource:@"about" ofType:@"html"]];
+	[self.webView setDrawsBackground:NO];
+	[self.webView setUIDelegate:self];
+	[self.webView setPolicyDelegate:self];
+	[self.webView setEditingDelegate:self];
+}
+
+- (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element 
+    defaultMenuItems:(NSArray *)defaultMenuItems
+{
+		// disable right-click context menu
+    return nil;
+}
+
+- (BOOL)webView:(WebView *)sender shouldChangeSelectedDOMRange:(DOMRange *)currentRange 
+	 toDOMRange:(DOMRange *)proposedRange 
+	   affinity:(NSSelectionAffinity)selectionAffinity 
+ stillSelecting:(BOOL)flag
+{
+		// disable text selection
+    return NO;
+}
+
+- (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation 
+		request:(NSURLRequest *)request
+		  frame:(WebFrame *)frame
+decisionListener:(id <WebPolicyDecisionListener>)listener
+{
+	[listener ignore];
+    [[NSWorkspace sharedWorkspace] openURL:[request URL]];
 }
 
 - (IBAction)showWindow:(id) sender {

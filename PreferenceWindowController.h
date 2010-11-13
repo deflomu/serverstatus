@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <WebKit/WebKit.h>
 #import "ServerListController.h"
 #import "ServerListTableController.h"
 
@@ -14,10 +15,12 @@
 	ServerListController *serverListController;
 	IBOutlet ServerListTableController *serverListTableController;
 	IBOutlet NSTabView *tabView;
+	IBOutlet WebView *webView;
 }
 
 @property (assign) ServerListController *serverListController;
 @property (assign) IBOutlet NSTabView *tabView;
+@property (assign) IBOutlet WebView *webView;
 
 - (IBAction)pushClose:(NSButton *)sender;
 @end
