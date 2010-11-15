@@ -59,12 +59,12 @@
 	if (server) {
 		[self.serverName setStringValue:self.server.serverName];
 		[self.serverHost setStringValue:self.server.serverHost];
-		[self.serverHost setEditable:YES];
+		[self.serverHost setEnabled:YES];
 		[self.lastKnownAddress setStringValue:[self.server lastKnownAddressAsString]];
 	} else {
 		[self.serverName setStringValue:@"Server"];
 		[self.serverHost setStringValue:@""];
-		[self.serverHost setEditable:NO];
+		[self.serverHost setEnabled:NO];
 		[self.lastKnownAddress setStringValue:@""];
 	}
 }
