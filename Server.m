@@ -50,7 +50,7 @@
 		[serverHost release];
 		serverHost = [host retain];
 		
-		if (host) {
+		if (serverHost) {
 			self.pinger = [SimplePing simplePingWithHostName:host];
 			self.pinger.delegate = self;
 		}
@@ -107,6 +107,11 @@
 }
 
 - (void)ping {
+	if (self.pinging) {
+		/* We got a ping running so do nothing */
+		return;
+	}
+	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
 	[self startPinging];
