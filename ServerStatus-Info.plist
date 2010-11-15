@@ -5,7 +5,7 @@
 	<key>BuildRevision</key>
 	<string></string>
 	<key>SUFeedURL</key>
-	<string>https://update.skweez.net/ServerStatus/appcast.xml</string>
+	<string>http://update.skweez.net/ServerStatus/appcast.xml</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
 	<key>CFBundleDevelopmentRegion</key>
