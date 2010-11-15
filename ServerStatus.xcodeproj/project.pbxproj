@@ -38,8 +38,8 @@
 		5565262A11A68A0D003D2A34 /* ServerListTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5565262911A68A0D003D2A34 /* ServerListTableController.m */; };
 		5567975611AAD8EB004B7E25 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5567975511AAD8EB004B7E25 /* Preferences.xib */; };
 		5567976111AADC1E004B7E25 /* PreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5567976011AADC1E004B7E25 /* PreferenceWindowController.m */; };
-		556BA92B12917DB100804D2E /* BWToolkitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 556BA92A12917DB100804D2E /* BWToolkitFramework.framework */; };
-		556BA95C12917DBE00804D2E /* BWToolkitFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 556BA92A12917DB100804D2E /* BWToolkitFramework.framework */; };
+		556BAA5112919D8200804D2E /* BWToolkitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 556BAA5012919D8200804D2E /* BWToolkitFramework.framework */; };
+		556BAA5212919D8A00804D2E /* BWToolkitFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 556BAA5012919D8200804D2E /* BWToolkitFramework.framework */; };
 		5576A87E11C0410600AB1864 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5576A87D11C0410600AB1864 /* Growl.framework */; };
 		5576A88B11C0429100AB1864 /* GrowlController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5576A88A11C0429100AB1864 /* GrowlController.m */; };
 		5598B3E011B1ADF50095BED4 /* ServerMenuItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5598B3DF11B1ADF50095BED4 /* ServerMenuItemController.m */; };
@@ -64,7 +64,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				556BA95C12917DBE00804D2E /* BWToolkitFramework.framework in CopyFiles */,
+				556BAA5212919D8A00804D2E /* BWToolkitFramework.framework in CopyFiles */,
 				55A92FD6127956D3007F8069 /* Sparkle.framework in CopyFiles */,
 				55EE99D911C0DD1A000D9584 /* Growl.framework in CopyFiles */,
 			);
@@ -105,7 +105,7 @@
 		5567975F11AADC1E004B7E25 /* PreferenceWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceWindowController.h; sourceTree = "<group>"; };
 		5567976011AADC1E004B7E25 /* PreferenceWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferenceWindowController.m; sourceTree = "<group>"; };
 		556901A8128C880A0025F97F /* version.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = version.xcconfig; sourceTree = "<group>"; };
-		556BA92A12917DB100804D2E /* BWToolkitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BWToolkitFramework.framework; sourceTree = "<group>"; };
+		556BAA5012919D8200804D2E /* BWToolkitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BWToolkitFramework.framework; sourceTree = "<group>"; };
 		5576A87D11C0410600AB1864 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		5576A88911C0429100AB1864 /* GrowlController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowlController.h; sourceTree = "<group>"; };
 		5576A88A11C0429100AB1864 /* GrowlController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrowlController.m; sourceTree = "<group>"; };
@@ -135,7 +135,7 @@
 				55DABFCD11B5273C006C83C6 /* SystemConfiguration.framework in Frameworks */,
 				5576A87E11C0410600AB1864 /* Growl.framework in Frameworks */,
 				55A92FB412795630007F8069 /* Sparkle.framework in Frameworks */,
-				556BA92B12917DB100804D2E /* BWToolkitFramework.framework in Frameworks */,
+				556BAA5112919D8200804D2E /* BWToolkitFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,7 +159,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				556BA92A12917DB100804D2E /* BWToolkitFramework.framework */,
+				556BAA5012919D8200804D2E /* BWToolkitFramework.framework */,
 				55A92FB312795630007F8069 /* Sparkle.framework */,
 				5576A87D11C0410600AB1864 /* Growl.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
