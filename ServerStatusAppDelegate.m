@@ -78,8 +78,8 @@ static void networkStatusChanged(SCNetworkReachabilityRef	network,
 		preferenceWindowController = [[PreferenceWindowController alloc] init];
 	}
 	preferenceWindowController.serverListController = self.serverListController;
+	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 	[preferenceWindowController showWindow:self];
-	[preferenceWindowController.window orderFrontRegardless];
 }
 
 

@@ -14,15 +14,13 @@
 	IBOutlet NSTextField *serverName;
 	IBOutlet NSTextField *serverHost;
 	IBOutlet NSTextField *lastKnownAddress;
-	IBOutlet NSTextField *version;
-		
+	
 	Server *server;
 }
 
 @property (assign) IBOutlet NSTextField *serverName;
 @property (assign) IBOutlet NSTextField *serverHost;
 @property (assign) IBOutlet NSTextField *lastKnownAddress;
-@property (assign) IBOutlet NSTextField *version;
 
 @property (nonatomic, assign) Server *server;
 

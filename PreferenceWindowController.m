@@ -10,7 +10,7 @@
 
 
 @implementation PreferenceWindowController
-@synthesize tabView, webView, serverListController;
+@synthesize webView, version, serverListTableController, serverListController;
 
 #pragma mark -
 #pragma mark init
@@ -25,12 +25,14 @@
 	serverListTableController.serverListController = serverListController;
 }
 
-- (void)windowDidLoad {
+- (void)windowDidLoad {	
 	[self.webView setMainFrameURL:[[NSBundle mainBundle] pathForResource:@"about" ofType:@"html"]];
 	[self.webView setDrawsBackground:NO];
 	[self.webView setUIDelegate:self];
 	[self.webView setPolicyDelegate:self];
 	[self.webView setEditingDelegate:self];
+	
+	[self.version setStringValue:[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"]];
 }
 
 - (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element 
@@ -56,17 +58,6 @@ decisionListener:(id <WebPolicyDecisionListener>)listener
 {
 	[listener ignore];
     [[NSWorkspace sharedWorkspace] openURL:[request URL]];
-}
-
-- (IBAction)showWindow:(id) sender {
-	[self.tabView selectTabViewItem:[self.tabView tabViewItemAtIndex:0]];
-	[super showWindow:sender];
-}
-
-#pragma mark -
-#pragma mark Actions
-- (IBAction)pushClose:(NSButton *)sender {
-	[self.window performClose:self];
 }
 
 @end
