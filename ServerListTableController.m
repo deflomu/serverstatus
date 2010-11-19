@@ -15,21 +15,28 @@
 #pragma mark -
 #pragma mark Init
 - (void)awakeFromNib {
+	/* Notify the system that we can handle ServerItemFileType objects if they are droped on the list */
 	[self.serverListTable registerForDraggedTypes:[NSArray arrayWithObject:ServerItemFileType]];
 }
 
 #pragma mark -
 #pragma mark Actions
 - (IBAction)pushAddServer:(NSButton *)sender {
+	/* Create a new server */
 	Server *server = [Server server];
+	
+	/* Add the new server to the server list */
     [self.serverListController addServer:server];
 	
+	/* Reload the data in the server list table */
 	[self.serverListTable reloadData];
 	
+	/* Select the new server in the list */
 	NSInteger index = [self.serverListController.serverList count]-1;
 	[self.serverListTable selectRowIndexes:[NSIndexSet indexSetWithIndex:index]
 					  byExtendingSelection:NO];
 	
+	/* Start editing the new servers name */
 	[self.serverListTable editColumn:[self.serverListTable columnWithIdentifier:@"serverName"]
 								 row:index
 						   withEvent:nil
@@ -37,11 +44,13 @@
 }
 
 - (IBAction)pushRemoveServer:(NSButton *)sender {
+	/* Get the indexes of all selected rows */
 	NSIndexSet *serverIndexes = [self.serverListTable selectedRowIndexes];
+	/* Select nothing in the server list table */
 	[self.serverListTable deselectAll:self];
-	
+	/* Remove all selected servers from the list */
 	[self.serverListController removeServers:serverIndexes];
-	
+	/* Notify the server list table that the number of the rows changed */
 	[self.serverListTable noteNumberOfRowsChanged];
 }
 
@@ -53,13 +62,17 @@
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn
 			row:(NSInteger)rowIndex {
+	/* Get the server from the internal list that correspondets to the selected entry in the table */
 	Server *server = [self.serverListController.serverList objectAtIndex:rowIndex];
+	/* Return the value for the column. The column identifier and the name of the value have to be the same */
 	return [server valueForKey:[aTableColumn identifier]];
 }
 
 - (void)tableView:(NSTableView *)aTableView setObjectValue:(id)anObject
    forTableColumn:(NSTableColumn *)aTableColumn
-			  row:(NSInteger)rowIndex {
+			  row:(NSInteger)rowIndex
+/* The same as the function above but to set a value */
+{
 	Server *server = [self.serverListController.serverList objectAtIndex:rowIndex];
 	[self.serverListController modifyServer:server setObjectValue:anObject forKey:[aTableColumn identifier]];
 	[self.serverTabViewController updateView];
@@ -69,6 +82,7 @@
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
 	NSTableView *view = [notification object];
 	NSInteger selectedRow = [view selectedRow];
+	/* Tell the tab view (the detail view of a server) which server is selected in the list */
 	if (selectedRow == -1) {
 		self.serverTabViewController.server = NULL;
 	} else {
@@ -80,7 +94,9 @@
 #pragma mark Drag and Drop
 - (BOOL)tableView:(NSTableView *)aTableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes
 	 toPasteboard:(NSPasteboard*)pboard
+/* Handle the data at the beginning of the drag */
 {
+	/* The data that is stored for the drag are the indexes of the selected rows */
 	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes];
 	[pboard declareTypes:[NSArray arrayWithObject:ServerItemFileType] owner:self];
 	[pboard setData:data forType:ServerItemFileType];
@@ -91,7 +107,11 @@
 	validateDrop:(id<NSDraggingInfo>)info
 	proposedRow:(NSInteger)row
 	proposedDropOperation:(NSTableViewDropOperation)op
+/* Return the action of any permitted drag operation */
 {
+	/* If the user trys to drop an item between two other items, tell
+	 the system that this is allowed and it's a move operation. This also
+	 indicates which mouse pointer should be shown */
 	return ((op == NSTableViewDropAbove) ? NSDragOperationMove : NSDragOperationNone);
 }
 
@@ -100,12 +120,11 @@
 			  row:(NSInteger)row
 	dropOperation:(NSTableViewDropOperation)operation
 {	
-	// Zunächst die Daten aus dem Pasteboard holen, dass sich im Dictionary befindet
+	/* Extract the indexes of selected rows from the beginning of the drag from the pasteboard */
 	NSPasteboard* pboard = [info draggingPasteboard];
 	NSData* rowData = [pboard dataForType:ServerItemFileType];
 	NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
 
-	// Hilfsvariablen für das anschliessende Verschieben der Daten
 	NSInteger aboveInsertIndexCount = 0;
 	NSInteger removeIndex;
 
@@ -135,11 +154,11 @@
 	}
 
 	// Zuletzt noch die verschobenen Zeilen markieren
-	NSRange range = NSMakeRange(row, [rowIndexes count]); // Range ist eine Struktur, daher kein *
+	NSRange range = NSMakeRange(row, [rowIndexes count]);
 	NSIndexSet* newSelection = [NSIndexSet indexSetWithIndexesInRange:range];
 	[self.serverListTable selectRowIndexes:newSelection byExtendingSelection:NO];
 
-	[self.serverListTable reloadData]; // den TableView die Daten neu laden lassen
+	[self.serverListTable reloadData];
 
 	return YES;
 }
