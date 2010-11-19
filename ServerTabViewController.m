@@ -10,19 +10,30 @@
 
 
 @implementation ServerTabViewController
-@synthesize serverName, serverHost, lastKnownAddress, server;
+@synthesize serverName, serverHost, lastKnownAddress, serverStatus, server;
 
-- (void)setServer:(Server *)s {
+- (void)setServer:(Server *)_server {
 	[server removeObserver:self forKeyPath:@"lastKnownAddress"];
+	[server removeObserver:self forKeyPath:@"serverStatus"];
+	[server removeObserver:self forKeyPath:@"pinging"];
+
 	
-	if (s) {
-		[s addObserver:self
-			forKeyPath:@"lastKnownAddress"
-			   options:0
-			   context:nil];
+	if (_server) {
+		[_server addObserver:self
+				  forKeyPath:@"lastKnownAddress"
+					 options:0
+					 context:NULL];
+		[_server addObserver:self
+				  forKeyPath:@"serverStatus"
+					 options:0
+					 context:NULL];
+		[_server addObserver:self
+				  forKeyPath:@"pinging"
+					 options:0
+					 context:NULL];
 	}
 	
-	server = s;
+	server = _server;
 }
 
 - (void)awakeFromNib {

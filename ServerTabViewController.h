@@ -11,9 +11,10 @@
 
 
 @interface ServerTabViewController : NSObject <NSTextFieldDelegate> {
-	IBOutlet NSTextField *serverName;
-	IBOutlet NSTextField *serverHost;
-	IBOutlet NSTextField *lastKnownAddress;
+	NSTextField *serverName;
+	NSTextField *serverHost;
+	NSTextField *lastKnownAddress;
+	NSTextField *serverStatus;
 	
 	Server *server;
 }
@@ -21,6 +22,7 @@
 @property (assign) IBOutlet NSTextField *serverName;
 @property (assign) IBOutlet NSTextField *serverHost;
 @property (assign) IBOutlet NSTextField *lastKnownAddress;
+@property (assign) IBOutlet NSTextField *serverStatus;
 
 @property (nonatomic, assign) Server *server;
 
