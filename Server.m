@@ -92,6 +92,7 @@
 - (void)pingTimedOut:(NSTimer *)timer {
 	[self stopPinging];
 	self.pingTimeoutCount ++;
+	DLog(@"%@: Ping timed out (%d/d)", self.serverName, self.pingTimeoutCount, MaxPingTimeoutCount);
 	if (self.pingTimeoutCount >= MaxPingTimeoutCount) {
 		self.serverError = [NSError errorWithDomain:PingTimeoutError
 											   code:PingTimeoutErrorCode
@@ -113,7 +114,9 @@
 	}
 	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		
+	
+	DLog(@"%@: Start pinging", self.serverName);
+	
 	[self startPinging];
 	
 	self.pingTimeout = [NSTimer scheduledTimerWithTimeInterval:PingTimoutInSeconds
@@ -170,20 +173,21 @@
 	self.serverError = e;
 	[self stopPinging];
 	self.serverStatus = SERVER_ERROR;
-	NSLog(@"%@: Failed to send Packet: %@", self.serverName, [e localizedDescription]);
+	DLog(@"%@: Failed to send Packet: %@", self.serverName, [e localizedDescription]);
 }
 
 - (void)simplePing:(SimplePing *)pinger didReceivePingResponsePacket:(NSData *)packet {
 	[self stopPinging];
 	self.serverStatus = SERVER_OK;
 	self.pingTimeoutCount = 0;
+	DLog(@"%@: Received ping response packet.", self.serverName);
 }
 
 - (void)simplePing:(SimplePing *)pinger didFailWithError:(NSError *)e {
 	self.serverError = e;
 	[self stopPinging];
 	self.serverStatus = SERVER_ERROR;
-	NSLog(@"%@: Did fail with Error: %@", self.serverName, [e localizedDescription]);
+	DLog(@"%@: Failed with Error: %@", self.serverName, [e localizedDescription]);
 }
 
 #pragma mark -
