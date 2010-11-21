@@ -11,7 +11,7 @@
 #import "ServerListController.h"
 #import "ServerListTableController.h"
 
-@interface PreferenceWindowController : NSWindowController {
+@interface PreferenceWindowController : NSWindowController <NSWindowDelegate> {
 	ServerListController *serverListController;
 	ServerListTableController *serverListTableController;
 	WebView *webView;

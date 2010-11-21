@@ -25,7 +25,7 @@
 	serverListTableController.serverListController = serverListController;
 }
 
-- (void)windowDidLoad {	
+- (void)windowDidLoad {
 	[self.webView setMainFrameURL:[[NSBundle mainBundle] pathForResource:@"about" ofType:@"html"]];
 	[self.webView setDrawsBackground:NO];
 	[self.webView setUIDelegate:self];
@@ -41,7 +41,12 @@
 		// disable right-click context menu
     return nil;
 }
-
+	 
+- (void)windowWillClose:(NSNotification *)notification {
+	/*[self autorelease];*/
+	/* TODO: implement release of window and controller to save memory */
+}
+	 
 - (BOOL)webView:(WebView *)sender shouldChangeSelectedDOMRange:(DOMRange *)currentRange 
 	 toDOMRange:(DOMRange *)proposedRange 
 	   affinity:(NSSelectionAffinity)selectionAffinity 
