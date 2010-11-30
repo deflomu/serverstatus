@@ -35,6 +35,7 @@
 		551993F311AED8AF009DF24D /* ServerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 551993F211AED8AF009DF24D /* ServerListController.m */; };
 		551A9D8D128DB2590009747D /* ServerStatus.icns in Resources */ = {isa = PBXBuildFile; fileRef = 551A9D8C128DB2590009747D /* ServerStatus.icns */; };
 		551A9E05128DF2230009747D /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 551A9E04128DF2230009747D /* about.html */; };
+		551E54BE12A51693009A0B31 /* NetworkMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 551E54BD12A51693009A0B31 /* NetworkMonitor.m */; };
 		5565262A11A68A0D003D2A34 /* ServerListTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5565262911A68A0D003D2A34 /* ServerListTableController.m */; };
 		5567975611AAD8EB004B7E25 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5567975511AAD8EB004B7E25 /* Preferences.xib */; };
 		5567976111AADC1E004B7E25 /* PreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5567976011AADC1E004B7E25 /* PreferenceWindowController.m */; };
@@ -100,6 +101,9 @@
 		551A9D8C128DB2590009747D /* ServerStatus.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ServerStatus.icns; sourceTree = "<group>"; };
 		551A9E04128DF2230009747D /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
 		551A9E27128DF53B0009747D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
+		551E54B912A5156B009A0B31 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
+		551E54BC12A51693009A0B31 /* NetworkMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkMonitor.h; sourceTree = "<group>"; };
+		551E54BD12A51693009A0B31 /* NetworkMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkMonitor.m; sourceTree = "<group>"; };
 		5565262811A68A0D003D2A34 /* ServerListTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerListTableController.h; sourceTree = "<group>"; };
 		5565262911A68A0D003D2A34 /* ServerListTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerListTableController.m; sourceTree = "<group>"; };
 		5567975511AAD8EB004B7E25 /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
@@ -149,6 +153,8 @@
 				551994C111AEFA98009DF24D /* Server */,
 				551994C211AEFAA6009DF24D /* Preferences */,
 				55C39C5911B19469004C69A5 /* Status Bar */,
+				551E54BC12A51693009A0B31 /* NetworkMonitor.h */,
+				551E54BD12A51693009A0B31 /* NetworkMonitor.m */,
 				256AC3D80F4B6AC300CF3369 /* ServerStatusAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* ServerStatusAppDelegate.m */,
 				551993F111AED8AF009DF24D /* ServerListController.h */,
@@ -205,6 +211,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				551E54B912A5156B009A0B31 /* SynthesizeSingleton.h */,
 				256AC3F00F4B6AF500CF3369 /* ServerStatus_Prefix.pch */,
 				55A139B111A566A5003E22CC /* globals.h */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
@@ -411,6 +418,7 @@
 				5598B3E011B1ADF50095BED4 /* ServerMenuItemController.m in Sources */,
 				55DABF1811B4FEB1006C83C6 /* MenuItemView.m in Sources */,
 				5576A88B11C0429100AB1864 /* GrowlController.m in Sources */,
+				551E54BE12A51693009A0B31 /* NetworkMonitor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

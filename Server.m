@@ -22,11 +22,13 @@
 #pragma mark -
 #pragma mark Private
 - (void)startPinging {
+	DLog(@"%@: Start pinging", self.serverName);
 	self.pinging = YES;
 	[self.pinger start];
 }
 
 - (void)stopPinging {
+	DLog(@"%@: Stop pinging", self.serverName);
 	if (self.pingTimeout) {
 		[self.pingTimeout invalidate];
 	}
@@ -92,7 +94,7 @@
 - (void)pingTimedOut:(NSTimer *)timer {
 	[self stopPinging];
 	self.pingTimeoutCount ++;
-	DLog(@"%@: Ping timed out (%d/d)", self.serverName, self.pingTimeoutCount, MaxPingTimeoutCount);
+	DLog(@"%@: Ping timed out (%d/%d)", self.serverName, self.pingTimeoutCount, MaxPingTimeoutCount);
 	if (self.pingTimeoutCount >= MaxPingTimeoutCount) {
 		self.serverError = [NSError errorWithDomain:PingTimeoutError
 											   code:PingTimeoutErrorCode
@@ -114,8 +116,6 @@
 	}
 	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-	DLog(@"%@: Start pinging", self.serverName);
 	
 	[self startPinging];
 	

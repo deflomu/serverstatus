@@ -15,6 +15,7 @@
 	NSTextField *serverHost;
 	NSTextField *lastKnownAddress;
 	NSTextField *serverStatus;
+	NSProgressIndicator *pingingIndicator;
 	
 	Server *server;
 }
@@ -23,6 +24,8 @@
 @property (assign) IBOutlet NSTextField *serverHost;
 @property (assign) IBOutlet NSTextField *lastKnownAddress;
 @property (assign) IBOutlet NSTextField *serverStatus;
+@property (assign) IBOutlet NSProgressIndicator *pingingIndicator;
+
 
 @property (nonatomic, assign) Server *server;
 

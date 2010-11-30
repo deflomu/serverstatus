@@ -38,7 +38,7 @@
 - (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element 
     defaultMenuItems:(NSArray *)defaultMenuItems
 {
-		// disable right-click context menu
+	/* Disable right-click context menu */
     return nil;
 }
 	 

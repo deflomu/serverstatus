@@ -26,10 +26,14 @@
 	return result;
 }
 
+- (void)checkServer:(Server *)server {
+	[server performSelectorInBackground:@selector(ping) withObject:self];
+}
+
 - (void)checkServers:(NSTimer *)timer {	
 	for (Server *server in self.serverList) {
 		if (server.active) {
-			[server performSelectorInBackground:@selector(ping) withObject:self];
+			[self checkServer:server];
 		}
 	}
 }
@@ -75,7 +79,7 @@
 		NSInteger statusIndex = [self countActiveServersTo:index];
 		if ([object boolValue]) {
 			[self.statusItemController addServer:server atIndex:statusIndex];
-			[self checkServers:nil];
+			[self checkServer:server];
 		} else {
 			[self.statusItemController removeServer:server atIndex:statusIndex];
 		}

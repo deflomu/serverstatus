@@ -10,7 +10,7 @@
 
 
 @implementation ServerTabViewController
-@synthesize serverName, serverHost, lastKnownAddress, serverStatus, server;
+@synthesize serverName, serverHost, lastKnownAddress, serverStatus, pingingIndicator, server;
 
 - (void)setServer:(Server *)_server {
 	[server removeObserver:self forKeyPath:@"lastKnownAddress"];
@@ -36,6 +36,17 @@
 	server = _server;
 }
 
+- (void)serverIsPinging:(Server *)server {
+	if ([server pinging]) {
+		[serverStatus setHidden:YES];
+		[pingingIndicator startAnimation:self];
+	} else {
+		[pingingIndicator stopAnimation:self];
+		[serverStatus setHidden:NO];
+	}
+
+}
+
 - (void)awakeFromNib {
 	[self addObserver:self
 		   forKeyPath:@"server"
@@ -55,11 +66,14 @@
 					  ofObject:(id)object
 						change:(NSDictionary *)change
 					   context:(void *)context {
-	if ([keyPath isEqualToString:@"server"]) {
+	if (keyPath == @"server") {
 		[self updateView];
 	}
 	if (keyPath == @"lastKnownAddress") {
 		[self updateView];
+	}
+	if (keyPath == @"pinging") {
+		[self serverIsPinging:object];
 	}
 }
 
