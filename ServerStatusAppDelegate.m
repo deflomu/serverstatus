@@ -10,58 +10,10 @@
 #import "PreferenceWindowController.h"
 
 @implementation ServerStatusAppDelegate
-@synthesize serverListController, statusItemController, suupdater, networkAvailable;
-
-#pragma mark -
-#pragma mark Network Status
-- (void)sendNotificationNetworkChanged {
-	/* Create the data that is send with the notification */
-	NSDictionary *d = [NSDictionary
-					   dictionaryWithObject:[NSNumber numberWithBool:networkAvailable]
-					   forKey:@"networkAvailable"];
-	/* Post the notification */
-	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc postNotificationName:NetworkChangeNotification
-					  object:self
-					userInfo:d];
-}
-
-static void networkStatusChanged(SCNetworkReachabilityRef	network,
-								 SCNetworkConnectionFlags	flags,
-								 void *						info
-								 )
-{
-	ServerStatusAppDelegate *_self = (ServerStatusAppDelegate *)info;
-	
-	/**
-	 * If the network is capable of reaching skweez.net and this is not a
-	 * inactive dialup connection, we are on
-	 **/
-	if (flags & kSCNetworkFlagsReachable && !(flags & kSCNetworkFlagsConnectionRequired)) {
-		if (!_self.networkAvailable) {
-			_self.networkAvailable = YES;
-			[_self sendNotificationNetworkChanged];
-		}
-	} else {
-		if (_self.networkAvailable) {
-			_self.networkAvailable = NO;
-			[_self sendNotificationNetworkChanged];
-		}
-	}
-}
-
-/* We want to be notified if the network status of the machine is changing */
-- (void)monitorNetwork {
-	SCNetworkReachabilityRef network = SCNetworkReachabilityCreateWithName(NULL, "skweez.net");
-	
-	SCNetworkReachabilityContext context = {0, self, NULL, NULL, NULL};
-	
-	SCNetworkReachabilitySetCallback(network, networkStatusChanged, &context);
-	SCNetworkReachabilityScheduleWithRunLoop(network, CFRunLoopGetCurrent(), kCFRunLoopCommonModes);
-}
+@synthesize serverListController, statusItemController, suupdater;
 
 #pragma mark Login Item
-- (void)registerForLogin {
+- (IBAction)registerForLogin:(id)sender {
 	/* Get url to app bundle */
 	NSURL *url = [[NSBundle mainBundle] bundleURL];
 	
@@ -83,7 +35,7 @@ static void networkStatusChanged(SCNetworkReachabilityRef	network,
 		UInt32 seedValue;
         /* Search for the login itme to delete it from the list */
 		NSArray  *loginItemsArray = (NSArray *)LSSharedFileListCopySnapshot(loginItems, &seedValue);
-		CFURLRef itemUrl;
+		CFURLRef itemUrl = NULL;
 		int i = 0;
 		for(i; i < [loginItemsArray count]; i++){
 			LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)[loginItemsArray
@@ -94,14 +46,14 @@ static void networkStatusChanged(SCNetworkReachabilityRef	network,
 					LSSharedFileListItemRemove(loginItems, itemRef);
 				}
 			}
+			CFRelease(itemUrl);
+			
 		}
 		[loginItemsArray release];
-		CFRelease(&itemUrl);
-
+		
 	}
-	
 	CFRelease(loginItems);
-
+	
 }
 
 #pragma mark -
@@ -117,13 +69,14 @@ static void networkStatusChanged(SCNetworkReachabilityRef	network,
 }
 
 - (void)awakeFromNib {
-	/* Just enable automatic updates and don't ask the user about it */
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSDictionary *appDefaults = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES]
-															forKey:@"SUEnableAutomaticChecks"];
+	NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
+								 /* Just enable automatic updates and don't ask the user about it */
+								 [NSNumber numberWithBool:YES], @"SUEnableAutomaticChecks",
+								 nil];
 	[defaults registerDefaults:appDefaults];
 	
-	[self monitorNetwork];
+		//[self registerForLogin];
 }
 
 #pragma mark PreferenceWindowController
@@ -132,7 +85,7 @@ static void networkStatusChanged(SCNetworkReachabilityRef	network,
 		preferenceWindowController = [[PreferenceWindowController alloc] init];
 	}
 	preferenceWindowController.serverListController = self.serverListController;
-	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+	[NSApp activateIgnoringOtherApps:YES];
 	[preferenceWindowController showWindow:self];
 }
 

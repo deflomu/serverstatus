@@ -7,8 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <SystemConfiguration/SystemConfiguration.h>
-#import "Server.h"
 #import "PreferenceWindowController.h"
 #import "ServerListController.h"
 #import "StatusItemController.h"
@@ -19,14 +17,13 @@
 	ServerListController *serverListController;
 	StatusItemController *statusItemController;
 	SUUpdater *suupdater;
-	BOOL networkAvailable;
 }
 
 @property (assign) IBOutlet ServerListController *serverListController;
 @property (assign) IBOutlet StatusItemController *statusItemController;
 @property (assign) IBOutlet SUUpdater *suupdater;
-@property (assign) BOOL networkAvailable;
 
+- (IBAction)registerForLogin:(id)sender;
 - (IBAction)showPreferenceWindow:(id)sender;
 
 @end
