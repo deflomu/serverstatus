@@ -7,10 +7,12 @@
 //
 
 #import "NetworkMonitor.h"
+#import "SynthesizeSingleton.h"
 #import <SystemConfiguration/SystemConfiguration.h>
 
 
 @implementation NetworkMonitor
+SYNTHESIZE_SINGLETON_FOR_CLASS(NetworkMonitor)
 
 #pragma mark -
 #pragma mark Network Status
@@ -26,18 +28,20 @@
 					userInfo:d];
 }
 
-- (void)networkStatusChanged:(SCNetworkReachabilityRef)network withFlags:(SCNetworkConnectionFlags)flags {
+- (void)networkStatusChanged:(SCNetworkReachabilityRef)network withFlags:(SCNetworkConnectionFlags)flags {	
 	/**
 	 * If the network is capable of reaching skweez.net and this is not an
 	 * inactive dialup connection, we are on
 	 **/
 	if (flags & kSCNetworkFlagsReachable && !(flags & kSCNetworkFlagsConnectionRequired)) {
 		if (!networkAvailable) {
+			DLog(@"A network connection is available");
 			networkAvailable = YES;
 			[self sendNotificationNetworkChanged];
 		}
 	} else {
 		if (networkAvailable) {
+			DLog(@"No network connection is available");
 			networkAvailable = NO;
 			[self sendNotificationNetworkChanged];
 		}
@@ -64,19 +68,5 @@ static void networkStatusCallback(SCNetworkReachabilityRef	network,
 	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, NULL);
 	SCNetworkReachabilitySetDispatchQueue(network, queue);
 }
-
-
-#pragma mark -
-#pragma mark Init
-
-- (id) init
-{
-	self = [super init];
-	if (self != nil) {
-		[self monitorNetwork];
-	}
-	return self;
-}
-
 
 @end

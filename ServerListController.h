@@ -9,8 +9,9 @@
 #define TIMER_INTERVAL 60*5
 
 #import <Cocoa/Cocoa.h>
-#import "Server.h"
-#import "StatusItemController.h"
+
+@class Server;
+@class StatusItemController;
 
 @interface ServerListController : NSObject {
 	NSMutableArray *serverList;

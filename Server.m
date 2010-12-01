@@ -43,20 +43,20 @@
 }
 
 - (void)setServerHost:(NSString *)host {
-	if (serverHost != host) {
-		if (self.pinger) {
-			[self stopPinging];
-			self.pinger = nil;
-		}
-		
-		[serverHost release];
-		serverHost = [host retain];
-		
-		if (serverHost) {
-			self.pinger = [SimplePing simplePingWithHostName:host];
-			self.pinger.delegate = self;
-		}
-		
+	if (serverHost == host) {
+		return;
+	}
+	if (self.pinger) {
+		[self stopPinging];
+		self.pinger = nil;
+	}
+	
+	[serverHost autorelease];
+	serverHost = [host retain];
+	
+	if (serverHost) {
+		self.pinger = [SimplePing simplePingWithHostName:host];
+		self.pinger.delegate = self;
 	}
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#include "SimplePing.h"
+#import "SimplePing.h"
 
 #define MaxPingTimeoutCount 3
 #define PingTimoutInSeconds 10

@@ -36,6 +36,8 @@
 		551A9D8D128DB2590009747D /* ServerStatus.icns in Resources */ = {isa = PBXBuildFile; fileRef = 551A9D8C128DB2590009747D /* ServerStatus.icns */; };
 		551A9E05128DF2230009747D /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 551A9E04128DF2230009747D /* about.html */; };
 		551E54BE12A51693009A0B31 /* NetworkMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 551E54BD12A51693009A0B31 /* NetworkMonitor.m */; };
+		5550B96912A68E49003E4F3D /* AutostartManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5550B96812A68E49003E4F3D /* AutostartManager.m */; };
+		5550BA1312A6B1A4003E4F3D /* NSImage+IconRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 5550BA1212A6B1A4003E4F3D /* NSImage+IconRef.m */; };
 		5565262A11A68A0D003D2A34 /* ServerListTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5565262911A68A0D003D2A34 /* ServerListTableController.m */; };
 		5567975611AAD8EB004B7E25 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5567975511AAD8EB004B7E25 /* Preferences.xib */; };
 		5567976111AADC1E004B7E25 /* PreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5567976011AADC1E004B7E25 /* PreferenceWindowController.m */; };
@@ -104,6 +106,10 @@
 		551E54B912A5156B009A0B31 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		551E54BC12A51693009A0B31 /* NetworkMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkMonitor.h; sourceTree = "<group>"; };
 		551E54BD12A51693009A0B31 /* NetworkMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkMonitor.m; sourceTree = "<group>"; };
+		5550B96712A68E49003E4F3D /* AutostartManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutostartManager.h; sourceTree = "<group>"; };
+		5550B96812A68E49003E4F3D /* AutostartManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutostartManager.m; sourceTree = "<group>"; };
+		5550BA1112A6B197003E4F3D /* NSImage+IconRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+IconRef.h"; sourceTree = "<group>"; };
+		5550BA1212A6B1A4003E4F3D /* NSImage+IconRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+IconRef.m"; sourceTree = "<group>"; };
 		5565262811A68A0D003D2A34 /* ServerListTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerListTableController.h; sourceTree = "<group>"; };
 		5565262911A68A0D003D2A34 /* ServerListTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerListTableController.m; sourceTree = "<group>"; };
 		5567975511AAD8EB004B7E25 /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
@@ -159,6 +165,8 @@
 				256AC3D90F4B6AC300CF3369 /* ServerStatusAppDelegate.m */,
 				551993F111AED8AF009DF24D /* ServerListController.h */,
 				551993F211AED8AF009DF24D /* ServerListController.m */,
+				5550B96712A68E49003E4F3D /* AutostartManager.h */,
+				5550B96812A68E49003E4F3D /* AutostartManager.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -211,6 +219,8 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				5550BA1112A6B197003E4F3D /* NSImage+IconRef.h */,
+				5550BA1212A6B1A4003E4F3D /* NSImage+IconRef.m */,
 				551E54B912A5156B009A0B31 /* SynthesizeSingleton.h */,
 				256AC3F00F4B6AF500CF3369 /* ServerStatus_Prefix.pch */,
 				55A139B111A566A5003E22CC /* globals.h */,
@@ -419,6 +429,8 @@
 				55DABF1811B4FEB1006C83C6 /* MenuItemView.m in Sources */,
 				5576A88B11C0429100AB1864 /* GrowlController.m in Sources */,
 				551E54BE12A51693009A0B31 /* NetworkMonitor.m in Sources */,
+				5550B96912A68E49003E4F3D /* AutostartManager.m in Sources */,
+				5550BA1312A6B1A4003E4F3D /* NSImage+IconRef.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

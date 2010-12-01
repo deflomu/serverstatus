@@ -12,4 +12,9 @@
 @interface NetworkMonitor : NSObject {
 	BOOL networkAvailable;
 }
+
++ (NetworkMonitor *) sharedNetworkMonitor;
+
+- (void)monitorNetwork;
+
 @end

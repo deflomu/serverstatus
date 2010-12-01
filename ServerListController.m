@@ -7,6 +7,8 @@
 //
 
 #import "ServerListController.h"
+#import "Server.h"
+#import "StatusItemController.h"
 
 
 @implementation ServerListController
