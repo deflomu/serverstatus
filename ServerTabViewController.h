@@ -7,7 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "Server.h"
+
+@class Server;
 
 
 @interface ServerTabViewController : NSObject <NSTextFieldDelegate> {

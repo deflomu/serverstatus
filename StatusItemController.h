@@ -7,10 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "Server.h"
-#import "ServerMenuItemController.h"
-#import "MenuItemView.h"
-#import "GrowlController.h"
+
+@class GrowlController;
+@class Server;
 
 #define NAME_TEXTFIELD 0
 #define STATUS_TEXTFIELD 1

@@ -7,6 +7,7 @@
 //
 
 #import "ServerTabViewController.h"
+#import "Server.h"
 
 
 @implementation ServerTabViewController

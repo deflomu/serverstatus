@@ -7,7 +7,7 @@
 //
 
 #import "ServerMenuItemController.h"
-
+#import "MenuItemView.h"
 
 @implementation ServerMenuItemController
 @synthesize serverMenuItemView;

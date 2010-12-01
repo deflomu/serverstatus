@@ -7,6 +7,10 @@
 //
 
 #import "StatusItemController.h"
+#import "Server.h"
+#import "ServerMenuItemController.h"
+#import "MenuItemView.h"
+#import "GrowlController.h"
 
 
 @implementation StatusItemController

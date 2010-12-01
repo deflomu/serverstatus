@@ -7,7 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "MenuItemView.h"
+
+@class MenuItemView;
 
 
 @interface ServerMenuItemController : NSObject {

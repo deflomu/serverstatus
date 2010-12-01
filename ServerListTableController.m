@@ -7,7 +7,9 @@
 //
 
 #import "ServerListTableController.h"
-
+#import "Server.h"
+#import "ServerTabViewController.h"
+#import "ServerListController.h"
 
 @implementation ServerListTableController
 @synthesize serverListTable, serverTabViewController, serverListController;

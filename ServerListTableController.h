@@ -9,9 +9,9 @@
 #define ServerItemFileType @"net.skweez.ServerStatus.ServerItem"
 
 #import <Cocoa/Cocoa.h>
-#import "Server.h"
-#import "ServerTabViewController.h"
-#import "ServerListController.h"
+
+@class ServerTabViewController;
+@class ServerListController;
 
 
 @interface ServerListTableController : NSObject <NSTableViewDataSource, NSTableViewDelegate> {
