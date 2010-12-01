@@ -1313,20 +1313,20 @@ RjNGMkY2QkE4hpKEmJmZmoEDAoFyAYaGA</bytes>
 					<int key="connectionID">484</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.startAtLogin</string>
-						<reference key="source" ref="1061252915"/>
-						<reference key="destination" ref="960399277"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="1061252915"/>
-							<reference key="NSDestination" ref="960399277"/>
-							<string key="NSLabel">value: values.startAtLogin</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.startAtLogin</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">startAtLoginCheckBox</string>
+						<reference key="source" ref="762632889"/>
+						<reference key="destination" ref="1061252915"/>
 					</object>
-					<int key="connectionID">487</int>
+					<int key="connectionID">494</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">autostartButtonSelector:</string>
+						<reference key="source" ref="762632889"/>
+						<reference key="destination" ref="1061252915"/>
+					</object>
+					<int key="connectionID">499</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1443,7 +1443,7 @@ RjNGMkY2QkE4hpKEmJmZmoEDAoFyAYaGA</bytes>
 						<reference key="parent" ref="683797017"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">490</int>
+						<int key="objectID">500</int>
 						<reference key="object" ref="940324972"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1932,7 +1932,7 @@ RjNGMkY2QkE4hpKEmJmZmoEDAoFyAYaGA</bytes>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform"/>
-					<string>{{868, 668}, {617, 0}}</string>
+					<string>{{561, 959}, {617, 0}}</string>
 					<string>com.brandonwalkin.BWToolkit</string>
 					<string>com.brandonwalkin.BWToolkit</string>
 					<string>com.brandonwalkin.BWToolkit</string>
@@ -2022,7 +2022,7 @@ RjNGMkY2QkE4hpKEmJmZmoEDAoFyAYaGA</bytes>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABDg4AAw3YAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABBgAAAw3YAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2070,7 +2070,7 @@ RjNGMkY2QkE4hpKEmJmZmoEDAoFyAYaGA</bytes>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">490</int>
+			<int key="maxID">500</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2078,17 +2078,30 @@ RjNGMkY2QkE4hpKEmJmZmoEDAoFyAYaGA</bytes>
 				<object class="IBPartialClassDescription">
 					<string key="className">PreferenceWindowController</string>
 					<string key="superclassName">NSWindowController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">autostartButtonSelector:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">autostartButtonSelector:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">autostartButtonSelector:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>serverListTableController</string>
+							<string>startAtLoginCheckBox</string>
 							<string>version</string>
 							<string>webView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>ServerListTableController</string>
+							<string>NSButton</string>
 							<string>NSTextField</string>
 							<string>WebView</string>
 						</object>
@@ -2098,6 +2111,7 @@ RjNGMkY2QkE4hpKEmJmZmoEDAoFyAYaGA</bytes>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>serverListTableController</string>
+							<string>startAtLoginCheckBox</string>
 							<string>version</string>
 							<string>webView</string>
 						</object>
@@ -2106,6 +2120,10 @@ RjNGMkY2QkE4hpKEmJmZmoEDAoFyAYaGA</bytes>
 							<object class="IBToOneOutletInfo">
 								<string key="name">serverListTableController</string>
 								<string key="candidateClassName">ServerListTableController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">startAtLoginCheckBox</string>
+								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">version</string>

@@ -7,10 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "PreferenceWindowController.h"
-#import "ServerListController.h"
-#import "StatusItemController.h"
 #import "Sparkle/Sparkle.h"
+
+@class PreferenceWindowController;
+@class ServerListController;
+@class StatusItemController;
 
 @interface ServerStatusAppDelegate : NSObject <NSApplicationDelegate> {
 	PreferenceWindowController *preferenceWindowController;
