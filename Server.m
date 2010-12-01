@@ -42,8 +42,8 @@
 	serverStatus = status;
 }
 
-- (void)setServerHost:(NSString *)host {
-	if (serverHost == host) {
+- (void)setServerHost:(NSString *)aServerHost {
+	if (serverHost == aServerHost) {
 		return;
 	}
 	if (self.pinger) {
@@ -52,10 +52,10 @@
 	}
 	
 	[serverHost autorelease];
-	serverHost = [host retain];
+	serverHost = [aServerHost retain];
 	
 	if (serverHost) {
-		self.pinger = [SimplePing simplePingWithHostName:host];
+		self.pinger = [SimplePing simplePingWithHostName:serverHost];
 		self.pinger.delegate = self;
 	}
 }

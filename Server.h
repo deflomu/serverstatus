@@ -41,8 +41,8 @@ typedef enum {
 @property (nonatomic, retain) NSString *serverHost;
 @property (retain) NSError *serverError;
 @property (retain) NSData *lastKnownAddress;
-@property BOOL active;
-@property BOOL pinging;
+@property (assign) BOOL active;
+@property (assign) BOOL pinging;
 @property NSInteger pingTimeoutCount;
 @property (nonatomic) ServerStatus serverStatus;
 @property ServerStatus previousStatus;

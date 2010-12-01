@@ -13,32 +13,33 @@
 @implementation ServerTabViewController
 @synthesize serverName, serverHost, lastKnownAddress, serverStatus, pingingIndicator, server;
 
-- (void)setServer:(Server *)_server {
+- (void)setServer:(Server *)aServer {
 	[server removeObserver:self forKeyPath:@"lastKnownAddress"];
 	[server removeObserver:self forKeyPath:@"serverStatus"];
 	[server removeObserver:self forKeyPath:@"pinging"];
 
 	
-	if (_server) {
-		[_server addObserver:self
+	if (aServer) {
+		[aServer addObserver:self
 				  forKeyPath:@"lastKnownAddress"
 					 options:0
 					 context:NULL];
-		[_server addObserver:self
+		[aServer addObserver:self
 				  forKeyPath:@"serverStatus"
 					 options:0
 					 context:NULL];
-		[_server addObserver:self
+		[aServer addObserver:self
 				  forKeyPath:@"pinging"
 					 options:0
 					 context:NULL];
 	}
 	
-	server = _server;
+	[server autorelease];
+	server = [aServer retain];
 }
 
-- (void)serverIsPinging:(Server *)server {
-	if ([server pinging]) {
+- (void)serverIsPinging:(Server *)aServer {
+	if ([aServer pinging]) {
 		[serverStatus setHidden:YES];
 		[pingingIndicator startAnimation:self];
 	} else {

@@ -16,5 +16,6 @@
 + (AutostartManager *)sharedAutostartManager;
 
 - (NSInteger)isStartingAtLogin;
+- (void)startAtLogin:(BOOL)enabled;
 
 @end

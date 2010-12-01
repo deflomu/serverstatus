@@ -24,7 +24,6 @@
 @property (assign) IBOutlet StatusItemController *statusItemController;
 @property (assign) IBOutlet SUUpdater *suupdater;
 
-- (IBAction)registerForLogin:(id)sender;
 - (IBAction)showPreferenceWindow:(id)sender;
 
 @end

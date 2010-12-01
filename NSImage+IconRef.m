@@ -128,7 +128,7 @@
 	}
 	else
 	{
-		NSLog(@"get8BitMaskFromBitmapImageRep:requiredPixelSize: returning NULL due to samplesPerPixel == %d, bitsPerPixel == %", samplesPerPixel, bitsPerPixel);
+		NSLog(@"get8BitMaskFromBitmapImageRep:requiredPixelSize: returning NULL due to samplesPerPixel == %d, bitsPerPixel == %d", samplesPerPixel, bitsPerPixel);
 		return NULL;
 	}
 
@@ -226,7 +226,7 @@
 	}
 	else
 	{
-		NSLog(@"get32BitDataAtPixelSize: returning NULL due to samplesPerPixel == %d, bitsPerPixel == %", samplesPerPixel, bitsPerPixel);
+		NSLog(@"get32BitDataAtPixelSize: returning NULL due to samplesPerPixel == %d, bitsPerPixel == %d", samplesPerPixel, bitsPerPixel);
 		return NULL;
 	}
 

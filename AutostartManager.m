@@ -8,6 +8,7 @@
 
 #import "AutostartManager.h"
 #import "SynthesizeSingleton.h"
+#import "NSImage+IconRef.h"
 
 
 @implementation AutostartManager
@@ -24,7 +25,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AutostartManager)
 	
 	if ( !loginItems ) {
 		DLog(@"Could not retrieve loginItems.");
-		return;
+		return NULL;
 	}
 	
 	LSSharedFileListItemRef existingItem = NULL;
@@ -72,7 +73,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AutostartManager)
 									  kLSSharedFileListItemLast,
 									  NULL /*displayName*/,
 									  icon,
-									  url,
+									  (CFURLRef)url,
 									  NULL /*propertiesToSet*/, 
 									  NULL /*propertiesToClear*/);
 	} else if (!enabled && itemRef != NULL) {
