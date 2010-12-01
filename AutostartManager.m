@@ -13,40 +13,6 @@
 @implementation AutostartManager
 SYNTHESIZE_SINGLETON_FOR_CLASS(AutostartManager)
 
-
-#pragma mark -
-#pragma mark Public
-- (NSInteger)isStartingAtLogin {
-	return [self getApplicationsLoginItem] != NULL;
-}
-
-- (void)startAtLogin:(BOOL)enabled {
-	/* Get list of users login items */
-	LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL,kLSSharedFileListSessionLoginItems, NULL);
-	
-	LSSharedFileListItemRef itemRef = [self getApplicationsLoginItem];
-	
-	if (enabled && itemRef == NULL) {
-		/* Add App to login item list with icon */
-		
-		NSURL *url = [[NSBundle mainBundle] bundleURL];
-		
-		IconRef icon = [[NSApp applicationIconImage] iconRefRepresentation];
-		
-		LSSharedFileListInsertItemURL(loginItems,
-									  kLSSharedFileListItemLast,
-									  NULL /*displayName*/,
-									  icon,
-									  url,
-									  NULL /*propertiesToSet*/, 
-									  NULL /*propertiesToClear*/);
-	} else if (!enabled && itemRef != NULL) {
-		/* Remove App from login item list */
-		LSSharedFileListItemRemove(loginItems, itemRef);
-	}
-}
-
-
 #pragma mark -
 #pragma mark Private
 - (LSSharedFileListItemRef)getApplicationsLoginItem {
@@ -83,47 +49,36 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AutostartManager)
 	return existingItem;
 }
 
-- (void)registerForLogin:(id)sender {
-	/* Get url to app bundle */
-	NSURL *url = [[NSBundle mainBundle] bundleURL];
-	
+#pragma mark -
+#pragma mark Public
+- (NSInteger)isStartingAtLogin {
+	return [self getApplicationsLoginItem] != NULL;
+}
+
+- (void)startAtLogin:(BOOL)enabled {
 	/* Get list of users login items */
 	LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL,kLSSharedFileListSessionLoginItems, NULL);
 	
-	if ( !loginItems ) {
-		DLog(@"Could not retrieve loginItems.");
-		return;
-	}
+	LSSharedFileListItemRef itemRef = [self getApplicationsLoginItem];
 	
-	if ( [[NSUserDefaults standardUserDefaults] boolForKey:@"startAtLogin"] ) {
+	if (enabled && itemRef == NULL) {
+		/* Add App to login item list with icon */
 		
-		/* Add app to login items list */
-		LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemLast, NULL, NULL, url, NULL, NULL);
+		NSURL *url = [[NSBundle mainBundle] bundleURL];
 		
-	} else {
+		IconRef icon = [[NSApp applicationIconImage] iconRefRepresentation];
 		
-		UInt32 seedValue;
-        /* Search for the login itme to delete it from the list */
-		NSArray  *loginItemsArray = (NSArray *)LSSharedFileListCopySnapshot(loginItems, &seedValue);
-		CFURLRef itemUrl = NULL;
-		int i = 0;
-		for(i; i < [loginItemsArray count]; i++){
-			LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)[loginItemsArray
-																		objectAtIndex:i];
-			/* Resolve the item with URL */
-			if (LSSharedFileListItemResolve(itemRef, 0, &itemUrl, NULL) == noErr) {
-				if ( [url isEqual:itemUrl] ) {
-					LSSharedFileListItemRemove(loginItems, itemRef);
-				}
-			}
-			CFRelease(itemUrl);
-			
-		}
-		[loginItemsArray release];
-		
+		LSSharedFileListInsertItemURL(loginItems,
+									  kLSSharedFileListItemLast,
+									  NULL /*displayName*/,
+									  icon,
+									  url,
+									  NULL /*propertiesToSet*/, 
+									  NULL /*propertiesToClear*/);
+	} else if (!enabled && itemRef != NULL) {
+		/* Remove App from login item list */
+		LSSharedFileListItemRemove(loginItems, itemRef);
 	}
-	CFRelease(loginItems);
-	
 }
 
 @end
