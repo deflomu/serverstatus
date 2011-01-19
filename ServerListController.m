@@ -29,7 +29,7 @@
 }
 
 - (void)checkServer:(Server *)server {
-	[server performSelectorInBackground:@selector(ping) withObject:self];
+	[server ping];
 }
 
 - (void)checkServers:(NSTimer *)timer {	
@@ -102,9 +102,6 @@
 														selector:@selector(checkServers:)
 														userInfo:nil
 														 repeats:YES];
-						  
-		[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-		
 	} else {
 		[timer invalidate];
 	}

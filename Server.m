@@ -22,19 +22,30 @@
 #pragma mark -
 #pragma mark Private
 - (void)startPinging {
-	DLog(@"%@: Start pinging", self.serverName);
-	self.pinging = YES;
-	[self.pinger start];
+	if (!self.pinging) {
+		DLog(@"%@: Start pinging", self.serverName);
+		self.pinging = YES;
+		[self.pinger start];
+		
+		/* shedule timer to detect ping timeout */
+		self.pingTimeout = [NSTimer scheduledTimerWithTimeInterval:PingTimoutInSeconds
+															target:self
+														  selector:@selector(pingTimedOut:)
+														  userInfo:nil
+														   repeats:NO];
+	}
 }
 
 - (void)stopPinging {
-	DLog(@"%@: Stop pinging", self.serverName);
-	if (self.pingTimeout) {
-		[self.pingTimeout invalidate];
-	}
+	if (self.pinging) {
+		DLog(@"%@: Stop pinging", self.serverName);
+		if (self.pingTimeout) {
+			[self.pingTimeout invalidate];
+		}
 	
-	self.pinging = NO;
-	[self.pinger stop];
+		self.pinging = NO;
+		[self.pinger stop];
+	}
 }
 
 - (void)setServerStatus:(ServerStatus)status {
@@ -104,31 +115,13 @@
 		self.serverStatus = SERVER_FAIL;
 		self.pingTimeoutCount = 0;
 	} else {
-		[self performSelectorInBackground:@selector(ping) withObject:self];
+		[self startPinging];
 	}
 
 }
 
 - (void)ping {
-	if (self.pinging) {
-		/* We got a ping running so do nothing */
-		return;
-	}
-	
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
 	[self startPinging];
-	
-	self.pingTimeout = [NSTimer scheduledTimerWithTimeInterval:PingTimoutInSeconds
-												   target:self
-												 selector:@selector(pingTimedOut:)
-												 userInfo:nil
-												  repeats:NO];
-	
-    [[NSRunLoop currentRunLoop] addTimer:self.pingTimeout forMode:NSDefaultRunLoopMode];  
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:11]];  
-	
-	[pool release];
 }
 
 #pragma mark -
@@ -144,7 +137,7 @@
 		if (self.active) {
 			[self stopPinging];
 			self.serverStatus = SERVER_UNKNOWN;
-			[self performSelectorInBackground:@selector(ping) withObject:self];
+			[self startPinging];
 		}
 	}
 }
