@@ -54,7 +54,7 @@ static void networkStatusCallback(SCNetworkReachabilityRef	network,
 								 )
 {
 	NetworkMonitor *_self = (NetworkMonitor *)info;
-	
+		
 	[_self networkStatusChanged:network withFlags:flags];
 }
 
@@ -65,8 +65,9 @@ static void networkStatusCallback(SCNetworkReachabilityRef	network,
 	SCNetworkReachabilityContext context = {0, self, NULL, NULL, NULL};
 	
 	SCNetworkReachabilitySetCallback(network, networkStatusCallback, &context);
-	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, NULL);
-	SCNetworkReachabilitySetDispatchQueue(network, queue);
+	SCNetworkReachabilityScheduleWithRunLoop(network,
+											 CFRunLoopGetCurrent(), 
+											 kCFRunLoopDefaultMode);
 }
 
 @end
