@@ -18,19 +18,13 @@
 	NSString *status;
 	switch (aServerStatus) {
 		case SERVER_OK:
-			status = NSLocalizedString(@"Server is reachable",@"Server is reachable");
+			status = NSLocalizedString(@"Reachable",@"Reachable");
 			break;
 		case SERVER_FAIL:
-			status = NSLocalizedString(@"Server is unreachable",@"Server is unreachable");
-			break;
-		case SERVER_UNKNOWN:
-			status = NSLocalizedString(@"Server status is unknown",@"Server status is unknown");
-			break;
-		case SERVER_ERROR:
-			status = NSLocalizedString(@"An error occurred",@"An error occurred");
+			status = NSLocalizedString(@"Unreachable",@"Unreachable");
 			break;
 		default:
-			status = NSLocalizedString(@"No server status is set",@"No server status is set");
+			status = NSLocalizedString(@"Unknown",@"Unknown");
 			break;
 	}
 	return status;
