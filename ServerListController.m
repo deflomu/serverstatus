@@ -58,10 +58,10 @@
 }
 
 - (void)removeServers:(NSIndexSet *)serverIndexes {
-	NSInteger index = [serverIndexes firstIndex];
+	NSInteger index = [serverIndexes lastIndex];
 	while (NSNotFound != index) {
 		[self removeServerAtIndex:index];
-		index = [serverIndexes indexGreaterThanIndex:index];
+		index = [serverIndexes indexLessThanIndex:index];
 	}
 }
 
