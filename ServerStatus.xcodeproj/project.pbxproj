@@ -106,6 +106,7 @@
 		551E54B912A5156B009A0B31 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		551E54BC12A51693009A0B31 /* NetworkMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkMonitor.h; sourceTree = "<group>"; };
 		551E54BD12A51693009A0B31 /* NetworkMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkMonitor.m; sourceTree = "<group>"; };
+		5543FD0D12FB0E5E005F9201 /* Move_dSYM_To_Storage.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = Move_dSYM_To_Storage.sh; path = "../dSYM Script/Move_dSYM_To_Storage.sh"; sourceTree = SOURCE_ROOT; };
 		5550B96712A68E49003E4F3D /* AutostartManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutostartManager.h; sourceTree = "<group>"; };
 		5550B96812A68E49003E4F3D /* AutostartManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutostartManager.m; sourceTree = "<group>"; };
 		5550BA1112A6B197003E4F3D /* NSImage+IconRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+IconRef.h"; sourceTree = "<group>"; };
@@ -287,6 +288,7 @@
 		556901E3128C912E0025F97F /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				5543FD0D12FB0E5E005F9201 /* Move_dSYM_To_Storage.sh */,
 				556901A8128C880A0025F97F /* version.xcconfig */,
 			);
 			name = Config;
@@ -394,7 +396,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "GIT=/usr/local/bin/git\nGITOPTIONS=\"--pretty=oneline --abbrev-commit\"\nCUT=/usr/bin/cut\n\n/usr/libexec/PlistBuddy -c \"Set :BuildRevision `$GIT log -1 $GITOPTIONS | $CUT -c1-7`\" ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}";
+			shellScript = "GIT=/usr/local/bin/git\nGITOPTIONS=\"--pretty=oneline --abbrev-commit\"\nCUT=/usr/bin/cut\n\n/usr/libexec/PlistBuddy -c \"Set :BuildRevision `$GIT log -1 $GITOPTIONS | $CUT -c1-7`\" ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\n\n/Users/elm/Developer/dSYM Script/Move_dSYM_To_Storage.sh";
 		};
 		55DB1983128C613D001AB1DE /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -536,7 +538,6 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CURRENT_PROJECT_VERSION = "$(CURRENT_PROJECT_VERSION)";
 				DEPLOYMENT_POSTPROCESSING = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 			};
