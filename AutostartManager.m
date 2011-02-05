@@ -41,9 +41,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AutostartManager)
 		if (LSSharedFileListItemResolve(itemRef, resolutionFlags, &itemUrl, NULL) == noErr) {
 			if ( CFEqual(url, itemUrl) ) {
 				existingItem = itemRef;
+				CFRetain(existingItem);
 			}
 		}
-		CFRelease(itemUrl);
+		if(itemUrl)
+			CFRelease(itemUrl);
 		
 	}
 
@@ -53,12 +55,22 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AutostartManager)
 #pragma mark -
 #pragma mark Public
 - (NSInteger)isStartingAtLogin {
-	return [self getApplicationsLoginItem] != NULL;
+	LSSharedFileListItemRef itemRef = [self getApplicationsLoginItem];
+	if (itemRef) {
+		CFRelease(itemRef);
+		return TRUE;
+	} else {
+		return FALSE;
+	}
+
 }
 
 - (void)startAtLogin:(BOOL)enabled {
 	/* Get list of users login items */
 	LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL,kLSSharedFileListSessionLoginItems, NULL);
+	if (!loginItems)
+		DLog(@"Could not retrieve loginItems.");
+		return;
 	
 	LSSharedFileListItemRef itemRef = [self getApplicationsLoginItem];
 	
@@ -69,17 +81,23 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AutostartManager)
 		
 		IconRef icon = [[NSApp applicationIconImage] iconRefRepresentation];
 		
-		LSSharedFileListInsertItemURL(loginItems,
-									  kLSSharedFileListItemLast,
-									  NULL /*displayName*/,
-									  icon,
-									  (CFURLRef)url,
-									  NULL /*propertiesToSet*/, 
-									  NULL /*propertiesToClear*/);
+		itemRef = LSSharedFileListInsertItemURL(loginItems,
+												kLSSharedFileListItemLast,
+												NULL /*displayName*/,
+												icon,
+												(CFURLRef)url,
+												NULL /*propertiesToSet*/, 
+												NULL /*propertiesToClear*/);
+		
 	} else if (!enabled && itemRef != NULL) {
 		/* Remove App from login item list */
 		LSSharedFileListItemRemove(loginItems, itemRef);
 	}
+	
+	if (itemRef)
+		CFRelease(itemRef);
+	
+	CFRelease(loginItems);
 }
 
 @end
