@@ -21,65 +21,80 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AutostartManager)
 	NSURL *url = [[NSBundle mainBundle] bundleURL];
 	
 	/* Get list of users login items */
-	LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL,kLSSharedFileListSessionLoginItems, NULL);
+	LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL,
+															kLSSharedFileListSessionLoginItems,
+															NULL);
 	
-	if ( !loginItems ) {
-		DLog(@"Could not retrieve loginItems.");
+	if (!loginItems) {
+		NSLog(@"Could not retrieve session login items.");
 		return NULL;
 	}
 	
-	LSSharedFileListItemRef existingItem = NULL;
 	UInt32 seedValue;
 	/* Search for the login itme to delete it from the list */
 	NSArray  *loginItemsArray = [NSMakeCollectable(LSSharedFileListCopySnapshot(loginItems, &seedValue)) autorelease];
-	for(id itemObject in loginItemsArray){
-		LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)itemObject;
-		
-		CFURLRef itemUrl = NULL;
+	CFRelease(loginItems);
+	
+	for(id item in loginItemsArray){		
+		CFURLRef itemURLRef;
 		/* Resolve the item with URL */
-		if (LSSharedFileListItemResolve(itemRef, 0, &itemUrl, NULL) == noErr) {
-			if ( CFEqual(url, itemUrl) ) {
-				existingItem = itemRef;
+		if (LSSharedFileListItemResolve((LSSharedFileListItemRef)item, 0, &itemURLRef, NULL) == noErr) {
+			NSURL *itemURL = (NSURL *)[NSMakeCollectable(itemURLRef) autorelease];
+			if ( [itemURL isEqual:url] ) {
+				CFRetain(item);
+				return (LSSharedFileListItemRef)item;
 			}
 		}
-		if (itemUrl) {
-			CFRelease(itemUrl);
-		}
 	}
-
-	return existingItem;
+	
+	return NULL;
 }
 
 #pragma mark -
 #pragma mark Public
 - (NSInteger)isStartingAtLogin {
-	return [self getApplicationsLoginItem] != NULL;
+	/* Check if application is starting at login */
+	LSSharedFileListItemRef item = [self getApplicationsLoginItem];
+	if (item) {
+		CFRelease(item);
+		return TRUE;
+	}
+	return FALSE;
 }
 
 - (void)startAtLogin:(BOOL)enabled {
 	/* Get list of users login items */
 	LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL,kLSSharedFileListSessionLoginItems, NULL);
 	
-	LSSharedFileListItemRef itemRef = [self getApplicationsLoginItem];
+	if (!loginItems) {
+		NSLog(@"Could not retrieve session login items.");
+		return;
+	}
 	
-	if (enabled && itemRef == NULL) {
+	if (enabled) {
 		/* Add App to login item list with icon */
-		
 		NSURL *url = [[NSBundle mainBundle] bundleURL];
 		
+		/* Get the applictions icon */
 		IconRef icon = [[NSApp applicationIconImage] iconRefRepresentation];
 		
-		LSSharedFileListInsertItemURL(loginItems,
+		CFRelease(LSSharedFileListInsertItemURL(loginItems,
 									  kLSSharedFileListItemLast,
 									  NULL /*displayName*/,
 									  icon,
 									  (CFURLRef)url,
 									  NULL /*propertiesToSet*/, 
-									  NULL /*propertiesToClear*/);
-	} else if (!enabled && itemRef != NULL) {
+									  NULL /*propertiesToClear*/));
+	} else if (!enabled) {
 		/* Remove App from login item list */
-		LSSharedFileListItemRemove(loginItems, itemRef);
+		LSSharedFileListItemRef item = [self getApplicationsLoginItem];
+		if (item) {
+			LSSharedFileListItemRemove(loginItems, item);
+			CFRelease(item);
+		}
 	}
+	
+	CFRelease(loginItems);
 }
 
 @end

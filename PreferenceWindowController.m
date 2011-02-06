@@ -53,17 +53,13 @@ decisionListener:(id <WebPolicyDecisionListener>)listener
 
 #pragma mark -
 #pragma mark Window methodes
-- (IBAction)showWindow:(id)sender {
-	/* Set autostart checkbox according to current status */
-	[self.startAtLoginCheckBox setState:[[AutostartManager sharedAutostartManager] isStartingAtLogin]];
-	[super showWindow:sender];
-}
-
+/* this is called the first time the preference window is loaded */
 - (void)windowDidLoad {
 	[self setWebViewContent];
-	
 	[self.version setStringValue:[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"]];
-	
+}
+
+- (void)windowDidBecomeKey:(NSNotification *)notification {
 	/* Set autostart checkbox according to current status.  */
 	[self.startAtLoginCheckBox setState:[[AutostartManager sharedAutostartManager] isStartingAtLogin]];
 }
