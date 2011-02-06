@@ -35,10 +35,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AutostartManager)
 	for(id itemObject in loginItemsArray){
 		LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)itemObject;
 		
-		UInt32 resolutionFlags = kLSSharedFileListNoUserInteraction | kLSSharedFileListDoNotMountVolumes;
 		CFURLRef itemUrl = NULL;
 		/* Resolve the item with URL */
-		if (LSSharedFileListItemResolve(itemRef, resolutionFlags, &itemUrl, NULL) == noErr) {
+		if (LSSharedFileListItemResolve(itemRef, 0, &itemUrl, NULL) == noErr) {
 			if ( CFEqual(url, itemUrl) ) {
 				existingItem = itemRef;
 			}
