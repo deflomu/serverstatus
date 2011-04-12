@@ -15,8 +15,16 @@
 #pragma mark Public
 - (void)growlServerFailed:(Server *)server {
 	if ( [[NSUserDefaults standardUserDefaults] boolForKey:@"showGrowlNotifications"] ) {
+        
+        NSMutableString* description = [NSMutableString stringWithString:[server.serverError localizedDescription]];
+        
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"growlNotificationSticky"]) {
+            [description appendString:@" at:\n"]; 
+            [description appendString:[[NSDate date] description]];
+        }
+        
 		[GrowlApplicationBridge notifyWithTitle:[NSString stringWithFormat:@"%@ is down", server.serverName]
-									description:[server.serverError localizedDescription]
+									description:description
 							   notificationName:@"Fail"
 									   iconData:[NSData
 												 dataWithData:[[NSImage
