@@ -105,7 +105,7 @@
 - (void)pingTimedOut:(NSTimer *)timer {
 	[self stopPinging];
 	self.pingTimeoutCount ++;
-	DLog(@"%@: Ping timed out (%d/%d)", self.serverName, self.pingTimeoutCount, MaxPingTimeoutCount);
+	DLog(@"%@: Ping timed out (%ld/%d)", self.serverName, (long)self.pingTimeoutCount, MaxPingTimeoutCount);
 	if (self.pingTimeoutCount >= MaxPingTimeoutCount) {
 		self.serverError = [NSError errorWithDomain:PingTimeoutError
 											   code:PingTimeoutErrorCode
