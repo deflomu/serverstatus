@@ -56,7 +56,10 @@ decisionListener:(id <WebPolicyDecisionListener>)listener
 /* this is called the first time the preference window is loaded */
 - (void)windowDidLoad {
 	[self setWebViewContent];
-	[self.version setStringValue:[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"]];
+    NSString *_version = [NSString stringWithFormat:@"%@ (%@)",
+                          [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"],
+                          [[NSBundle mainBundle] objectForInfoDictionaryKey: @"BuildRevision"]];
+	[self.version setStringValue:_version];
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)notification {
