@@ -37,7 +37,7 @@ typedef enum {
 	NSTimer *pingTimeout;
 }
 
-@property (retain) NSString *serverName;
+@property (nonatomic, retain) NSString *serverName;
 @property (nonatomic, retain) NSString *serverHost;
 @property (retain) NSError *serverError;
 @property (retain) NSData *lastKnownAddress;

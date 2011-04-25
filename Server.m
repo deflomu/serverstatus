@@ -71,6 +71,15 @@
 	}
 }
 
+- (void)setServerName:(NSString *)aServerName {
+	if ([self.serverHost isEqualToString:@""]) {
+		self.serverHost = aServerName;
+	}
+	
+	[serverName autorelease];
+	serverName = [aServerName retain];
+}
+
 - (NSString *)DisplayAddressForAddress:(NSData *) address
     // Returns a dotted decimal string for the specified address (a (struct sockaddr) 
     // within the address NSData).
@@ -206,8 +215,8 @@
 {
 	self = [super init];
 	if (self != nil) {
-		self.serverName = @"localhost";
-		self.serverHost = @"127.0.0.1";
+		self.serverName = @"New Server";
+		self.serverHost = @"";
 		self.lastKnownAddress = nil; 
 		self.active = NO;
 		self.serverError = nil;
