@@ -4,6 +4,7 @@ profile
 bin
 Build
 *.swp
+build/
 
 # Xcode Stuff
 *.mode1
