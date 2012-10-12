@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* ServerStatusAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* ServerStatusAppDelegate.m */; };
+		5503F19B16272889001B49EE /* ServerPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5503F19A16272889001B49EE /* ServerPreferencesView.xib */; };
+		5503F19D162728CF001B49EE /* GeneralPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5503F19C162728CF001B49EE /* GeneralPreferencesView.xib */; };
 		5514E7D311A5CA7C00AB722A /* StatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5514E7D211A5CA7C00AB722A /* StatusItemController.m */; };
 		5515BA80119DBBFC000B6A6D /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 5515BA7F119DBBFC000B6A6D /* Server.m */; };
 		551949A7119CB89C00A50789 /* serverFail.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 551949A6119CB89C00A50789 /* serverFail.pdf */; };
@@ -22,6 +24,10 @@
 		551A9D8D128DB2590009747D /* ServerStatus.icns in Resources */ = {isa = PBXBuildFile; fileRef = 551A9D8C128DB2590009747D /* ServerStatus.icns */; };
 		551A9E05128DF2230009747D /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 551A9E04128DF2230009747D /* about.html */; };
 		551E54BE12A51693009A0B31 /* NetworkMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 551E54BD12A51693009A0B31 /* NetworkMonitor.m */; };
+		5539EFBE16288DFB00590964 /* ServerPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5539EFBD16288DFB00590964 /* ServerPreferencesViewController.m */; };
+		5539EFC716288E9B00590964 /* MASPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5539EFC216288E9B00590964 /* MASPreferencesWindow.xib */; };
+		5539EFC816288E9B00590964 /* MASPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5539EFC416288E9B00590964 /* MASPreferencesWindowController.m */; };
+		5539EFCC1628911E00590964 /* GeneralPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5539EFCB1628911E00590964 /* GeneralPreferencesViewController.m */; };
 		5550B96912A68E49003E4F3D /* AutostartManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5550B96812A68E49003E4F3D /* AutostartManager.m */; };
 		5550BA1312A6B1A4003E4F3D /* NSImage+IconRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 5550BA1212A6B1A4003E4F3D /* NSImage+IconRef.m */; };
 		5565262A11A68A0D003D2A34 /* ServerListTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5565262911A68A0D003D2A34 /* ServerListTableController.m */; };
@@ -72,6 +78,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		5503F19A16272889001B49EE /* ServerPreferencesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerPreferencesView.xib; sourceTree = "<group>"; };
+		5503F19C162728CF001B49EE /* GeneralPreferencesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralPreferencesView.xib; sourceTree = "<group>"; };
 		551376A812929796008C2091 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		5514E7D111A5CA7C00AB722A /* StatusItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemController.h; sourceTree = "<group>"; };
 		5514E7D211A5CA7C00AB722A /* StatusItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemController.m; sourceTree = "<group>"; };
@@ -92,6 +100,14 @@
 		551E54B912A5156B009A0B31 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		551E54BC12A51693009A0B31 /* NetworkMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkMonitor.h; sourceTree = "<group>"; };
 		551E54BD12A51693009A0B31 /* NetworkMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkMonitor.m; sourceTree = "<group>"; };
+		5539EFBC16288DFB00590964 /* ServerPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerPreferencesViewController.h; sourceTree = "<group>"; };
+		5539EFBD16288DFB00590964 /* ServerPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerPreferencesViewController.m; sourceTree = "<group>"; };
+		5539EFC116288E9B00590964 /* MASPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesViewController.h; sourceTree = "<group>"; };
+		5539EFC216288E9B00590964 /* MASPreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MASPreferencesWindow.xib; sourceTree = "<group>"; };
+		5539EFC316288E9B00590964 /* MASPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesWindowController.h; sourceTree = "<group>"; };
+		5539EFC416288E9B00590964 /* MASPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASPreferencesWindowController.m; sourceTree = "<group>"; };
+		5539EFCA1628911E00590964 /* GeneralPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralPreferencesViewController.h; sourceTree = "<group>"; };
+		5539EFCB1628911E00590964 /* GeneralPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralPreferencesViewController.m; sourceTree = "<group>"; };
 		5543FD7A12FB16C9005F9201 /* Move_dSYM_To_Storage.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = Move_dSYM_To_Storage.sh; sourceTree = "<group>"; };
 		5550B96712A68E49003E4F3D /* AutostartManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutostartManager.h; sourceTree = "<group>"; };
 		5550B96812A68E49003E4F3D /* AutostartManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutostartManager.m; sourceTree = "<group>"; };
@@ -154,6 +170,7 @@
 				551993F211AED8AF009DF24D /* ServerListController.m */,
 				5550B96712A68E49003E4F3D /* AutostartManager.h */,
 				5550B96812A68E49003E4F3D /* AutostartManager.m */,
+				5539EFBB16288D7500590964 /* Preferences */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -272,6 +289,31 @@
 			name = Preferences;
 			sourceTree = "<group>";
 		};
+		5539EFBB16288D7500590964 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				5539EFBF16288E9B00590964 /* MASPreferences */,
+				5503F19A16272889001B49EE /* ServerPreferencesView.xib */,
+				5539EFBC16288DFB00590964 /* ServerPreferencesViewController.h */,
+				5539EFBD16288DFB00590964 /* ServerPreferencesViewController.m */,
+				5503F19C162728CF001B49EE /* GeneralPreferencesView.xib */,
+				5539EFCA1628911E00590964 /* GeneralPreferencesViewController.h */,
+				5539EFCB1628911E00590964 /* GeneralPreferencesViewController.m */,
+			);
+			name = Preferences;
+			sourceTree = "<group>";
+		};
+		5539EFBF16288E9B00590964 /* MASPreferences */ = {
+			isa = PBXGroup;
+			children = (
+				5539EFC116288E9B00590964 /* MASPreferencesViewController.h */,
+				5539EFC216288E9B00590964 /* MASPreferencesWindow.xib */,
+				5539EFC316288E9B00590964 /* MASPreferencesWindowController.h */,
+				5539EFC416288E9B00590964 /* MASPreferencesWindowController.m */,
+			);
+			path = MASPreferences;
+			sourceTree = "<group>";
+		};
 		556901E3128C912E0025F97F /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,6 +407,9 @@
 				55A92FE012795BF2007F8069 /* dsa_pub.pem in Resources */,
 				551A9D8D128DB2590009747D /* ServerStatus.icns in Resources */,
 				551A9E05128DF2230009747D /* about.html in Resources */,
+				5503F19B16272889001B49EE /* ServerPreferencesView.xib in Resources */,
+				5503F19D162728CF001B49EE /* GeneralPreferencesView.xib in Resources */,
+				5539EFC716288E9B00590964 /* MASPreferencesWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +451,9 @@
 				551E54BE12A51693009A0B31 /* NetworkMonitor.m in Sources */,
 				5550B96912A68E49003E4F3D /* AutostartManager.m in Sources */,
 				5550BA1312A6B1A4003E4F3D /* NSImage+IconRef.m in Sources */,
+				5539EFBE16288DFB00590964 /* ServerPreferencesViewController.m in Sources */,
+				5539EFC816288E9B00590964 /* MASPreferencesWindowController.m in Sources */,
+				5539EFCC1628911E00590964 /* GeneralPreferencesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
