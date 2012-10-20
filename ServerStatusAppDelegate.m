@@ -7,10 +7,12 @@
 //
 
 #import "ServerStatusAppDelegate.h"
-#import "PreferenceWindowController.h"
 #import "ServerListController.h"
 #import "NetworkMonitor.h"
 #import "AutostartManager.h"
+#import "GeneralPreferencesViewController.h"
+#import "ServerPreferencesViewController.h"
+#import "MASPreferencesWindowController.h"
 
 
 @implementation ServerStatusAppDelegate
@@ -70,13 +72,29 @@
 }
 
 #pragma mark PreferenceWindowController
-- (IBAction)showPreferenceWindow:(id)sender {
-	if(!preferenceWindowController) {
-		preferenceWindowController = [[PreferenceWindowController alloc] init];
-	}
-	preferenceWindowController.serverListController = self.serverListController;
-	[NSApp activateIgnoringOtherApps:YES];
-	[preferenceWindowController showWindow:self];
+- (NSWindowController *)preferencesWindowController
+{
+    if (_preferencesWindowController == nil)
+    {
+        GeneralPreferencesViewController *generalPreferencesViewController = [[GeneralPreferencesViewController alloc] init];
+        ServerPreferencesViewController *serverPreferencesViewController = [[ServerPreferencesViewController alloc] init];
+     
+        serverPreferencesViewController.serverListController = self.serverListController;
+        
+        NSArray *controllers = [[NSArray alloc] initWithObjects:serverPreferencesViewController, generalPreferencesViewController, nil];
+        
+        [generalPreferencesViewController release];
+        [serverPreferencesViewController release];
+        
+        NSString *title = NSLocalizedString(@"Preferences", @"Common title for Preferences window");
+        _preferencesWindowController = [[MASPreferencesWindowController alloc] initWithViewControllers:controllers title:title];
+        [controllers release];
+    }
+    return _preferencesWindowController;
+}
+
+- (IBAction)openPreferences:(id)sender {
+    [self.preferencesWindowController showWindow:nil];
 }
 
 

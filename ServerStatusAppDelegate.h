@@ -9,12 +9,11 @@
 #import <Cocoa/Cocoa.h>
 #import "Sparkle/Sparkle.h"
 
-@class PreferenceWindowController;
 @class ServerListController;
 @class StatusItemController;
 
 @interface ServerStatusAppDelegate : NSObject <NSApplicationDelegate> {
-	PreferenceWindowController *preferenceWindowController;
+	NSWindowController *_preferencesWindowController;
 	ServerListController *serverListController;
 	StatusItemController *statusItemController;
 	SUUpdater *suupdater;
@@ -22,8 +21,9 @@
 
 @property (assign) IBOutlet ServerListController *serverListController;
 @property (assign) IBOutlet StatusItemController *statusItemController;
+@property (readonly) NSWindowController *preferencesWindowController;
 @property (assign) IBOutlet SUUpdater *suupdater;
 
-- (IBAction)showPreferenceWindow:(id)sender;
+- (IBAction)openPreferences:(id)sender;
 
 @end
