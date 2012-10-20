@@ -14,6 +14,9 @@
 }
 @property (assign) BOOL progressIndicatorSpinning;
 
+@property (assign) IBOutlet NSProgressIndicator *progressIndicator;
+@property (assign) IBOutlet NSImageView *statusImage;
+
 - (void)startSpinning;
 - (void)stopSpinning;
 

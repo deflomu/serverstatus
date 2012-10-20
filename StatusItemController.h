@@ -13,6 +13,7 @@
 
 #define NAME_TEXTFIELD 0
 #define STATUS_TEXTFIELD 1
+#define STATUS_ICON 2
 
 @interface StatusItemController : NSObject {
 	IBOutlet NSMenu *statusMenu;

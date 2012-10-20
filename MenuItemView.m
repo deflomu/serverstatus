@@ -22,12 +22,14 @@
 }
 
 - (void)startSpinning {
-	[[[self subviews] objectAtIndex:2] startAnimation:self];
+	[self.progressIndicator startAnimation:self];
+    [self.statusImage setHidden:YES];
 	self.progressIndicatorSpinning = YES;
 }
 
 - (void)stopSpinning {
-	[[[self subviews] objectAtIndex:2] stopAnimation:self];
+	[self.progressIndicator stopAnimation:self];
+    [self.statusImage setHidden:NO];
 	self.progressIndicatorSpinning = NO;
 }
 

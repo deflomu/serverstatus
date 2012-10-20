@@ -41,6 +41,28 @@
 	return status;
 }
 
+- (NSImage *)getStatusImage:(ServerStatus) serverStatus {
+    NSImage *statusImage;
+    switch (serverStatus) {
+		case SERVER_OK:
+			statusImage = serversOk;
+			break;
+		case SERVER_FAIL:
+			statusImage = serversFail;
+			break;
+		case SERVER_UNKNOWN:
+			statusImage = serversWarning;
+			break;
+		case SERVER_ERROR:
+			statusImage = serversWarning;
+			break;
+		default:
+			statusImage = serversInactive;
+			break;
+	}
+	return statusImage;
+}
+
 - (void)serverDidFail:(Server *)server {
 	[self.statusItem setImage:serversFail];
 	[self.statusItem setAlternateImage:serversFailAlternate];
@@ -79,6 +101,10 @@
 	ServerStatus status = server.serverStatus;
 	ServerStatus previousStatus = server.previousStatus;
 	[[[item view] viewWithTag:STATUS_TEXTFIELD] setStringValue:[self getStatusString:status]];
+    
+    // Show icon for status
+    [[[item view] viewWithTag:STATUS_ICON] setImage:[self getStatusImage:status]];
+    
 	if (status != previousStatus) {
 		switch (status) {
 			case SERVER_FAIL:
