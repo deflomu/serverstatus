@@ -8,6 +8,15 @@
 
 #import "MASPreferencesViewController.h"
 
-@interface ServerPreferencesViewController : NSViewController <MASPreferencesViewController>
+@class ServerListController;
+@class ServerListTableController;
+
+@interface ServerPreferencesViewController : NSViewController <MASPreferencesViewController> {
+    ServerListController *serverListController;
+	ServerListTableController *serverListTableController;
+}
+
+@property (assign) ServerListController *serverListController;
+@property (assign) IBOutlet ServerListTableController *serverListTableController;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ServerPreferencesViewController.h"
+#import "ServerListTableController.h"
 
 @interface ServerPreferencesViewController ()
 
@@ -14,9 +15,15 @@
 
 @implementation ServerPreferencesViewController
 
+@synthesize serverListTableController, serverListController;
+
 - (id)init
 {
-    return [super initWithNibName:@"ServerPreferencesView" bundle:nil];
+    self = [super initWithNibName:@"ServerPreferencesView" bundle:nil];
+    if (self) {
+        
+    }
+    return self;
 }
 
 #pragma mark -
@@ -35,6 +42,9 @@
 - (NSString *)toolbarItemLabel
 {
     return NSLocalizedString(@"Server", @"Toolbar item name for the Server preference pane");
+}
+- (void)viewWillAppear {
+    serverListTableController.serverListController = serverListController;
 }
 
 @end
