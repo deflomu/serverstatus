@@ -68,7 +68,7 @@
 										<string key="NSFrameSize">{174, 233}</string>
 										<reference key="NSSuperview" ref="789310871"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="981616125"/>
+										<reference key="NSNextKeyView" ref="565432438"/>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -263,7 +263,7 @@
 						<string key="NSFrame">{{20, 48}, {176, 251}}</string>
 						<reference key="NSSuperview" ref="247900270"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="789310871"/>
+						<reference key="NSNextKeyView" ref="981616125"/>
 						<int key="NSsFlags">133682</int>
 						<reference key="NSVScroller" ref="565432438"/>
 						<reference key="NSHScroller" ref="820470457"/>
@@ -311,6 +311,7 @@
 								<string key="NSFrame">{{22, 0}, {23, 22}}</string>
 								<reference key="NSSuperview" ref="577970233"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSButtonCell" key="NSCell" id="948732492">
 									<int key="NSCellFlags">67108864</int>
@@ -606,6 +607,14 @@
 						<reference key="destination" ref="326373532"/>
 					</object>
 					<int key="connectionID">84</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="872323027"/>
+						<reference key="destination" ref="436172607"/>
+					</object>
+					<int key="connectionID">94</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -2033,34 +2042,10 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">93</int>
+			<int key="maxID">94</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">BWAnchoredButtonCell</string>
-					<string key="superclassName">NSButtonCell</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/BWAnchoredButtonCell.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">BWUnanchoredButton</string>
-					<string key="superclassName">NSButton</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/BWUnanchoredButton.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">BWUnanchoredButtonCell</string>
-					<string key="superclassName">BWAnchoredButtonCell</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/BWUnanchoredButtonCell.h</string>
-					</object>
-				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSLayoutConstraint</string>
 					<string key="superclassName">NSObject</string>
