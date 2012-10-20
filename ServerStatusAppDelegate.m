@@ -94,6 +94,7 @@
 }
 
 - (IBAction)openPreferences:(id)sender {
+    [NSApp activateIgnoringOtherApps:YES];
     [self.preferencesWindowController showWindow:nil];
 }
 
