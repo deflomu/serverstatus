@@ -19,8 +19,15 @@
         NSMutableString* description = [NSMutableString stringWithString:[server.serverError localizedDescription]];
         
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"growlNotificationSticky"]) {
-            [description appendString:@" at:\n"]; 
-            [description appendString:[[NSDate date] description]];
+            [description appendString:@" at:\n"];
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+            [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+            
+            [description appendString:[dateFormatter stringFromDate:[NSDate date]]];
+            
+            [dateFormatter release];
         }
         
 		[GrowlApplicationBridge notifyWithTitle:[NSString stringWithFormat:@"%@ is down", server.serverName]
