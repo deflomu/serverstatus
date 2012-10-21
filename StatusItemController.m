@@ -280,7 +280,7 @@
 
 - (void)awakeFromNib {
 	NSStatusBar *bar = [NSStatusBar systemStatusBar];
-	self.statusItem = [[bar statusItemWithLength:NSVariableStatusItemLength] retain];
+	self.statusItem = [bar statusItemWithLength:NSVariableStatusItemLength];
 	
 	[self loadStatusItemImages];
 	
