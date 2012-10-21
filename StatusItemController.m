@@ -44,9 +44,6 @@
 - (NSImage *)getStatusImage:(ServerStatus) serverStatus {
     NSImage *statusImage;
     switch (serverStatus) {
-		case SERVER_OK:
-			statusImage = serversOk;
-			break;
 		case SERVER_FAIL:
 			statusImage = serversFail;
 			break;
@@ -57,7 +54,7 @@
 			statusImage = serversWarning;
 			break;
 		default:
-			statusImage = serversInactive;
+			statusImage = nil;
 			break;
 	}
 	return statusImage;
