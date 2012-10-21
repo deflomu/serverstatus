@@ -10,7 +10,7 @@
 
 
 @implementation MenuItemView
-@synthesize progressIndicatorSpinning;
+@synthesize progressIndicatorSpinning, progressIndicator, statusImage;
 
 - (void)viewDidMoveToWindow {
 	if (self.progressIndicatorSpinning) {

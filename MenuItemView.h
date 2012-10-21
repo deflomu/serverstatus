@@ -11,6 +11,10 @@
 
 @interface MenuItemView : NSView {
 	BOOL progressIndicatorSpinning;
+    
+    NSProgressIndicator *progressIndicator;
+    NSImageView *statusImage;
+
 }
 @property (assign) BOOL progressIndicatorSpinning;
 
