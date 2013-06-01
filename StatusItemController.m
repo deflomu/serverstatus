@@ -199,6 +199,9 @@
 	NSMenuItem *item = [self createMenuItem:server];
 	[self.statusMenu insertItem:item atIndex:index];
 	[self serverDidOk];
+
+	NSMenuItem *separatorMenuItem = [self.statusMenu itemWithTag:SEPARATOR_MENU_ITEM_TAG];
+	separatorMenuItem.hidden = (self.statusMenu.numberOfItems == 4);
 }
 
 - (void)removeServer:(Server *)server atIndex:(NSInteger)index {
@@ -218,6 +221,9 @@
 	}
 	[self.activeServerList removeObject:server];
 	[self serverDidOk];
+
+	NSMenuItem *separatorMenuItem = [self.statusMenu itemWithTag:SEPARATOR_MENU_ITEM_TAG];
+	separatorMenuItem.hidden = (self.statusMenu.numberOfItems == 4);
 }
 
 #pragma mark Status
@@ -281,6 +287,32 @@
 	
 	[self loadStatusItemImages];
 	
+	NSMenu *menu = [[NSMenu alloc] init];
+
+	NSMenuItem *separatorItem = [NSMenuItem separatorItem];
+	separatorItem.tag = SEPARATOR_MENU_ITEM_TAG;
+	separatorItem.hidden = YES;
+	[menu addItem:separatorItem];
+
+	NSMenuItem *prefsItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Preferences…", nil)
+													   action:@selector(openPreferences:)
+												keyEquivalent:@""];
+	prefsItem.target = [NSApp delegate];
+	[menu addItem:prefsItem];
+	[prefsItem release];
+
+	[menu addItem:[NSMenuItem separatorItem]];
+
+	NSMenuItem *quitItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Quit", nil)
+													   action:@selector(terminate:)
+												keyEquivalent:@""];
+	quitItem.target = NSApp;
+	[menu addItem:quitItem];
+	[quitItem release];
+
+	self.statusMenu = menu;
+	[menu release];
+    
 	[self.statusItem setMenu:statusMenu];
 	[self.statusItem setImage:serversInactive];
 	[self.statusItem setAlternateImage:serversInactiveAlternate];

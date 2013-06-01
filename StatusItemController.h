@@ -14,9 +14,10 @@
 #define NAME_TEXTFIELD 0
 #define STATUS_TEXTFIELD 1
 #define STATUS_ICON 2
+#define SEPARATOR_MENU_ITEM_TAG 1000
 
 @interface StatusItemController : NSObject {
-	IBOutlet NSMenu *statusMenu;
+	NSMenu *statusMenu;
 	NSStatusItem *statusItem;
 		
 	NSImage *serversOk, *serversOkAlternate,
@@ -35,7 +36,7 @@
 }
 
 @property (retain) NSStatusItem *statusItem;
-@property (assign) NSMenu *statusMenu;
+@property (retain) NSMenu *statusMenu;
 @property (retain) NSMutableArray *activeServerList;
 
 - (void)addServer:(Server *)server atIndex:(NSInteger)index;
