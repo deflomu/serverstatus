@@ -26,6 +26,7 @@
 - (IBAction)pushAddServer:(NSButton *)sender {
 	/* Create a new server */
 	Server *server = [Server server];
+    server.active = YES;
 	
 	/* Add the new server to the server list */
     [self.serverListController addServer:server];

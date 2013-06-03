@@ -88,6 +88,8 @@
         
         NSString *title = NSLocalizedString(@"Preferences", @"Common title for Preferences window");
         _preferencesWindowController = [[MASPreferencesWindowController alloc] initWithViewControllers:controllers title:title];
+        [[_preferencesWindowController.window standardWindowButton:NSWindowZoomButton] setEnabled:NO];
+        _preferencesWindowController.window.styleMask = _preferencesWindowController.window.styleMask^NSResizableWindowMask;
         [controllers release];
     }
     return _preferencesWindowController;
