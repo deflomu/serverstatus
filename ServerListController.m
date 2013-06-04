@@ -43,10 +43,7 @@
 #pragma mark -
 #pragma mark Public
 - (void)addServer:(Server *)server {
-    [self.serverList addObject:server];
-	if (server.active) {
-		[self.statusItemController addServer:server atIndex:[self.serverList count]-1];
-	}
+    [self addServer:server atIndex:[self.serverList count]];
 }
 
 - (void)addServer:(Server *)server atIndex:(NSInteger)index {
